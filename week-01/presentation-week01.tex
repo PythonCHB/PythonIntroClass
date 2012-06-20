@@ -73,7 +73,7 @@ Then a long Break: Theater Arts Major, Scenery, Lighting...
 
 \begin{frame}{Chris' History}
 
-    {\Large Back to School: PhD Engineering }
+    {\Large Back to School: PhD Coastal Engineering }
     \begin{itemize}
       \item     DOS / Windows 3.1
       \begin{itemize}
@@ -98,7 +98,7 @@ Then a long Break: Theater Arts Major, Scenery, Lighting...
     {\Large Gave TCL a try............ }
     
     \pause 
-    \vspace{0.25in}
+    \vspace{0.15in}
     {\Large Gave Perl a try............}
 
 \end{frame}
@@ -118,9 +118,7 @@ Then a long Break: Theater Arts Major, Scenery, Lighting...
 
 {\Large     My Python use now:}
 \begin{itemize}
-   \item Lots of text file crunching
-   \item Lots of data processing scripts 
-   \item Automation of downloading, processing data
+   \item Lots of text file crunching / data processing
    \item Desktop GUIs (wxPython)
    \item computational code
    \item wrapping C/C++ code      
@@ -196,18 +194,6 @@ svn: \\
 \end{frame}
 
 
-\section{What is Python?}
-
-\begin{frame}{What is Python?}
-    \begin{itemize}
-      \item Dynamic
-      \item Object oriented
-      \item Byte-compiled
-      \item interpreted
-      \item ....
-    \end{itemize}
-\end{frame}
-
 \begin{frame}{Python Ecosystem}
 
 {\Large Used for:} 
@@ -253,6 +239,19 @@ svn: \\
 \end{itemize}
 \end{frame}
 
+%\section{What is Python?}
+
+%\begin{frame}{What is Python?}
+%    \begin{itemize}
+%      \item Dynamic
+%      \item Object oriented
+%      \item Byte-compiled
+%      \item interpreted
+%      \item ....
+%    \end{itemize}
+%\end{frame}
+
+
 \begin{frame}{Python Features}
 
 {\Large Features:}
@@ -269,6 +268,40 @@ svn: \\
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}[fragile]{What's a Dynamic language}
+
+Strong, Dynamic typing.
+
+ - Type checking and dispatch happen at run-time
+
+\vspace{0.25in}
+{\Large \verb!X = A+B!}
+\vspace{0.1in}
+\begin{itemize}
+\pause
+  \item What is A?
+  \item What is B?
+  \item What does is mean to add them?
+\vspace{0.2in}
+\pause
+  \item A and B can change at any time before this process
+\end{itemize}
+
+\end{frame} 
+
+\begin{frame}{Duck Typing}
+
+\vspace{0.25in}
+{\center \Large ``If it looks like a duck, and quacks like a duck -- it's probably a duck''}
+
+\pause
+\vspace{0.5in}
+{\center \Large If an object behaves as expected at run-time, it's the right type.}
+
+\end{frame}
+
+
 
 \begin{frame}{Python Versions}
 
@@ -330,28 +363,6 @@ Code swarm for Python history: \url{http://vimeo.com/1093745}
 
 \end{frame} 
 
-
-\begin{frame}[fragile]{What's a Dynamic language}
-
-Strong, Dynamic typing.
-
- - Type checking and dispatch happen at run-time
-
-\vspace{0.25in}
-{\Large \verb!X = A+B!}
-\vspace{0.1in}
-\begin{itemize}
-\pause
-  \item What is A?
-  \item What is B?
-  \item What does is mean to add them?
-\vspace{0.2in}
-\pause
-  \item A and B can change at any time before this process
-\end{itemize}
-
-\end{frame} 
-
 \begin{frame}[fragile]{Using Python}
 
 All you need for Python:
@@ -406,14 +417,14 @@ There are lots of Editors, IDES, etc.:\\
 
     \item \verb+>>> import hello+    -- at the python prompt -- importing a module executes its contents
 
-    \item \verb+In [79]: run hello.py+    -- at the IPython prompt -- running a module brings the names into the interactive namespace
+    \item \verb+run hello.py+    -- at the IPython prompt -- running a module brings the names into the interactive namespace
 \end{enumerate}
 
 \end{frame} 
 
 \begin{frame}[fragile]{Documentation}
 
-{\Large python.org docs:}
+{\Large \url{www.python.org} docs:}
 
 \url{http://docs.python.org/index.html}
 
@@ -435,7 +446,7 @@ There are lots of Editors, IDES, etc.:\\
 \begin{description}
   \item[PEP 1]   PEP Purpose and Guidelines
   \item[PEP 8]   Style Guide for Python Code
-  \item[PEP 20]  the Zen of Python
+  \item[PEP 20]  the Zen of Python (\verb+import this+)
 \end{description}
 
 \end{frame} 
@@ -485,19 +496,17 @@ Most of it is opinionated and out of date.\\
 
 \begin{itemize}
     \item Log in
-    \item Do a git or SVN checkout of the project
+    \item Do a \verb+git clone+ or \verb+svn checkout+ of the project
     \item Start up the Python interpreter:\\
           \verb+$ python+  ( \verb=ctrl+D= to exit )
-    \item Run \verb+hello.py+
+    \item Run \verb+hello.py+ (in the \verb+week-01/code+ dir)
     \item Create a file in your editor and save it
     \item Start up \verb+IPython+ \\
           \verb+$ ipython+ ( also \verb=ctrl+D= to exit )
     \item Run \verb+hello.py+ in \verb+IPython+
     \item use \verb+?+ in \verb+IPython+ on anything...
-
-if you have time:
-\vspace{0.2in}
-\url{http://learnpythonthehardway.org/book/ex1.html}
+    \item if you have time:\\
+\url{http://learnpythonthehardway.org/book/ex1.html}\\
 \url{http://learnpythonthehardway.org/book/ex2.html}
 
     
@@ -522,7 +531,7 @@ Values (data) vs. variables (names with values)
     \item  Every value belongs to a type: integer, float, str, ...  (demo)
 
     \item  An expression is made up of values and operators, is evaluated to
-        produce a value -- \verb+2 + 2+, etc.
+        produce a value:  \verb!2 + 2!, etc.
 
     \item  Python interpreter can be used as a calculator to evaluate expressions (demo)
 
@@ -559,46 +568,60 @@ this is where the dynamic comes from
 
 \begin{frame}[fragile]{Assignment}
 
-{\large Assignment is really name binding: }
+{\Large Assignment is really name binding: }
+\begin{itemize}
+  \item Attaching a name to a value
+  \item A value can have many names (or none!)
+\end{itemize}
 
-Attaching a name to a value
+{\large
+\vspace{0.1in}
+\verb+=+ assigns (binds a name)
 
-A value can have many names (or none!)
+\vspace{0.1in}
+\verb+del+ only unbinds a name
 
-\vspace{0.2in}
-\verb+=+ assigns
+\vspace{0.1in}
+{\Large  Multiple Assignment}
 
-\vspace{0.2in}
-\verb+==+ checks equality
+\vspace{0.1in}
 
-\vspace{0.2in}
-\verb+is+ checks identity
+\verb+a, b = 1, 2+
 
-\vspace{0.2in}
-\verb+id()+ queries identity
+\vspace{0.1in}
+This will come in handy later...
+}
 
-\vspace{0.2in}
+\vspace{0.1in}
 (demo)
 
 \end{frame}
 
-\begin{frame}[fragile]{Assignment}
+\begin{frame}[fragile]{equality and identity}
 
-{\Large  Multiple Assignment
+{\large
+\vspace{0.1in}
+\verb+==+ checks equality
 
-\vspace{0.25in}
+\vspace{0.1in}
+\verb+is+ checks identity
 
-\verb+a, b = 1, 2+
+\vspace{0.1in}
+\verb+id()+ queries identity
 }
+
+\vspace{0.2in}
+(demo)
+
 
 \end{frame}
 
 
 \begin{frame}[fragile]{Operator Precedence}
 
-Operators Precedence determines what evaluates first:
+Operator Precedence determines what evaluates first:
 
-\verb^4+3*5 != (4+3)*5^  --  Use parentheses !
+\verb^4 + 3 * 5 != (4 + 3) * 5^  --  Use parentheses !
 
 Precedence of common operators:
 
@@ -701,6 +724,7 @@ def       for       lambda    try
 \end{verbatim}
 
 \pause
+\vspace{0.25in}
 {\Large Pass Statement (Note the indentation!)}
 \begin{verbatim}
 ￼def <name>():
@@ -765,7 +789,7 @@ def five():
     return 5
 \end{verbatim}
 
-{\Large Actual simplest function}
+{\Large Actually simplest function}
 \begin{verbatim}
 def fun():
     return None
@@ -985,7 +1009,7 @@ UnboundLocalError                         Traceback (most recent call last)
 \begin{itemize}
   \item takes a number and returns the square and cube of that number
    -- use local variables to store the results
-  \item takes a string and a number, and returns a new string with the value repeated the given number of times
+  \item takes a string and a number, and returns a new string containing the input string repeated the given number of times
   \item uses both global and local variable to compute a result.
   \item calls another function to do part of its job.
   \item take some code with functions, add this to each function:
