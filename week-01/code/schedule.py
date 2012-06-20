@@ -11,6 +11,8 @@ weeks = range(2,11)
 weeks4 = weeks*4
 schedule = zip(weeks4, students)
 schedule.sort()
-fs = open('schedule.txt', 'w')
-for week, student in schedule: fs.write('%s %s\n' % (week, student))
-fs.close()
+outfile = open('schedule.txt', 'w')
+for week, student in schedule:
+    outfile.write('%s %s\n' % (week, student))
+outfile.close()
+

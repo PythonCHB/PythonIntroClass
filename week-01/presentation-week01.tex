@@ -671,7 +671,7 @@ def       for       lambda    try
 \end{frame}
 
 
-\begin{frame}[fragile]{LAB}
+\begin{frame}[fragile]{Lab}
 
 {\large From LPTHW }
 
@@ -701,32 +701,31 @@ def       for       lambda    try
 \end{verbatim}
 
 \pause
-{\Large Pass Statement}
-
+{\Large Pass Statement (Note the indentation!)}
 \begin{verbatim}
 ￼def <name>():
     pass
 \end{verbatim}
 
-\pause
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions: def}
+
 {\large \verb+def+ is a statement:}
 \begin{itemize}
   \item it is executed
   \item it creates a local variable
 \end{itemize}
 
-\end{frame}
-
-\begin{frame}{Lightning Talks}
-
 \vspace{0.2in}{\large￼function defs must be executed before the functions can be called}
 
 \pause
-\vspace{0.2in}{\large￼functions call functions this makes a stack that's all a trace back is}
+\vspace{0.2in}{\large￼functions call functions -- this makes a stack -- that's all a trace back is}
 
 \end{frame}
 
-\begin{frame}[fragile]{Call Stack}
+\begin{frame}[fragile]{Functions: Call Stack}
 
 \begin{verbatim}
 def exceptional():
@@ -741,7 +740,7 @@ def doer():
 
 \end{frame}
 
-\begin{frame}[fragile]{Traceback}
+\begin{frame}[fragile]{Functions: Tracebacks}
 
 \begin{verbatim}
 I am exceptional!
@@ -757,6 +756,249 @@ ZeroDivisionError: integer division or modulo by zero
 
 \end{frame}
 
+\begin{frame}[fragile]{Functions: return}
+
+{\Large Every function ends with a \verb+return+}
+
+\begin{verbatim}
+def five():
+    return 5
+\end{verbatim}
+
+{\Large Actual simplest function}
+\begin{verbatim}
+def fun():
+    return None
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Functions: return}
+
+{\Large if you don't put \verb+return+ there, python will:}
+
+\begin{verbatim}
+In [123]: def fun():
+   .....:     pass
+In [124]: result = fun()
+In [125]: print result
+None
+\end{verbatim}
+
+{\Large note that the interpreter eats \verb+None+}
+
+\end{frame}
+
+
+\begin{frame}{Functions: return}
+
+\vspace{0.25in}
+{\Large Only one return statement will ever be executed.}
+
+\pause
+\vspace{0.25in}
+{\Large Ever.}
+
+\pause
+\vspace{0.25in}
+{\Large Anything after a executed return statement will never get run.}
+
+\vspace{0.25in}
+{\Large ￼This is useful when debugging! }
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Functions: return}
+
+{\Large functions can return multiple results}
+
+\begin{verbatim}
+def fun():
+    return 1,2,3
+
+In [149]: fun()
+Out[149]: (1, 2, 3)
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions: return}
+
+{\Large remember multiple assignment?}
+
+\begin{verbatim}
+In [150]: x,y,z = fun()
+
+In [151]: x
+Out[151]: 1
+
+In [152]: y
+Out[152]: 2
+
+In [153]: z
+Out[153]: 3
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions: return}
+
+{\Large Actually a tuple of results...}
+
+\begin{verbatim}
+In [154]: t = fun()
+
+In [155]: t
+Out[155]: (1, 2, 3)
+
+In [156]: type(t)
+Out[156]: tuple
+\end{verbatim}
+
+{\Large Multiple assignment is really "tuple unpacking"}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Functions: parameters}
+
+{\Large function parameters: in definition}
+
+\begin{verbatim}
+def fun(x, y, z):
+     q = x + y + z
+     print x, y, z, q
+\end{verbatim}
+
+{\Large x, y, z are local names -- so is q}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions: arguments}
+
+{\Large function arguments: when calling}
+
+\begin{verbatim}
+def fun(x, y, z):
+     print x, y, z
+\end{verbatim}
+\begin{verbatim}
+In [138]: fun(3, 4, 5)
+
+3 4 5
+\end{verbatim}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Functions: local vs. global}
+
+\begin{verbatim}
+x = 32
+y = 33
+z = 34
+def fun(y, z):
+     print x, y, z
+\end{verbatim}
+\begin{verbatim}
+In [141]: fun(3,4)
+
+32 3 4
+\end{verbatim}
+{\Large x is global, y, z are local}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions: local vs. global}
+
+\begin{verbatim}
+x = 3
+def f():
+    y = x
+    x = 5
+    print x
+    print y
+\end{verbatim}
+  
+{\Large What happens when we call \verb+f()+?}
+
+\end{frame}
+
+\begin{frame}[fragile]{Functions: local vs. global}
+
+{\Large Gotcha!}
+
+\begin{verbatim}
+In [134]: f()
+---------------------------------------------------------------------------
+UnboundLocalError                         Traceback (most recent call last)
+/Users/Chris/<ipython-input-132-9225fa53a20a> in f()
+      1 def f():
+----> 2     y = x
+      3     x = 5
+      4     print x
+      5     print y
+\end{verbatim}
+  
+{\Large you are going to assign x -- so it's local}
+
+\end{frame}
+
+\begin{frame}[fragile]{Scopes}
+
+\vspace{0.5in}
+{\Large￼There is a \verb+global+ statement}
+
+\pause
+\vspace{0.5in}
+{\LARGE Don't use it!}
+
+\end{frame}
+
+\begin{frame}[fragile]{Scopes}
+
+\vspace{0.5in}
+{\Large￼good discussion of scopes:}
+
+\vspace{0.5in}
+\url{http://docs.python.org/tutorial/classes.html#python-­‐scopes-­‐and-­‐namespaces}
+
+\end{frame}
+
+\begin{frame}[fragile]{Recursion}
+
+\vspace{0.5in}
+{\Large￼Recursion is calling a function from itself.}
+
+\vspace{0.5in}
+{\Large￼Max stack depth, function call overhead.}
+
+\vspace{0.5in}
+{\Large￼Because of these two(?), recursion isn't used {\bf that} often in Python.}
+
+\end{frame}
+
+\begin{frame}[fragile]{Lab: functions}
+
+{\Large write a function that:}
+\begin{itemize}
+  \item takes a number and returns the square and cube of that number
+   -- use local variables to store the results
+  \item takes a string and a number, and returns a new string with the value repeated the given number of times
+  \item uses both global and local variable to compute a result.
+  \item calls another function to do part of its job.
+  \item take some code with functions, add this to each function:
+    \begin{verbatim}
+        print locals()
+    \end{verbatim}
+  \item computes the factorial with a recursive function (needs something we haven't covered yet..)
+\end{itemize}
+
+\end{frame}
+
+
+\section{Wrap Up}
 
 \begin{frame}{Lightning Talks}
 
@@ -764,11 +1006,10 @@ ZeroDivisionError: integer division or modulo by zero
 {\Large Assign times for lightning talks}
 
 \vspace{0.5in}
-{\center \large Let's use Python for that!} 
+\center{\Large Let's use Python for that!} 
 
 \end{frame}
 
-\section{Wrap Up}
 
 \begin{frame}[fragile]{Wrap Up}
 
@@ -782,7 +1023,8 @@ Pick something you'd like to automate that Python may be able to do. Write out a
 
 
 \vspace{0.15in}
-Coding is the only way to learn to code. Do a CodingBat exercise every day.
+Coding is the only way to learn to code.\\
+CodingBat exercises are a good way to build skills.
 \begin{itemize}
   \item visit \url{http://codingbat.com}
   \item sign up for an account
