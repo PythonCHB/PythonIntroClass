@@ -688,14 +688,100 @@ def       for       lambda    try
 
 \end{frame}
 
+\section{Functions}
+
+
+\begin{frame}[fragile]{Functions}
+
+{\Large Minimal Function}
+
+\begin{verbatim}
+￼def <name>():
+    <statement>
+\end{verbatim}
+
+\pause
+{\Large Pass Statement}
+
+\begin{verbatim}
+￼def <name>():
+    pass
+\end{verbatim}
+
+\pause
+{\large \verb+def+ is a statement:}
+\begin{itemize}
+  \item it is executed
+  \item it creates a local variable
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Lightning Talks}
+
+\vspace{0.2in}{\large￼function defs must be executed before the functions can be called}
+
+\pause
+\vspace{0.2in}{\large￼functions call functions this makes a stack that's all a trace back is}
+
+\end{frame}
+
+\begin{frame}[fragile]{Call Stack}
+
+\begin{verbatim}
+def exceptional():
+    print "I am exceptional!"
+    print 1/0
+def passive():
+    pass
+def doer():
+    passive()
+    exceptional()
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Traceback}
+
+\begin{verbatim}
+I am exceptional!
+Traceback (most recent call last):
+  File "functions.py", line 15, in <module>
+    doer()
+  File "functions.py", line 12, in doer
+    exceptional()
+  File "functions.py", line 5, in exceptional
+    print 1/0
+ZeroDivisionError: integer division or modulo by zero
+\end{verbatim}
+
+\end{frame}
+
+
+\begin{frame}{Lightning Talks}
+
+\vspace{0.5in}
+{\Large Assign times for lightning talks}
+
+\vspace{0.5in}
+{\center \large Let's use Python for that!} 
+
+\end{frame}
+
+\section{Wrap Up}
+
 \begin{frame}[fragile]{Wrap Up}
 
-{\Large￼Assignment}
+{\Large￼Assignment -- Due midnight, Sun, June 24.}
 
-\vspace{0.25in}
+\vspace{0.15in}
+Think Python: Chapters (1), 2, 3, 4, 5, 6, 7, 8
+
+\vspace{0.15in}
 Pick something you'd like to automate that Python may be able to do. Write out a description of the problem
 
-\vspace{0.25in}
+
+\vspace{0.15in}
 Coding is the only way to learn to code. Do a CodingBat exercise every day.
 \begin{itemize}
   \item visit \url{http://codingbat.com}
@@ -704,7 +790,7 @@ Coding is the only way to learn to code. Do a CodingBat exercise every day.
   \item Share To: \url{PythonCHB@gmailcom}
 \end{itemize}
 
-Do all the exercises from CodingBat: Warmup-1 
+Do two exercises from CodingBat: Warmup-1 
 
 \end{frame}
 
