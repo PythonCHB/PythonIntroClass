@@ -1,0 +1,22 @@
+Students:
+
+Languages:
+
+shell **
+perl *
+C **
+xml
+multimod
+assembly
+cobol
+c++
+c#
+Basic
+Python
+Fortran
+Visual Basic
+Javascript
+Pascal
+powershell
+DOS batch
+PHP
