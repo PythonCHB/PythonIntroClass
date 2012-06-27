@@ -39,7 +39,19 @@
 \end{frame}
 
 
-% header
+% ---------------------------------------------
+\begin{frame}{Lightning Talks}
+
+\vfill
+{\Large Lightning talks by Cliff and Myke today}
+
+\vfill
+{\large ( in that order )}
+\vfill
+
+\end{frame}
+
+
 % ---------------------------------------------
 \begin{frame}{Homework review}
 
@@ -874,7 +886,7 @@ Out[131]: ' words'
 In [132]: s[20:30]
 Out[132]: ''
 \end{verbatim}
-
+(demo)
 \end{frame}
 
 % ---------------------------------------------
@@ -919,15 +931,38 @@ def missing_char(str, n):
 
 \end{frame} 
 
+% ---------------------------------------------
+\begin{frame}[fragile]{Slicing}
+
+{\Large you can skip items, too}
+
+\begin{verbatim}
+In [289]: string = "a fairly long string"
+
+In [290]: string[0:15]
+Out[290]: 'a fairly long s'
+
+In [291]: string[0:15:2]
+Out[291]: 'afil ogs'
+
+In [292]: string[0:15:3]
+Out[292]: 'aallg'
+\end{verbatim}
+
+\end{frame} 
+
+
 %-------------------------------
 \begin{frame}{LAB}
-
+Write some functions that:
 \begin{itemize}
-  \item stuff with sequences and slicing
+\item return a string with the first and last characters exchanged.
+\item return a string with every other character removed
+\item return a string with the first and last 4 characters removed, and every other char in between
+\item return a string reversed (just with slicing)
+\item return a string with the middle, then last, then first third in a new order
 \end{itemize}
-\url{http://www.upriss.org.uk/python/PythonCourse.html}
 \end{frame}
-
 
 %-------------------------------
 \begin{frame}{Lightning Talk}
@@ -1375,16 +1410,28 @@ Out[266]: float
 \end{frame}
 
 
-
 %-------------------------------
-\begin{frame}{Homework}
+\begin{frame}[fragile]{Homework}
 
+Read:
 \begin{itemize}
-  \item
+  \item Read TP: 9, 14
+  \item extra: string methods: \url{http://docs.python.org/library/stdtypes.html#string-methods}
+  \item extra: unicode: \url{http://www.joelonsoftware.com/articles/Unicode.html}
+\end{itemize}
+
+Do:
+\begin{itemize}
+    \item Six more CodingBat exercises. 
+    \item LPTHW: for extra practice with the concepts -- some of:
+    \begin{description}
+        \item[strings:] ex5, ex6, ex7, ex8, ex9, ex10
+        \item[raw\_input(), sys.argv:] ex12, ex13, ex14 (needed for files)
+        \item[files:] ex15, ex16, ex17 
+    \end{description}    
 \end{itemize}
 
 \end{frame}
-
 
 
 \end{document}
