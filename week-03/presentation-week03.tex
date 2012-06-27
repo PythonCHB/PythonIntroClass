@@ -1,0 +1,104 @@
+\documentclass{beamer}
+%\usepackage[latin1]{inputenc}
+\usetheme{Warsaw}
+\title[Intro to Python: Week 2]{Introduction  to Python\\ More functions, ...}
+\author{Christopher Barker}
+\institute{UW Continuing Education / Isilon}
+\date{June 27, 2012}
+
+\usepackage{listings}
+\usepackage{hyperref}
+
+\begin{document}
+
+% ---------------------------------------------
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ---------------------------------------------
+\begin{frame}
+\frametitle{Table of Contents}
+%\tableofcontents[currentsection]
+  \tableofcontents
+\end{frame}
+
+
+\section{Review/Questions}
+
+% ---------------------------------------------
+\begin{frame}{Review of Previous Class}
+
+\begin{itemize}
+  \item ...
+\end{itemize}
+
+\end{frame}
+
+
+% header
+% ---------------------------------------------
+\begin{frame}{Homework review}
+
+  {\Large Homework notes }
+
+\end{frame}
+
+\section{More on functions}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Default Parameters}
+
+ {\Large Sometimes you don't need the user to specify everything every time}
+
+\begin{verbatim}
+def fun(x,y,z=5):
+    print x,y,z
+\end{verbatim}
+
+\end{frame} 
+
+
+\section{More on Strings}
+
+\section{More with strings}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Building Strings}
+
+\begin{verbatim}
+In [178]: "a string"
+Out[178]: 'a string'
+
+In [179]: str(34.5)
+Out[179]: '34.5'
+
+In [180]: `34.56`
+Out[180]: '34.56'
+
+In [181]: "the number %s is %i"%('five', 5)
+Out[181]: 'the number five is 5'
+\end{verbatim}
+
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}{String methods}
+
+  {\Large bunch of...}
+
+\end{frame}
+
+\begin{frame}{Sequence API}
+
+  {\Large full API}
+
+\url{http://docs.python.org/library/stdtypes.html#sequence-types-str-unicode-list-tuple-bytearray-buffer-xrange}
+
+\end{frame}
+
+
+\end{document}
+
+ 
