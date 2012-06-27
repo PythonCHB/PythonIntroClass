@@ -25,12 +25,12 @@ print "the factorial of 2 is:", factorial(2)
 print "the factorial of 3 is:", factorial(3)
 print "the factorial of 4 is:", factorial(4)
 
-print "the factorial of 983 is:", factorial(983)
+#print "the factorial of 983 is:", factorial(983)
 
 #print "the factorial of 984 is:", factorial(984)
 
-print "the factorial of 4L is:", factorial(4L)
+#print "the factorial of 4L is:", factorial(4L)
 
-print "the factorial of 1.5 is:", factorial(1.5)
+#print "the factorial of 1.5 is:", factorial(1.5)
 
 ## checking types: -- is instance
