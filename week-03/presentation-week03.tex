@@ -26,13 +26,46 @@
 
 \section{Review/Questions}
 
-% ---------------------------------------------
-\begin{frame}{Review of Previous Class}
 
+%-------------------------------
+\begin{frame}{title}
+
+{\Large Lab from end of last class?  }
+
+\end{frame}
+
+
+%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+\verb| def count_them(letter): |
 \begin{itemize}
-  \item ...
+  \item prompts the user to input a letter
+  \item counts the number of times the given letter is input
+  \item prompts the user for another letter
+  \item continues until the user inputs "x"
+  \item returns the count of the letter input
 \end{itemize}
 
+\verb| def count_letter_in_string(string, letter): |
+\begin{itemize}
+  \item counts the number of instances of the letter in the string
+  \item ends when a period is encountered
+  \item if no period is encountered -- prints "hey, there was no period!"
+\end{itemize}
+\end{frame}
+
+
+% ---------------------------------------------
+\begin{frame}{Questions?}
+
+{\Large Any Questions about:
+\begin{itemize}
+  \item Last class ?
+  \item Reading ?
+  \item Homework ?
+\end{itemize}
+}
 \end{frame}
 
 
@@ -43,6 +76,103 @@
   {\Large Homework notes }
 
 \end{frame}
+
+\section {Notes on Reading}
+
+%-------------------------------
+\begin{frame}[fragile]{subprocesses}
+
+{\Large Subprocesses}
+\begin{verbatim}
+#easy:  
+os.popen('ls').read()
+
+#even easier:
+os.system('ls')
+
+# but for anything more oomplicated:
+pipe = \
+  subprocess.Popen("ls", stdout=subprocess.PIPE).stdout 
+\end{verbatim}
+
+\end{frame}
+
+
+%-------------------------------
+\begin{frame}[fragile]{reload}
+
+{\Large module importing and reloading}
+\begin{verbatim}
+In [190]: import module_reload
+
+In [191]: module_reload.print_something()
+I'm printing something
+
+# change it...
+In [196]: reload(module_reload)
+Out[196]: <module 'module_reload' from 'module_reload.py'>
+
+In [193]: module_reload.print_something()
+I'm printing something else
+\end{verbatim}
+
+\end{frame}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Module Reloading}
+
+\begin{verbatim}
+In [194]: from module_reload import this
+
+# change it...
+
+In [196]: reload(module_reload)
+Out[196]: <module 'module_reload' from 'module_reload.py'>
+
+In [197]: module_reload.this
+Out[197]: 'this2'
+
+In [198]: this
+Out[198]: 'this'
+\end{verbatim}
+
+\end{frame}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{repr vs. str}
+
+{\Large \verb|repr()| vs \verb|str()| }
+
+\begin{verbatim}
+In [200]: s = "a string\nwith a newline"
+
+In [203]: print str(s)
+a string
+with a newline
+
+In [204]: print repr(s)
+'a string\nwith a newline'
+
+\end{verbatim}
+
+\end{frame}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{repr vs. str}
+
+
+{\Large \verb| eval(repr(something)) == something | }
+
+\begin{verbatim}
+
+In [205]: s2 = eval(repr(s))
+
+In [206]: s2
+Out[206]: 'a string\nwith a newline'
+\end{verbatim}
+
+\end{frame}
+
 
 \section{More on functions}
 
@@ -66,6 +196,8 @@ def fun(x,y,z=5):
 % ---------------------------------------------
 \begin{frame}[fragile]{Building Strings}
 
+{\Large The string format operator: \%}
+
 \begin{verbatim}
 In [178]: "a string"
 Out[178]: 'a string'
@@ -82,6 +214,40 @@ Out[181]: 'the number five is 5'
 
 \end{frame} 
 
+% Code
+%-------------------------------
+\begin{frame}[fragile]{String formatting}
+
+{\Large Gotcha}
+
+\begin{verbatim}
+In [127]: "this is a string with %i formatting item"%1 
+Out[127]: 'this is a string with 1 formatting item'
+
+In [128]: "string with %i formatting %s: "%2, "items" 
+TypeError: not enough arguments for format string
+
+# Done right:
+In [131]: "string with %i formatting %s"%(2, "items")
+Out[131]: 'string with 2 formatting items'
+
+In [132]: "string with %i formatting item"%(1,)
+Out[132]: 'string with 1 formatting item' 
+\end{verbatim}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}{LAB}
+
+{\Large Format operators:}
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+
 
 % ---------------------------------------------
 \begin{frame}{String methods}
@@ -90,13 +256,37 @@ Out[181]: 'the number five is 5'
 
 \end{frame}
 
-\begin{frame}{Sequence API}
+\begin{frame}[fragile]{Sequence API}
 
   {\Large full API}
 
 \url{http://docs.python.org/library/stdtypes.html#sequence-types-str-unicode-list-tuple-bytearray-buffer-xrange}
 
 \end{frame}
+
+% Code
+%-------------------------------
+\begin{frame}[fragile]{Text File Notes}
+
+{\Large Text is default}
+\begin{itemize}
+  \item newlines are translated: \verb|\r\n -> \n|
+  \item reading and writing!
+  \item Always use *nux-style in your code: \verb|\n|
+  \item Open text files with \verb|'U'| "Universal" flag
+\end{itemize}
+
+\vfill
+{\Large Gotcha:}
+\begin{itemize}
+  \item  no difference between text and binary on *nix\\
+  \begin{itemize}
+    \item breaks on Windows
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
 
 
 \end{document}
