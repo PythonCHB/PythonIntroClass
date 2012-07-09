@@ -4,3 +4,11 @@ if __name__ == __main__:
 
 
 
+Files:
+
+struct and binary file exercise?
+
+
+
+
+

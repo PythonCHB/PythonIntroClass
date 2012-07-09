@@ -159,7 +159,6 @@ In [204]: print repr(s)
 % ---------------------------------------------
 \begin{frame}[fragile]{repr vs. str}
 
-
 {\Large \verb| eval(repr(something)) == something | }
 
 \begin{verbatim}
@@ -172,20 +171,6 @@ Out[206]: 'a string\nwith a newline'
 
 \end{frame}
 
-\section{More on functions}
-
-% ---------------------------------------------
-\begin{frame}[fragile]{Default Parameters}
-
- {\Large Sometimes you don't need the user to specify everything every time}
-
-\begin{verbatim}
-def fun(x,y,z=5):
-    print x,y,z
-\end{verbatim}
-
-\end{frame} 
-
 
 \section{More on Strings}
 
@@ -193,7 +178,6 @@ def fun(x,y,z=5):
 \begin{frame}[fragile]{Strings}
 
 {\Large A string literal creates a string type}
-
 
 \begin{verbatim}
 "this is a string"
@@ -267,6 +251,46 @@ s.splitlines()
 (demo -- join)
 
 \end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{String Literals}
+{\Large Common Escape Sequences}
+\vfill
+\begin{verbatim}
+\\ 	Backslash (\) 	
+\a 	ASCII Bell (BEL) 	
+\b 	ASCII Backspace (BS) 	
+\n 	ASCII Linefeed (LF) 	
+\r 	ASCII Carriage Return (CR) 	
+\t 	ASCII Horizontal Tab (TAB) 	
+\ooo 	Character with octal value ooo 
+\xhh 	Character with hex value hh
+\end{verbatim}
+(\url{http://docs.python.org/release/2.5.2/ref/strings.html})
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Raw Strings}
+
+{\Large Escape Sequences Ignored}
+\vfill
+\begin{verbatim}
+In [408]: print "this\nthat"
+this
+that
+In [409]: print r"this\nthat"
+this\nthat
+\end{verbatim}
+
+{\Large Gotcha:}
+\begin{verbatim}
+In [415]: r"\"
+SyntaxError: EOL while scanning string literal
+\end{verbatim}
+
+(\url{http://docs.python.org/release/2.5.2/ref/strings.html})
+\end{frame} 
+
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Building Strings}
@@ -427,8 +451,8 @@ Out[284]: 'Hello Joe!'
 {\Large Format operators:}
 
 \begin{itemize}
-  \item rewrite: \verb| "the first 3 numbers are: %i, %i, %i"%(1,2,3)| \\
-        for an arbitrary number of of numbers...
+  \item rewrite: \verb| the first 3 numbers are: %i, %i, %i"%(1,2,3)| \\
+        for an arbitrary number of numbers...
 
 \end{itemize}
 
@@ -436,15 +460,67 @@ Out[284]: 'Hello Joe!'
 
 \section{Files}
 
+%-------------------------------
+\begin{frame}[fragile]{Files}
+
+{\Large Text Files}
+
+\begin{verbatim}
+f = open('secrets.txt')
+secret_data = f.read()
+f.close()
+\end{verbatim}
+
+{\Large \verb|secret_data| is a string}
+
+\vfill
+(can also use \verb|file()| -- \verb|open()| is preferred)
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Files}
+
+{\Large Binary Files}
+
+\begin{verbatim}
+f = open('secrets.txt', 'rb')
+secret_data = f.read()
+f.close()
+\end{verbatim}
+
+{\Large \verb|secret_data| is still a string \\[.1in]
+(with arbitrary bytes in it)}
+\vfill
+(See the \verb|struct| module to unpack binary data )
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Files}
+
+{\Large File Opening Modes}
+\vfill
+\begin{verbatim}
+f = open('secrets.txt', [mode])
+
+'r', 'w', 'a'
+'rb', 'wb', 'ab'
+r+, w+, a+
+r+b, w+b, a+b
+U
+U+
+\end{verbatim}
+\vfill
+{\Large Gotcha -- w mode always clears the file}
+\end{frame}
 
 %-------------------------------
 \begin{frame}[fragile]{Text File Notes}
 
 {\Large Text is default}
 \begin{itemize}
-  \item newlines are translated: \verb|\r\n -> \n|
-  \item reading and writing!
-  \item Always use *nux-style in your code: \verb|\n|
+  \item Newlines are translated: \verb|\r\n -> \n|
+  \item   -- reading and writing!
+  \item Use *nux-style in your code: \verb|\n|
   \item Open text files with \verb|'U'| "Universal" flag
 \end{itemize}
 
@@ -459,11 +535,133 @@ Out[284]: 'Hello Joe!'
 
 \end{frame}
 
+%-------------------------------
+\begin{frame}[fragile]{File Reading}
+
+{\Large Reading Part of a file}
+
+\begin{verbatim}
+header_size = 4096
+
+f = open('secrets.txt')
+secret_data = f.read(header_size)
+f.close()
+\end{verbatim}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{File Reading}
+
+{\Large Common Idioms}
+
+\begin{verbatim}
+for line in open('secrets.txt'):
+    print line
+\end{verbatim}
+
+\begin{verbatim}
+f = open('secrets.txt')
+while True:
+    line = f.readline()
+    if not line: 
+        break
+    do_something_with_line()
+\end{verbatim}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{File Writing}
+
+\begin{verbatim}
+
+outfile = open('output.txt')
+
+for i in range(10):
+    outfile.write("this is line: %i\n"%i)
+
+\end{verbatim}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{File Methods}
+
+{\Large Commonly Used Methods}
+\begin{verbatim}
+
+f.read() f.readline()  f.readlines() 
+
+f.write(str) f.writelines(seq)
+ 
+f.seek(offset)   f.tell()
+
+f.flush()           
+           
+f.close() 
+\end{verbatim}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{File Like Objects}
+
+{\Large File-like objects }
+\vfill
+{\large Many classes impliment the file interface:}
+\vfill
+\begin{itemize}
+  \item loggers
+  \item \verb|sys.stdout|
+  \item \verb|urllib.open()|
+  \item pipes, subprocesses
+  \item StringIO
+\end{itemize}
+
+\url{￼http://docs.python.org/library/stdtypes.html#bltin-­‐file-­‐objects}
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{StringIO}
+
+{\Large StringIO }
+\vfill
+\begin{verbatim}
+In [417]: import StringIO
+In [420]: f = StringIO.StringIO()
+
+In [421]: f.write("somestuff")
+
+In [422]: f.seek(0)
+
+In [423]: f.read()
+Out[423]: 'somestuff'
+\end{verbatim}
+
+{\Large handy for testing}
+\end{frame}
+
+\section{Exceptions}
+
+\section{Unicode}
+
 \begin{frame}[fragile]{Unicode}
 
 {\Large Python Docs Unicode HowTo:}
 
 \url{http://docs.python.org/howto/unicode.html}
+
+Reading Unicode from a file is therefore simple:
+
+\begin{verbatim}
+import codecs
+f = codecs.open('unicode.rst', encoding='utf-8')
+for line in f:
+    print repr(line)
+\end{verbatim}
+
+
 
 \end{frame}
 
