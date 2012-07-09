@@ -1,10 +1,10 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 2]{Introduction  to Python\\ More functions, ...}
+\title[Intro to Python: Week 2]{Introduction  to Python\\ Exceptions, Unicode, Text Processing}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
-\date{June 27, 2012}
+\date{July 11, 2012}
 
 \usepackage{listings}
 \usepackage{hyperref}
@@ -22,7 +22,6 @@
 %\tableofcontents[currentsection]
   \tableofcontents
 \end{frame}
-
 
 \section{Review/Questions}
 
@@ -90,7 +89,7 @@ os.popen('ls').read()
 #even easier:
 os.system('ls')
 
-# but for anything more oomplicated:
+# but for anything more complicated:
 pipe = \
   subprocess.Popen("ls", stdout=subprocess.PIPE).stdout 
 \end{verbatim}
@@ -173,7 +172,6 @@ Out[206]: 'a string\nwith a newline'
 
 \end{frame}
 
-
 \section{More on functions}
 
 % ---------------------------------------------
@@ -191,30 +189,180 @@ def fun(x,y,z=5):
 
 \section{More on Strings}
 
-\section{More with strings}
+% ---------------------------------------------
+\begin{frame}[fragile]{Strings}
+
+{\Large A string literal creates a string type}
+
+
+\begin{verbatim}
+"this is a string"
+\end{verbatim}
+
+{\Large Can also use \verb|str()|}
+
+\begin{verbatim}
+In [256]: str(34)
+Out[256]: '34'
+\end{verbatim}
+{\Large or "back ticks"}
+\begin{verbatim}
+In [258]: `34`
+Out[258]: '34'
+\end{verbatim}
+(demo)
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{The String Type}
+
+{\Large Lots of nifty methods:}
+
+\begin{verbatim}
+s.lower()
+s.upper()
+     ...
+s.capitalize()
+s.swapcase()
+s.title()
+\end{verbatim}
+
+\url{http://docs.python.org/library/stdtypes.html#index-23}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{The String Type}
+
+{\Large Lots of nifty methods:}
+
+\begin{verbatim}
+x in s
+s.startswith(x)
+s.endswith
+...
+s.index(x)
+s.find(x)
+s.rfind(x)
+\end{verbatim}
+
+\url{http://docs.python.org/library/stdtypes.html#index-23}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{The String Type}
+
+{\Large Lots of nifty methods:}
+
+\begin{verbatim}
+s.split()
+s.join(list)
+...
+s.splitlines()
+\end{verbatim}
+
+\url{http://docs.python.org/library/stdtypes.html#index-23}
+\vfill
+(demo -- join)
+
+\end{frame} 
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Building Strings}
 
+{\Large Please don't do this:
+
+\vfill
+\begin{verbatim}
+'Hello ' + name + '!'
+\end{verbatim}
+}
+\vfill
+(much)
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Building Strings}
+
+{\Large Do this instead:
+
+\vfill
+\begin{verbatim}
+'Hello %s!' % name
+\end{verbatim}
+
+\vfill
+much faster and safer: \\
+easier to modify as code gets complicated
+}
+\url{http://docs.python.org/library/stdtypes.html#string-formatting-operations}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Joining Strings}
+
+{\Large The Join Method:}
+
+\vfill
+\begin{verbatim}
+In [289]: t = ("some", "words","to","join")
+
+In [290]: " ".join(t)
+Out[290]: 'some words to join'
+
+In [291]: ",".join(t)
+Out[291]: 'some,words,to,join'
+
+In [292]: "".join(t)
+Out[292]: 'somewordstojoin'
+
+In [293]: "\n".join(t)
+Out[293]: 'some\nwords\nto\njoin'
+
+\end{verbatim}
+
+\vfill
+\end{frame} 
+
+
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{String Formatting}
+
 {\Large The string format operator: \%}
 
 \begin{verbatim}
-In [178]: "a string"
-Out[178]: 'a string'
+In [261]: "an integer is: %i"%34
+Out[261]: 'an integer is: 34'
 
-In [179]: str(34.5)
-Out[179]: '34.5'
+In [262]: "a floating point is: %f"%34.5
+Out[262]: 'a floating point is: 34.500000'
 
-In [180]: `34.56`
-Out[180]: '34.56'
-
-In [181]: "the number %s is %i"%('five', 5)
-Out[181]: 'the number five is 5'
+In [263]: "a string is: %s"%"anything"
+Out[263]: 'a string is: anything'
 \end{verbatim}
 
 \end{frame} 
 
-% Code
+% ---------------------------------------------
+\begin{frame}[fragile]{String Formatting}
+
+{\Large multiple arguments:}
+
+\begin{verbatim}
+In [264]: "the number %s is %i"%('five', 5)
+Out[264]: 'the number five is 5'
+
+In [266]: "the first 5 numbers are: %i, %i, %i, %i, %i"%(1,2,3,4,5)
+Out[266]: 'the first 5 numbers are: 1, 2, 3, 4, 5'
+
+\end{verbatim}
+
+\end{frame} 
+
 %-------------------------------
 \begin{frame}[fragile]{String formatting}
 
@@ -238,11 +386,50 @@ Out[132]: 'string with 1 formatting item'
 \end{frame}
 
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}[fragile]{String formatting}
+
+{\Large Named arguments}
+
+\begin{verbatim}
+'Hello %(name)s!'%{'name':'Joe'}
+'Hello Joe!'
+
+'Hello %(name)s, how are you, %(name)s!' %{'name':'Joe'}
+'Hello Joe, how are you, Joe!'
+\end{verbatim}
+\vfill
+{\Large That last bit is a dictionary (next week) }
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Advanced Formatting}
+
+{\Large The format method}
+
+\begin{verbatim}
+In [283]: 'Hello {0}!'.format(name)
+Out[283]: 'Hello Joe!'
+
+In [284]: 'Hello {name}!'.format(**dictionary)
+Out[284]: 'Hello Joe!'
+\end{verbatim}
+\vfill
+{\Large pick one (probably ‘string formatting’): \\
+ get comfy with it }
+
+\end{frame}
+
+
+%-------------------------------
+\begin{frame}[fragile]{LAB}
 
 {\Large Format operators:}
+
 \begin{itemize}
-  \item
+  \item rewrite: \verb| "the first 3 numbers are: %i, %i, %i"%(1,2,3)| \\
+        for an arbitrary number of of numbers...
+
 \end{itemize}
 
 \end{frame}
@@ -264,7 +451,15 @@ Out[132]: 'string with 1 formatting item'
 
 \end{frame}
 
-% Code
+\begin{frame}[fragile]{Unicode}
+
+{\Large Python Docs Unicode HowTo:}
+
+\url{http://docs.python.org/howto/unicode.html}
+
+\end{frame}
+
+
 %-------------------------------
 \begin{frame}[fragile]{Text File Notes}
 
@@ -286,6 +481,8 @@ Out[132]: 'string with 1 formatting item'
 \end{itemize}
 
 \end{frame}
+
+
 
 
 
