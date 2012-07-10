@@ -644,7 +644,166 @@ Out[423]: 'somestuff'
 
 \section{Exceptions}
 
+\begin{frame}[fragile]{Exceptions}
+
+{\Large Need to write this!}
+
+\end{frame}
+
+
 \section{Unicode}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large I hope you all read this:}
+
+\vfill
+{\Large
+\centering
+The Absolute Minimum Every Software Developer Absolutely,
+Positively Must Know About Unicode and Character Sets (No Excuses!)
+
+}
+
+\vfill
+\url{http://www.joelonsoftware.com/articles/Unicode.html}
+
+\vfill
+{\Large If not -- go read it!}
+
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+
+Everything is Bytes
+
+\vfill
+If it's on disk or on a network, it's bytes
+
+\vfill
+Python provides some abstractions to make it easier to deal with bytes
+
+\vfill
+}
+
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+
+Unicode is a biggie
+
+\vfill
+strings vs unicode 
+}
+
+{\large (\verb|str()| vs. \verb|unicode()| ) }
+
+\vfill
+{\Large python 2.x vs 3.x}
+
+
+\vfill
+(actually, dealing with numbers rather than bytes is big -- but we take that for granted)
+
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+Strings are sequences of bytes
+
+\vfill
+Unicode strings are sequences of platonic characters
+
+\vfill
+Platonic characters cannot be written to disk or network!
+}
+\vfill
+(ANSI -- one character == one byte -- so easy!)
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+the \verb|unicode| object lets you work with characters
+
+\vfill
+encoding is converting from a uncode object to bytes
+
+\vfill
+decoding is converting from bytes to a unicode object
+
+}
+\vfill
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+\begin{verbatim}
+import codecs
+ord()
+chr()
+unichr()
+str()
+unicode()
+encode()
+decode()
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Unicode Literals}
+
+
+{\Large 1) Use unicode in your source files:}
+
+\begin{verbatim}
+# -*- coding: utf-8 -*-
+\end{verbatim}
+
+\vfill
+{\Large 2) escape the unicode characters}
+
+\begin{verbatim}
+print u"The integral sign: \u222B"
+print u"The integral sign: \N{integral}"
+\end{verbatim}
+
+{\large lots of tables of code points online:}
+
+\url{http://inamidst.com/stuff/unidata/}
+
+\end{frame}
+
+
+%---------------------------------
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+Use unicode objects in all your code
+
+\vfill
+decode on input
+
+\vfill
+encode on output
+
+\vfill
+Many packages do this for you\\
+\hspace{0.25in} (XML processing, databases, ...)
+
+\vfill
+Gotcha:\\
+\hspace{0.25in} Python has a default encoding (usually ascii)
+}
+\end{frame}
 
 \begin{frame}[fragile]{Unicode}
 
@@ -652,7 +811,8 @@ Out[423]: 'somestuff'
 
 \url{http://docs.python.org/howto/unicode.html}
 
-Reading Unicode from a file is therefore simple:
+\vfill
+``Reading Unicode from a file is therefore simple:''
 
 \begin{verbatim}
 import codecs
@@ -661,9 +821,102 @@ for line in f:
     print repr(line)
 \end{verbatim}
 
+\end{frame}
 
+
+%-------------------------------
+\begin{frame}{LAB}
+
+{\Large unicode exercises}
+\begin{itemize}
+  \item
+\end{itemize}
 
 \end{frame}
+
+\section{Files and Directories}
+
+% ----------------------------------
+\begin{frame}[fragile]{Paths}
+
+{\Large Relative paths:}
+
+\begin{verbatim}
+secret.txt
+./secret.txt
+\end{verbatim}
+
+{\Large Absolute paths:}
+\begin{verbatim}
+/home/chris/secret.txt
+\end{verbatim}
+
+{\Large Either work with \verb|open()|, etc.}
+
+\end{frame}
+
+% ----------------------------------
+\begin{frame}[fragile]{os.path}
+
+\begin{verbatim}
+os.getcwd() -- os.getcwdu()
+chdir(path)
+
+os.path.abspath()
+os.path.relpath()￼
+\end{verbatim}
+
+\end{frame}
+
+% ----------------------------------
+\begin{frame}[fragile]{os.path}
+
+\vfill
+\begin{verbatim}
+os.path.split()
+os.path.splitext()
+os.path.basename()
+os.path.dirname()
+os.path.join()
+\end{verbatim}
+
+\vfill
+(all platform independent)
+
+\end{frame}
+
+
+% ----------------------------------
+\begin{frame}[fragile]{directories}
+
+\vfill
+\begin{verbatim}
+os.listdir()
+os.mkdir()
+
+os.walk()
+
+\end{verbatim}
+
+\vfill
+(higher level stuff in \verb|shutil| module)
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}{LAB}
+
+\begin{itemize}
+  \item write a program which prints the full path to all files in the current directory, one per line
+  \item write a program which copies a file from a source, to a
+        destination (without using shutil, or the OS copy command)
+   \item update mail-merge from the previous lab to write output
+         to individual files on disk
+   \item advanced - implement your own iterator
+\end{itemize}
+
+\end{frame}
+
 
 \end{document}
 
