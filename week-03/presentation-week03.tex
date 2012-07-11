@@ -27,7 +27,7 @@
 
 
 %-------------------------------
-\begin{frame}{title}
+\begin{frame}{Last Class}
 
 {\Large Lab from end of last class?  }
 
@@ -253,7 +253,28 @@ s.splitlines()
 \end{frame} 
 
 % ---------------------------------------------
+\begin{frame}[fragile]{The string module}
+
+{\Large Lots of handy constants, etc.}
+\begin{verbatim}
+string.ascii_letters
+string.ascii_lowercase 
+string.ascii_uppercase  
+string.letters
+string.hexdigits 
+string.whitespace
+string.printable
+string.digits
+string.punctuation      
+\end{verbatim}
+
+\vfill
+(and the string methods -- legacy)
+\end{frame} 
+
+% ---------------------------------------------
 \begin{frame}[fragile]{String Literals}
+
 {\Large Common Escape Sequences}
 \vfill
 \begin{verbatim}
@@ -288,7 +309,8 @@ In [415]: r"\"
 SyntaxError: EOL while scanning string literal
 \end{verbatim}
 
-(\url{http://docs.python.org/release/2.5.2/ref/strings.html})
+\vfill
+(handy for regex, windows paths...)
 \end{frame} 
 
 
@@ -318,9 +340,13 @@ SyntaxError: EOL while scanning string literal
 \end{verbatim}
 
 \vfill
-much faster and safer: \\
+much faster and safer:
+
+\vfill
 easier to modify as code gets complicated
 }
+
+\vfill
 \url{http://docs.python.org/library/stdtypes.html#string-formatting-operations}
 \end{frame} 
 
@@ -341,13 +367,8 @@ Out[291]: 'some,words,to,join'
 
 In [292]: "".join(t)
 Out[292]: 'somewordstojoin'
-
-In [293]: "\n".join(t)
-Out[293]: 'some\nwords\nto\njoin'
-
 \end{verbatim}
 
-\vfill
 \end{frame} 
 
 
@@ -440,7 +461,7 @@ Out[284]: 'Hello Joe!'
 \end{verbatim}
 \vfill
 {\Large pick one (probably ‘string formatting’): \\
- get comfy with it }
+  -- get comfy with it }
 
 \end{frame}
 
@@ -448,12 +469,39 @@ Out[284]: 'Hello Joe!'
 %-------------------------------
 \begin{frame}[fragile]{LAB}
 
-{\Large Format operators:}
+{\Large Fun with strings}
 
 \begin{itemize}
-  \item rewrite: \verb| the first 3 numbers are: %i, %i, %i"%(1,2,3)| \\
+  \item Rewrite: \verb| the first 3 numbers are: %i, %i, %i"%(1,2,3)| \\
         for an arbitrary number of numbers...
+  \item Play with string formatting a bit more.
+  \item Write a (really simple) mail merge program
+  \item implement rot13 decoding \\
+     \hspace{0.5in} decode this message: \\
+     \hspace{0.5in} Zntargvp sebz bhgfvqr arne pbeare
+\end{itemize}
 
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+
+{\center
+
+\Large￼ROT13 encryption
+
+}
+\vfill
+Applying ROT13 to a piece of text merely requires examining its alphabetic
+characters and replacing each one by the letter 13 places further along in
+the alphabet, wrapping back to the beginning if necessary
+
+\begin{itemize}
+  \item Implement rot13 decoding 
+  \item  decode this message: \\
+     \hspace{0.5in} Zntargvp sebz bhgfvqr arne pbeare \\
+     \hspace{0.5in} (from a geo-caching hint)
 \end{itemize}
 
 \end{frame}
@@ -609,7 +657,7 @@ f.close()
 
 {\Large File-like objects }
 \vfill
-{\large Many classes impliment the file interface:}
+{\large Many classes implement the file interface:}
 \vfill
 \begin{itemize}
   \item loggers
@@ -646,10 +694,198 @@ Out[423]: 'somestuff'
 
 \begin{frame}[fragile]{Exceptions}
 
-{\Large Need to write this!}
+{\Large Another Branching structure:}
+\vfill
+\begin{verbatim}
+try:
+    do_something()
+    f = open('missing.txt')
+    process(f)   # never called if file missing
+except IOError:
+    print "couldn't open missing.txt"
+\end{verbatim}
+\vfill
+\end{frame}
+
+\begin{frame}[fragile]{Exceptions}
+
+{\Large Never Do this:}
+\vfill
+\begin{verbatim}
+try:
+    do_something()
+    f = open('missing.txt')
+    process(f)   # never called if file missing
+except:
+    print "couldn't open missing.txt"
+\end{verbatim}
+\vfill
+\end{frame}
+
+\begin{frame}[fragile]{Exceptions}
+
+{\Large Use Exceptions, rather than your own tests\\
+ -- Don't do this:}
+\vfill
+\begin{verbatim}
+do_something()
+if os.path.exists('missing.txt'):
+    f = open('missing.txt')
+    process(f)   # never called if file missing
+\end{verbatim}
+\vfill
+it will almost always work -- but the almost will drive you crazy
+\end{frame}
+
+\begin{frame}[fragile]{Exceptions}
+
+{\centering
+
+{\Large "easier to ask forgiveness than permission"
+\vfill
+\hfill -- Grace Hopper
+}
+
+\vfill
+\url{http://www.youtube.com/watch?v=AZDWveIdqjY}
+\end{frame}
+
+\begin{frame}[fragile]{Exceptions}
+
+\vfill
+{\Large 
+For simple scripts, let exceptions happen\\
+\vfill
+
+Only handle the exception if the code can and will do something about it
+}
+\vfill
+(much better debugging info when an error does occur)
+\end{frame}
+
+
+\begin{frame}[fragile]{Exceptions -- finally }
+
+\vfill
+\begin{verbatim}
+try:
+    do_something()
+    f = open('missing.txt')
+    process(f)   # never called if file missing
+except IOError:
+    print "couldn't open missing.txt"
+finally:
+    do_some_clean-up
+\end{verbatim}
+\vfill
+{\Large the \verb|finally:| clause will always run}
+\end{frame}
+
+\begin{frame}[fragile]{Exceptions -- else }
+
+\vfill
+\begin{verbatim}
+try:
+    do_something()
+    f = open('missing.txt')
+except IOError:
+    print "couldn't open missing.txt"
+else:
+    process(f) # only called if there was no exception
+\end{verbatim}
+\vfill
+{\Large Advantage:
+
+you know where the Exception came from}
+\end{frame}
+
+%--------------------------------------------
+\begin{frame}[fragile]{Exceptions -- using them }
+
+\vfill
+\begin{verbatim}
+try:
+    do_something()
+    f = open('missing.txt')
+except IOError as the_error:
+    print the_error
+    the_error.extra_info = "some more information"
+    raise
+\end{verbatim}
+
+{\Large Particularly useful if you catch more than one exception:}
+
+\begin{verbatim}
+except (IOError, BufferError, OSError) as the_error:
+    do_something_with (the_error)
+\end{verbatim}
 
 \end{frame}
 
+
+\begin{frame}[fragile]{Raising Exceptions }
+
+\begin{verbatim}
+def divide(a,b):
+    if b == 0:
+        raise ZeroDivisionError("b can not be zero")
+    else:
+        return a / b
+\end{verbatim}
+\vfill
+{\Large when you call it: }
+\vfill
+\begin{verbatim}
+In [515]: divide (12,0)
+
+ZeroDivisionError: b can not be zero
+\end{verbatim}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Built in Exceptions}
+
+{\Large You can create your own custom exceptions}
+
+{\Large But...}
+
+\begin{verbatim}
+exp = \
+ [name for name in dir(__builtin__) if "Error" in name]
+
+len(exp)
+32
+\end{verbatim}
+
+{\Large For the most part, you can/should use a built in one}
+
+\end{frame}
+
+
+
+%-------------------------------
+\begin{frame}{LAB}
+{\Large Exceptions Lab}
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\center
+
+\LARGE Lighting Talk:
+\vfill
+Joshua
+\vfill
+
+}
+\end{frame}
 
 \section{Unicode}
 
@@ -825,16 +1061,34 @@ for line in f:
 
 
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}[fragile]{LAB}
 
 {\Large unicode exercises}
 \begin{itemize}
-  \item
+  \item Find some nifty non-ascii characters you might use.\\
+Create a unicode object with them in two different ways.
+  \item In the "code" dir for this week, there are two files:\\
+        \verb|text.utf16| \\
+        \verb|text.utf16| \\
 \end{itemize}
 
 \end{frame}
 
-\section{Files and Directories}
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\center
+
+\LARGE Lighting Talk:
+\vfill
+Bill
+\vfill
+
+}
+\end{frame}
+
+
+\section{Paths and Directories}
 
 % ----------------------------------
 \begin{frame}[fragile]{Paths}
@@ -853,6 +1107,8 @@ secret.txt
 
 {\Large Either work with \verb|open()|, etc.}
 
+\vfill
+(working directory only makes sense with command-line programs...)
 \end{frame}
 
 % ----------------------------------
@@ -916,6 +1172,18 @@ os.walk()
 \end{itemize}
 
 \end{frame}
+
+
+
+%-------------------------------
+\begin{frame}{Homework}
+
+\begin{itemize}
+  \item Finish (or re-factor) the Labs you didn't finish in class.
+\end{itemize}
+
+\end{frame}
+
 
 
 \end{document}
