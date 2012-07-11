@@ -172,7 +172,7 @@ Out[206]: 'a string\nwith a newline'
 \end{frame}
 
 
-\section{More on Strings}
+\section{String Formatting, etc}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Strings}
@@ -401,8 +401,8 @@ Out[263]: 'a string is: anything'
 In [264]: "the number %s is %i"%('five', 5)
 Out[264]: 'the number five is 5'
 
-In [266]: "the first 5 numbers are: %i, %i, %i, %i, %i"%(1,2,3,4,5)
-Out[266]: 'the first 5 numbers are: 1, 2, 3, 4, 5'
+In [266]: "the first 3 numbers are: %i, %i, %i"%(1,2,3)
+Out[266]: 'the first 3 numbers are: 1, 2, 3'
 
 \end{verbatim}
 
@@ -476,17 +476,12 @@ Out[284]: 'Hello Joe!'
         for an arbitrary number of numbers...
   \item Play with string formatting a bit more.
   \item Write a (really simple) mail merge program
-  \item implement rot13 decoding \\
-     \hspace{0.5in} decode this message: \\
-     \hspace{0.5in} Zntargvp sebz bhgfvqr arne pbeare
 \end{itemize}
 
 \end{frame}
 
 %-------------------------------
 \begin{frame}[fragile]{LAB}
-
-
 {\center
 
 \Large￼ROT13 encryption
@@ -506,7 +501,21 @@ the alphabet, wrapping back to the beginning if necessary
 
 \end{frame}
 
-\section{Files}
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\center
+
+\LARGE Lighting Talk:
+\vfill
+Bill
+\vfill
+
+}
+
+\end{frame}
+
+\section{File Reading and Writing}
 
 %-------------------------------
 \begin{frame}[fragile]{Files}
@@ -690,6 +699,211 @@ Out[423]: 'somestuff'
 {\Large handy for testing}
 \end{frame}
 
+
+\section{Unicode}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large I hope you all read this:}
+
+\vfill
+{\Large
+\centering
+The Absolute Minimum Every Software Developer Absolutely,
+Positively Must Know About Unicode and Character Sets (No Excuses!)
+
+}
+
+\vfill
+\url{http://www.joelonsoftware.com/articles/Unicode.html}
+
+\vfill
+{\Large If not -- go read it!}
+
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+
+Everything is Bytes
+
+\vfill
+If it's on disk or on a network, it's bytes
+
+\vfill
+Python provides some abstractions to make it easier to deal with bytes
+
+\vfill
+}
+
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+
+Unicode is a biggie
+
+\vfill
+strings vs unicode 
+}
+
+{\large (\verb|str()| vs. \verb|unicode()| ) }
+
+\vfill
+{\Large python 2.x vs 3.x}
+
+
+\vfill
+(actually, dealing with numbers rather than bytes is big -- but we take that for granted)
+
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+Strings are sequences of bytes
+
+\vfill
+Unicode strings are sequences of platonic characters
+
+\vfill
+Platonic characters cannot be written to disk or network!
+}
+\vfill
+(ANSI -- one character == one byte -- so easy!)
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+\vfill
+the \verb|unicode| object lets you work with characters
+
+\vfill
+encoding is converting from a uncode object to bytes
+
+\vfill
+decoding is converting from bytes to a unicode object
+
+}
+\vfill
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+\begin{verbatim}
+import codecs
+ord()
+chr()
+unichr()
+str()
+unicode()
+encode()
+decode()
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Unicode Literals}
+
+
+{\Large 1) Use unicode in your source files:}
+
+\begin{verbatim}
+# -*- coding: utf-8 -*-
+\end{verbatim}
+
+\vfill
+{\Large 2) escape the unicode characters}
+
+\begin{verbatim}
+print u"The integral sign: \u222B"
+print u"The integral sign: \N{integral}"
+\end{verbatim}
+
+{\large lots of tables of code points online:}
+
+\url{http://inamidst.com/stuff/unidata/}
+
+\end{frame}
+
+
+%---------------------------------
+\begin{frame}[fragile]{Unicode}
+
+{\Large
+Use unicode objects in all your code
+
+\vfill
+decode on input
+
+\vfill
+encode on output
+
+\vfill
+Many packages do this for you\\
+\hspace{0.25in} (XML processing, databases, ...)
+
+\vfill
+Gotcha:\\
+\hspace{0.25in} Python has a default encoding (usually ascii)
+}
+\end{frame}
+
+\begin{frame}[fragile]{Unicode}
+
+{\Large Python Docs Unicode HowTo:}
+
+\url{http://docs.python.org/howto/unicode.html}
+
+\vfill
+``Reading Unicode from a file is therefore simple:''
+
+\begin{verbatim}
+import codecs
+f = codecs.open('unicode.rst', encoding='utf-8')
+for line in f:
+    print repr(line)
+\end{verbatim}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+{\Large unicode exercises}
+\begin{itemize}
+  \item Find some nifty non-ascii characters you might use.\\
+        Create a unicode object with them in two different ways.
+  \item In the "code" dir for this week, there are two files:\\
+        \verb|text.utf16| \\
+        \verb|text.utf16| \\
+        read the contents into unicode objects
+  \item write some of the text from the first exercise to file.
+  \item read that file back in.
+\end{itemize}
+
+\vfill
+(online unicode reference: \url{http://inamidst.com/stuff/unidata/})
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\center
+
+\LARGE Lighting Talk:
+\vfill
+Joshua
+\vfill
+
+}
+\end{frame}
+
 \section{Exceptions}
 
 \begin{frame}[fragile]{Exceptions}
@@ -864,15 +1078,15 @@ len(exp)
 \end{frame}
 
 
-
-%-------------------------------
-\begin{frame}{LAB}
-{\Large Exceptions Lab}
-\begin{itemize}
-  \item
-\end{itemize}
-
-\end{frame}
+%
+%%-------------------------------
+%\begin{frame}{LAB}
+%{\Large Exceptions Lab}
+%\begin{itemize}
+%  \item
+%\end{itemize}
+%
+%\end{frame}
 
 %-------------------------------
 \begin{frame}{Lightning Talk}
@@ -886,207 +1100,6 @@ Joshua
 
 }
 \end{frame}
-
-\section{Unicode}
-
-\begin{frame}[fragile]{Unicode}
-
-{\Large I hope you all read this:}
-
-\vfill
-{\Large
-\centering
-The Absolute Minimum Every Software Developer Absolutely,
-Positively Must Know About Unicode and Character Sets (No Excuses!)
-
-}
-
-\vfill
-\url{http://www.joelonsoftware.com/articles/Unicode.html}
-
-\vfill
-{\Large If not -- go read it!}
-
-\end{frame}
-
-\begin{frame}[fragile]{Unicode}
-
-{\Large
-\vfill
-
-Everything is Bytes
-
-\vfill
-If it's on disk or on a network, it's bytes
-
-\vfill
-Python provides some abstractions to make it easier to deal with bytes
-
-\vfill
-}
-
-\end{frame}
-
-\begin{frame}[fragile]{Unicode}
-
-{\Large
-\vfill
-
-Unicode is a biggie
-
-\vfill
-strings vs unicode 
-}
-
-{\large (\verb|str()| vs. \verb|unicode()| ) }
-
-\vfill
-{\Large python 2.x vs 3.x}
-
-
-\vfill
-(actually, dealing with numbers rather than bytes is big -- but we take that for granted)
-
-\end{frame}
-
-\begin{frame}[fragile]{Unicode}
-
-{\Large
-\vfill
-Strings are sequences of bytes
-
-\vfill
-Unicode strings are sequences of platonic characters
-
-\vfill
-Platonic characters cannot be written to disk or network!
-}
-\vfill
-(ANSI -- one character == one byte -- so easy!)
-\end{frame}
-
-\begin{frame}[fragile]{Unicode}
-
-{\Large
-\vfill
-the \verb|unicode| object lets you work with characters
-
-\vfill
-encoding is converting from a uncode object to bytes
-
-\vfill
-decoding is converting from bytes to a unicode object
-
-}
-\vfill
-\end{frame}
-
-\begin{frame}[fragile]{Unicode}
-
-\begin{verbatim}
-import codecs
-ord()
-chr()
-unichr()
-str()
-unicode()
-encode()
-decode()
-\end{verbatim}
-\end{frame}
-
-\begin{frame}[fragile]{Unicode Literals}
-
-
-{\Large 1) Use unicode in your source files:}
-
-\begin{verbatim}
-# -*- coding: utf-8 -*-
-\end{verbatim}
-
-\vfill
-{\Large 2) escape the unicode characters}
-
-\begin{verbatim}
-print u"The integral sign: \u222B"
-print u"The integral sign: \N{integral}"
-\end{verbatim}
-
-{\large lots of tables of code points online:}
-
-\url{http://inamidst.com/stuff/unidata/}
-
-\end{frame}
-
-
-%---------------------------------
-\begin{frame}[fragile]{Unicode}
-
-{\Large
-Use unicode objects in all your code
-
-\vfill
-decode on input
-
-\vfill
-encode on output
-
-\vfill
-Many packages do this for you\\
-\hspace{0.25in} (XML processing, databases, ...)
-
-\vfill
-Gotcha:\\
-\hspace{0.25in} Python has a default encoding (usually ascii)
-}
-\end{frame}
-
-\begin{frame}[fragile]{Unicode}
-
-{\Large Python Docs Unicode HowTo:}
-
-\url{http://docs.python.org/howto/unicode.html}
-
-\vfill
-``Reading Unicode from a file is therefore simple:''
-
-\begin{verbatim}
-import codecs
-f = codecs.open('unicode.rst', encoding='utf-8')
-for line in f:
-    print repr(line)
-\end{verbatim}
-
-\end{frame}
-
-
-%-------------------------------
-\begin{frame}[fragile]{LAB}
-
-{\Large unicode exercises}
-\begin{itemize}
-  \item Find some nifty non-ascii characters you might use.\\
-Create a unicode object with them in two different ways.
-  \item In the "code" dir for this week, there are two files:\\
-        \verb|text.utf16| \\
-        \verb|text.utf16| \\
-\end{itemize}
-
-\end{frame}
-
-%-------------------------------
-\begin{frame}{Lightning Talk}
-
-{\center
-
-\LARGE Lighting Talk:
-\vfill
-Bill
-\vfill
-
-}
-\end{frame}
-
 
 \section{Paths and Directories}
 
@@ -1163,27 +1176,29 @@ os.walk()
 \begin{frame}{LAB}
 
 \begin{itemize}
-  \item write a program which prints the full path to all files in the current directory, one per line
+  \item write a program which prints the full path to all files in the current
+        directory, one per line
   \item write a program which copies a file from a source, to a
         destination (without using shutil, or the OS copy command)
    \item update mail-merge from the previous lab to write output
          to individual files on disk
-   \item advanced - implement your own iterator
 \end{itemize}
 
 \end{frame}
-
-
 
 %-------------------------------
 \begin{frame}{Homework}
 
 \begin{itemize}
+  \item TP: Chapters -- 10, 11, 12, 13
   \item Finish (or re-factor) the Labs you didn't finish in class.
+  \item CodingBat - 12 more string & list problems
+  \item Write a script which does something useful (to you) and reads & writes
+        files. Very, very small scope is good. something useful at work would
+        be great, but no job secrets!
 \end{itemize}
 
 \end{frame}
-
 
 
 \end{document}
