@@ -1,4 +1,7 @@
-
+data = ( ('George', 'a goldfish'),
+         ('Joe', 'several small pieces of lint'),
+         ('Jennifer','a red wagon')
+         )
 
 template = """
 Dear %s,
@@ -10,12 +13,6 @@ don't have to pay for it!
 Please enjoy this form letter as a token of my sincere appreciation.
 """
 
-
-data = ( ('George', 'a goldfish'),
-         ('Joe', 'several small pieces of lint'),
-         ('Jennifer','a red wagon')
-         )
-
 for name, gift in data:
     print 'Filling template for %s' % name
     message = template%(name, gift, gift)
@@ -23,5 +20,3 @@ for name, gift in data:
     f = open(file_name, 'w')
     f.write(message)
     f.close()
-
-

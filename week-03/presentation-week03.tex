@@ -1,7 +1,7 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 2]{Introduction  to Python\\ Exceptions, Unicode, Text Processing}
+\title[Intro to Python: Week 2]{Introduction  to Python\\ Exceptions, Unicode, File Processing}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{July 11, 2012}
@@ -29,8 +29,13 @@
 %-------------------------------
 \begin{frame}{Last Class}
 
+\vfill
+(Bill and Joshua -- ready for your lightning talk?)
+
+\vfill
 {\Large Lab from end of last class?  }
 
+\vfill
 \end{frame}
 
 
@@ -248,6 +253,29 @@ s.splitlines()
 
 \url{http://docs.python.org/library/stdtypes.html#index-23}
 \vfill
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Joining Strings}
+
+{\Large The Join Method:}
+
+\vfill
+\begin{verbatim}
+In [289]: t = ("some", "words","to","join")
+
+In [290]: " ".join(t)
+Out[290]: 'some words to join'
+
+In [291]: ",".join(t)
+Out[291]: 'some,words,to,join'
+
+In [292]: "".join(t)
+Out[292]: 'somewordstojoin'
+\end{verbatim}
+
+\vfill
 (demo -- join)
 
 \end{frame} 
@@ -350,26 +378,6 @@ easier to modify as code gets complicated
 \url{http://docs.python.org/library/stdtypes.html#string-formatting-operations}
 \end{frame} 
 
-% ---------------------------------------------
-\begin{frame}[fragile]{Joining Strings}
-
-{\Large The Join Method:}
-
-\vfill
-\begin{verbatim}
-In [289]: t = ("some", "words","to","join")
-
-In [290]: " ".join(t)
-Out[290]: 'some words to join'
-
-In [291]: ",".join(t)
-Out[291]: 'some,words,to,join'
-
-In [292]: "".join(t)
-Out[292]: 'somewordstojoin'
-\end{verbatim}
-
-\end{frame} 
 
 
 
@@ -453,14 +461,14 @@ Out[132]: 'string with 1 formatting item'
 {\Large The format method}
 
 \begin{verbatim}
-In [283]: 'Hello {0}!'.format(name)
-Out[283]: 'Hello Joe!'
+In [14]: 'Hello {0} {1}!'.format('Joe', 'Barnes')
+Out[14]: 'Hello Joe Barnes!'
 
-In [284]: 'Hello {name}!'.format(**dictionary)
-Out[284]: 'Hello Joe!'
+In [12]: 'Hello {name}!'.format(name='Joe')
+Out[12]: 'Hello Joe!'
 \end{verbatim}
 \vfill
-{\Large pick one (probably ‘string formatting’): \\
+{\Large pick one (probably regular string formatting): \\
   -- get comfy with it }
 
 \end{frame}
@@ -474,19 +482,22 @@ Out[284]: 'Hello Joe!'
 \begin{itemize}
   \item Rewrite: \verb| the first 3 numbers are: %i, %i, %i"%(1,2,3)| \\
         for an arbitrary number of numbers...
-  \item Play with string formatting a bit more.
+  \item write a format string that will take:\\
+        \verb|( 2, 123.4567, 10000)| \\
+        and produce: \\
+        \verb|'file_002 :   123.46, 1e+04'|
   \item Write a (really simple) mail merge program
+  \item ROT13 -- see next slide
 \end{itemize}
 
 \end{frame}
 
 %-------------------------------
 \begin{frame}[fragile]{LAB}
-{\center
 
+\vfill
 \Large￼ROT13 encryption
 
-}
 \vfill
 Applying ROT13 to a piece of text merely requires examining its alphabetic
 characters and replacing each one by the letter 13 places further along in
