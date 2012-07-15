@@ -1,7 +1,7 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 2]{Introduction  to Python\\ Exceptions, Unicode, File Processing}
+\title[Intro to Python: Week 3]{Introduction  to Python\\ Exceptions, Unicode, File Processing}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{July 11, 2012}
@@ -23,7 +23,7 @@
   \tableofcontents
 \end{frame}
 
-\section{Review/Questions}
+\section{Review/Questions, Reading Notes}
 
 
 %-------------------------------
@@ -40,7 +40,7 @@
 
 
 %-------------------------------
-\begin{frame}[fragile]{LAB}
+\begin{frame}[fragile]{Last week's LAB}
 
 \verb| def count_them(letter): |
 \begin{itemize}
@@ -80,8 +80,6 @@
   {\Large Homework notes }
 
 \end{frame}
-
-\section {Notes on Reading}
 
 %-------------------------------
 \begin{frame}[fragile]{subprocesses}
@@ -456,6 +454,23 @@ Out[132]: 'string with 1 formatting item'
 \end{frame}
 
 %-------------------------------
+\begin{frame}[fragile]{String formatting}
+
+{\Large The format operator works with string variables, too:}
+
+\begin{verbatim}
+In [45]: s = "%i / %i = %i"
+
+In [46]: a, b = 12, 3
+
+In [47]: s%(a, b, a/b)
+Out[47]: '12 / 3 = 4'
+\end{verbatim}
+\vfill
+So you can dynamically build a format string
+\end{frame}
+
+%-------------------------------
 \begin{frame}[fragile]{Advanced Formatting}
 
 {\Large The format method}
@@ -644,7 +659,7 @@ while True:
 
 \begin{verbatim}
 
-outfile = open('output.txt')
+outfile = open('output.txt', 'w')
 
 for i in range(10):
     outfile.write("this is line: %i\n"%i)
@@ -884,9 +899,8 @@ for line in f:
 \end{frame}
 
 %-------------------------------
-\begin{frame}[fragile]{LAB}
+\begin{frame}[fragile]{Unicode LAB}
 
-{\Large unicode exercises}
 \begin{itemize}
   \item Find some nifty non-ascii characters you might use.\\
         Create a unicode object with them in two different ways.
@@ -899,7 +913,11 @@ for line in f:
 \end{itemize}
 
 \vfill
-(online unicode reference: \url{http://inamidst.com/stuff/unidata/})
+(reference: \url{http://inamidst.com/stuff/unidata/})
+
+\vfill
+NOTE: if you terminal does not support unicode -- you'll get an error trying
+to print. Try a different terminal or IDE, or google for a solution
 \end{frame}
 
 %-------------------------------
