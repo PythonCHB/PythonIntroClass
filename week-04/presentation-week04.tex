@@ -11,65 +11,1302 @@
 
 \begin{document}
 
+%% ---------------------------------------------
+%\begin{frame}
+%  \titlepage
+%\end{frame}
+%
+%% ---------------------------------------------
+%\begin{frame}
+%\frametitle{Table of Contents}
+%%\tableofcontents[currentsection]
+%  \tableofcontents
+%\end{frame}
+%
+%
+%\section{Review/Questions}
+%
+%% ---------------------------------------------
+%\begin{frame}{Review of Previous Class}
+%
+%\begin{itemize}
+%  \item ...
+%\end{itemize}
+%
+%\end{frame}
+%
+%
+%% header
+%% ---------------------------------------------
+%\begin{frame}{Homework review}
+%
+%  {\Large Homework notes }
+%
+%\end{frame}
+%
+%\section{More on function calling}
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Default Parameters}
+%
+% {\Large Sometimes you don't need the user to specify everything every time}
+%
+%\begin{verbatim}
+%In [142]: def fun(x,y,z=5):
+%   .....:         print x,y,z
+%
+%In [143]: fun(1,2)
+%1 2 5
+%
+%In [144]: fun(1,2,3)
+%1 2 3
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Keyword arguments}
+%
+% {\Large You can specify only what you need -- any order}
+%
+%\begin{verbatim}
+%In [151]: def fun(x,y=0,z=0):
+%        print x,y,z
+%   .....:     
+%
+%In [152]: fun(1,2,3)
+%1 2 3
+%
+%In [153]: fun(1, z=3)
+%1 0 3
+%
+%In [154]: fun(1, z=3, y=2)
+%1 2 3
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Keyword arguments}
+%
+% {\Large You can specify only what you need -- any order}
+%
+%\begin{verbatim}
+%In [151]: def fun(x,y=0,z=0):
+%        print x,y,z
+%   .....:     
+%
+%In [152]: fun(1,2,3)
+%1 2 3
+%
+%In [153]: fun(1, z=3)
+%1 0 3
+%
+%In [154]: fun(1, z=3, y=2)
+%1 2 3
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Keyword arguments}
+%
+% {\Large A Common Idiom}
+%
+%\vfill
+%\begin{verbatim}
+%def fun(x,y=None):
+%    if y is None:
+%        do_something_different
+%
+%    go_on_here
+%\end{verbatim}
+%\vfill
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Keyword arguments}
+%
+% {\Large Can set defaults to variables}
+%
+%\begin{verbatim}
+%In [156]: y = 4
+%
+%In [157]: def fun(x=y):
+%    print "x is:", x
+%   .....:     
+%
+%In [158]: fun()
+%x is: 4
+%
+%In [159]: y = 6
+%
+%In [160]: fun()
+%x is: 4
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Keyword arguments}
+%
+%{\Large Defaults are evaluated when the function is defined}
+%
+%\begin{verbatim}
+%In [156]: y = 4
+%
+%In [157]: def fun(x=y):
+%    print "x is:", x
+%   .....:     
+%
+%In [158]: fun()
+%x is: 4
+%
+%In [159]: y = 6
+%
+%In [160]: fun()
+%x is: 4
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Keyword arguments}
+%
+%\begin{verbatim}
+%In [161]: l = []
+%In [162]: for i in range(3):
+%   .....:     def fun(x=i):
+%   .....:         print x
+%   .....:     l.append(fun)
+%In [163]: l
+%Out[163]: [<function __main__.fun>, <function __main__.fun>, <function __main__.fun>]
+%In [164]: l[0]
+%Out[164]: <function __main__.fun>
+%In [165]: l[0]()
+%0
+%In [166]: l[1]()
+%1
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{lambda}
+%
+%{\Large``Anonymous'' functions}
+%
+%\vfill
+%\begin{verbatim}
+%In [171]: f = lambda x, y: x+y
+%
+%In [172]: f(2,3)
+%Out[172]: 5
+%\end{verbatim}
+%
+%\vfill
+%{\Large Can only be an expression -- not a statement}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{lambda}
+%
+%{\Large Can also use keyword arguments}
+%
+%\begin{verbatim}
+%In [186]: l = []
+%In [187]: for i in range(3):
+%    l.append(lambda x, e=i: x**e)
+%   .....:     
+%In [189]: for f in l:
+%    print f(3)
+%1
+%3
+%9
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%%-------------------------------
+%\begin{frame}{LAB}
+%
+%\begin{itemize}
+%  \item keyword arguments
+%\end{itemize}
+%
+%\end{frame}
+%
+%
+%%-------------------------------
+%\begin{frame}{Lightning Talk}
+%
+%{\center
+%
+%\LARGE Lighting Talk:
+%\vfill
+%Joshua
+%\vfill
+%
+%}
+%\end{frame}
+%
+%
+%
+%
+%\section{Lists, Tuples...}
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+% {\Large List Literals}
+%
+%\begin{verbatim}
+%>>> []
+%[]
+%>>> list()
+%[]
+%>>> [1, 2, 3]
+%[1, 2, 3]
+%>>> [1, 3.14, "abc"]
+%[1, 3.14, 'abc']
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+% {\Large Indexing just like all sequences}
+%
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham']
+%>>> food[2]
+%'ham'
+%>>> food[0]
+%'spam'
+%>>> food[42]
+%Traceback (most recent call last):
+%  File "<stdin>", line 1, in <module>
+%IndexError: list index out of range
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\Large List are mutable}
+%
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham']
+%>>> food[1] = 'raspberries'
+%>>> food
+%['spam', 'raspberries', 'ham']
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\Large Each element is a value, and can be in multiple lists and have multiple
+%names (or no name)}
+%
+%\begin{verbatim}
+%￼  >>> name = 'Brian'
+%   >>> a = [1, 2, name]
+%   >>> b = [3, 4, name]
+%   >>> name
+%   'Brian'
+%   >>> a
+%   [1, 2, 'Brian']
+%   >>> b
+%   [3, 4, 'Brian']
+%   >>> a[2]
+%   'Brian'
+%   >>> b[2]
+%   'Brian'
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\Large ￼\verb| .append(), .insert()|}
+%
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham']
+%>>> food.append('sushi')
+%>>> food
+%['spam', 'eggs', 'ham', 'sushi']
+%>>> food.insert(0, 'carrots')
+%>>> food
+%['carrots', 'spam', 'eggs', 'ham', 'sushi']
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\large ￼\verb| .extend()|}
+%
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham']
+%>>> food.extend(['fish', 'chips'])
+%>>> food
+%['spam', 'eggs', 'ham', 'fish', 'chips']
+%\end{verbatim}
+%
+%{\large could be any sequence:}
+%
+%\begin{verbatim}
+%>>>  food
+%>>>  ['spam', 'eggs', 'ham']
+%>>>  silverware = ('fork', 'knife', 'spoon') # a tuple
+%>>>  food.extend(silverware)
+%>>>  food
+%>>>  ['spam', 'eggs', 'ham', 'fork', 'knife', 'spoon']
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\large ￼\verb|￼pop(), remove() |}
+%
+%\begin{verbatim}
+%In [203]: food = ['spam', 'eggs', 'ham', 'toast']
+%In [204]: food.pop()
+%Out[204]: 'toast'
+%In [205]: food.pop(0)
+%Out[205]: 'spam'
+%In [206]: food
+%Out[206]: ['eggs', 'ham']
+%In [207]: food.remove('ham')
+%In [208]: food
+%Out[208]: ['eggs']
+%\end{verbatim}
+%
+%\end{frame} 
+%￼￼
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\large ￼\verb|list()| accepts any sequence and returns a list of that sequence}
+%\begin{verbatim}
+%>>> word = 'Python '
+%>>> chars = []
+%>>> for char in word:
+%...   chars.append(char)
+%>>> chars
+%['P', 'y', 't', 'h', 'o', 'n', ' ']
+%>>> list(word)
+%['P', 'y', 't', 'h', 'o', 'n', ' ']
+%\end{verbatim}
+%
+%\end{frame} 
+%￼￼
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\large If you need to change individual letters... you can do this,
+%but usually \verb|somestring.replace()| will be enough }
+%
+%\begin{verbatim}
+%In [216]: name = 'Chris'
+%In [217]: lname = list(name)
+%In [218]: lname[0:2] = 'K'
+%In [219]: name = ''.join(lname)
+%In [220]: name
+%Out[220]: 'Kris'
+%\end{verbatim}
+%
+%\end{frame} 
+%￼￼
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists}
+%
+%{\large Building up strings:}
+%
+%\begin{verbatim}
+%In [221]: msg = []
+%
+%In [222]: msg.append('The first line of a message')
+%
+%In [223]: msg.append('The second line of a message')
+%
+%In [224]: msg.append('And one more line')
+%
+%In [225]: print '\n'.join(msg)
+%The first line of a message
+%The second line of a message
+%And one more line
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Slicing}
+%
+%{\large Slicing makes a copy}
+%
+%\begin{verbatim}
+%In [227]: food = ['spam', 'eggs', 'ham', 'sushi']
+%
+%In [228]: some_food = food[1:3]
+%
+%In [229]: some_food[1] = 'bacon'
+%
+%In [230]: food
+%Out[230]: ['spam', 'eggs', 'ham', 'sushi']
+%
+%In [231]: some_food
+%Out[231]: ['eggs', 'bacon']
+%\end{verbatim}
+%
+%\end{frame}
+%
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Slicing}
+%
+%{\large Easy way to copy a whole list}
+%
+%\begin{verbatim}
+%In [232]: food
+%Out[232]: ['spam', 'eggs', 'ham', 'sushi']
+%
+%In [233]: food2 = food[:]
+%
+%In [234]: food is food2
+%Out[234]: False
+%
+%\end{verbatim}
+%
+%{\Large but the copy is ``shallow''}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Slicing}
+%
+%{\Large ``Shallow'' copy}
+%
+%\begin{verbatim}
+%In [249]: food = ['spam', ['eggs', 'ham']]
+%In [251]: food_copy = food[:]
+%In [252]: food[1].pop()
+%Out[252]: 'ham'
+%In [253]: food
+%Out[253]: ['spam', ['eggs']]
+%In [256]: food.pop(0)
+%Out[256]: 'spam'
+%In [257]: food
+%Out[257]: [['eggs']]
+%In [258]: food_copy
+%Out[258]: ['spam', ['eggs']]
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Name Binding}
+%
+%{\Large Assigning to a name does not copy:}
+%
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham', 'sushi']
+%>>> food_again = food
+%>>> food_copy = food[:]
+%>>> food.remove('sushi')
+%>>> food
+%['spam', 'eggs', 'ham']
+%>>> food_again
+%['spam', 'eggs', 'ham']
+%>>> food_copy
+%['spam', 'eggs', 'ham', 'sushi']
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Iterating}
+%
+%{\Large Iterating over a list}
+%
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham', 'sushi']
+%>>> for x in food:
+%...   print x
+%...
+%spam
+%eggs
+%ham
+%sushi
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Processing lists}
+%
+%{\Large A common pattern}
+%
+%\begin{verbatim}
+%filtered = []
+%for x in somelist:
+%    if should_be_included(x):
+%        filtered.append(x)
+%del(somelist)  # maybe
+%\end{verbatim}
+%
+%{\Large you don't want to be deleting items from the list while iterating...}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Mutating Lists}
+%
+%{\Large if you’re going to change the list, iterate over a copy for safety }
+%
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham', 'sushi']
+%>>> for x in food[:]:
+%   ...   # change the list somehow
+%   ...
+%\end{verbatim}
+%
+%{\Large insidious bugs otherwise}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{operators vs methods}
+%
+%{\large What's the difference?}
+%
+%\begin{verbatim}
+%   >>> food = ['spam', 'eggs', 'ham']
+%   >>> more = ['fish', 'chips']
+%   >>> food = food + more
+%   >>> food
+%   ['spam', 'eggs', 'ham', 'fish', 'chips']
+%
+%   >>> food = ['spam', 'eggs', 'ham']
+%   >>> more = ['fish', 'chips']
+%   >>> food.extend(more)
+%   >>> food
+%   ['spam', 'eggs', 'ham', 'fish', 'chips']
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{in}
+%
+%\begin{verbatim}
+%￼>>> food = ['spam', 'eggs', 'ham']
+%>>> 'eggs' in food
+%True
+%>>> 'chicken feet' in food
+%False
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{reverse()}
+%
+%{\large Iterating over a list}
+%
+%\begin{verbatim}
+%￼>>> food = ['spam', 'eggs', 'ham']
+%>>> food.reverse()
+%>>> food
+%['ham', 'eggs', 'spam']
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{sort()}
+%
+%\vfill
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham', 'sushi']
+%>>> food.sort()
+%>>> food
+%['eggs', 'ham', 'spam', 'sushi']
+%\end{verbatim}
+%
+%\vfill
+%{\Large note:}
+%
+%\vfill
+%\begin{verbatim}
+%>>> food = ['spam', 'eggs', 'ham', 'sushi']
+%>>> result = food.sort()
+%>>> print result
+%None
+%\end{verbatim}
+%
+%\vfill
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Sorting}
+%
+%{\large How should this sort?}
+%
+%\begin{verbatim}
+%>>> s
+%[[2, 'a'], [1, 'b'], [1, 'c'], [1, 'a'], [2, 'c']]
+%\end{verbatim}
+%
+%\pause
+%
+%\begin{verbatim}
+%>>> s.sort()
+%>>> s
+%[[1, 'a'], [1, 'b'], [1, 'c'], [2, 'a'], [2, 'c']]
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Sorting}
+%
+%{\large You can specify your own compare function:}
+%
+%\begin{verbatim}
+%In [279]: s = [[2, 'a'], [1, 'b'], [1, 'c'], [1, 'a'], [2, 'c']]
+%In [281]: def comp(s1,s2):
+%   .....:     if s1[1] > s2[1]: return 1
+%   .....:     elif s1[1]<s2[1]: return -1
+%   .....:     else:
+%   .....:         if s1[0] > s2[0]: return 1
+%   .....:         elif s1[0] < s2[0]: return -1
+%   .....:     return 0
+%In [282]: s.sort(comp)
+%In [283]: s
+%Out[283]: [[1, 'a'], [2, 'a'], [1, 'b'], [1, 'c'], [2, 'c']]
+%\end{verbatim}
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Sorting}
+%
+%{\Large
+%Mixed types can be sorted.
+%}
+%\vfill
+%{\center \Large
+%
+%``objects of different types always compare unequal, and are ordered
+%consistently but arbitrarily.''
+%
+%}
+%
+%\vfill
+%\url{http://docs.python.org/reference/expressions.html#not-in}
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Searching}
+%
+%{\Large Finding or Counting items}
+%
+%\begin{verbatim}
+%In [288]: l = [3,1,7,5,4,3]
+%
+%In [289]: l.index(5)
+%Out[289]: 3
+%
+%In [290]: l.count(3)
+%Out[290]: 2
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{List Performance }
+%
+%\begin{itemize}
+%  \item￼indexing is fast and constant time: O(1)
+%  \item x in s proportional to n: O(n)
+%  \item visiting all is proportional to n: O(n)
+%  \item operating on the end of list is fast and constant time: O(1) \\
+%     append(), pop()
+%  \item operating on the front (or middle) of the list depends on n: O(n)\\
+%     pop(0), insert(0, v) \\
+%     But, reversing is fast. Also, collections.deque
+%\end{itemize}
+%
+%\url{ http://wiki.python.org/moin/TimeComplexity}
+%
+%\end{frame} 
+%
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{Lists vs. Tuples}
+%
+%\vfill
+%{\Large List or Tuples}
+%
+%\vfill
+%{\Large
+%If it needs to mutable: list
+%
+%\vfill
+%If it needs to be immutable: tuple\\
+%}
+%\hspace{0.2in}{\large (dict key, safety when passing to a function) }
+%
+%\vfill
+%{\Large Otherwise ... taste and convention}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{List vs Tuple}
+%
+%\vfill
+%{\LARGE Convention:}
+%
+%\vfill
+%{\Large Lists are Collections (homogeneous):\\[0.1in]
+%-- contain values of the same type \\ 
+%-- simplifies iterating, sorting, etc
+%}
+%
+%\vfill
+%{\Large tuples are mixed types:\\[0.1in]
+%-- Group multiple values into one logical thing
+%-- Kind of like simple C structs.
+%}
+%\vfill
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{List vs Tuple}
+%
+%{\Large
+%\begin{itemize}
+%  \item Do the same operation to each element?
+%  \item Small collection of values which make a single logical item?
+%  \item To document that these values won't change?
+%  \item Build it iteratively?
+%  \item Transform, filter, etc?
+%\end{itemize}
+%}
+%
+%\end{frame} 
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{List vs Tuple}
+%
+%{\Large
+%\begin{itemize}
+%  \item Do the same operation to each element? {\bf list}
+%  \item Small collection of values which make a single logical item? {\bf tuple}
+%  \item To document that these values won't change? {\bf tuple}
+%  \item Build it iteratively? {\bf list}
+%  \item Transform, filter, etc? {\bf list}
+%\end{itemize}
+%}
+%
+%\end{frame} 
+%
+%\begin{frame}[fragile]{Named Tuple (Collections Module) }
+%
+%\begin{verbatim}
+%>>> Point = collections.namedtuple('Point',('x','y'))
+%>>> p = Point(3.4, 5.2)
+%>>> p
+% Point(x=3.4, y=5.2)
+%>>> p.x
+% 3.4
+%>>> p[1]
+% 5.2
+%>>> p = Point(y=2.3, x=3.1)
+%>>>  p
+% Point(x=3.1, y=2.3)
+%\end{verbatim}
+%
+%\end{frame} 
+%
+%\begin{frame}[fragile]{Named Tuple (Collections Module) }
+%
+%\vfill
+%{\Large Named Tuple}
+%
+%\vfill
+%{\Large handy for database records: sqlite, csv, etc}
+%
+%\vfill
+%\url{http://docs.python.org/library/collections.html#module-collections}
+%
+%\end{frame} 
+%
+%
+%
+%\begin{frame}[fragile]{List Docs}
+%
+%\vfill
+%{\Large The list docs:}
+%
+%\vfill
+%\url{http://docs.python.org/library/stdtypes.html#mutable-sequence-types}
+%
+%\vfill
+%(actually any mutable sequence....)
+%
+%\end{frame} 
+%
+%%-------------------------------
+%\begin{frame}{LAB}
+%
+%\vfill
+%{\LARGE Dan's list Lab}
+%\vfill
+%
+%\end{frame}
+%
+%%-------------------------------
+%\begin{frame}{Lightning Talk}
+%
+%{\center
+%
+%\LARGE Lighting Talk:
+%\vfill
+%David
+%\vfill
+%
+%}
+%\end{frame}
+
+% ##################################
+\section{Dictionaries and Sets}
+
 % ---------------------------------------------
-\begin{frame}
-  \titlepage
+\begin{frame}[fragile]{Dictionary}
+
+{\Large Python calls it a \verb|dict| }
+
+\vfill
+{\Large Other terms:}
+\begin{itemize}
+  \item dictionary
+  \item associative array
+  \item map
+  \item hash table
+  \item hash
+  \item key-value pair
+\end{itemize}
+
+\vfill
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Constructors}
+
+\begin{verbatim}
+>>> {'key1': 3, 'key2': 5}
+{'key1': 3, 'key2': 5}
+
+>>> dict([('key1', 3),('key2', 5)])
+{'key1': 3, 'key2': 5}
+
+>>> dict(key1=3, key2= 5)
+{'key1': 3, 'key2': 5}
+
+>>> d = {}
+>>> d['key1'] = 3
+>>> d['key2'] = 5
+>>> d
+{'key1': 3, 'key2': 5}
+\end{verbatim}
+% {\Large Which to use depends on the shape of your data}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+\begin{verbatim}
+>>> d = {'name': 'Brian', 'score': 42}
+>>> d['score']
+42
+>>> d = {1: 'one', 0: 'zero'}
+>>> d[0]
+'zero'
+>>> d['non-­‐existing key']
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'fish'
+\end{verbatim}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+{\Large Keys can be any immutable:}
+\begin{itemize}
+  \item numbers
+  \item string
+  \item tuples
+\end{itemize}
+
+\begin{verbatim}
+In [325]: d[3] = 'string'
+In [326]: d[3.14] = 'pi'
+In [327]: d['pi'] = 3.14
+In [328]: d[ (1,2,3) ] = 'a tuple key'
+In [329]: d[ [1,2,3] ] = 'a list key'
+   TypeError: unhashable type: 'list'
+\end{verbatim}
+
+\vfill
+Actually -- any "hashable" type.
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+\vfill
+{\Large hash functions convert arbitrarily large data to a small proxy (usually int)
+
+\vfill
+always return the same proxy for the same input
+
+\vfill
+MD5, SHA, etc
+\vfill
+}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+\vfill
+{\Large
+Dictionaries hash the key to an integer proxy and use it to find the key and value
+}
+\vfill
+{\Large
+Key lookup is efficient because the hash function leads directly to a bucket with a very few keys (often just one)
+}
+\vfill
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+\vfill
+{\Large
+What would happen if the proxy changed after storing a key?
+}
+\vfill
+{\Large
+Hashability requires immutability}
+\vfill
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+\vfill
+{\Large
+
+Key lookup is very efficient
+
+\vfill
+Same average time regardless of size
+}
+
+\vfill
+also... Python name look-ups are implemented with dict:
+
+ --- it’s highly optimized
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+\vfill
+{\Large
+{\center 
+
+key to value
+
+lookup is one way
+
+}}
+\vfill
+{\Large
+{\center 
+
+value to key
+
+requires visiting the whole dict
+
+}}
+
+\vfill
+{\Large
+if you need to check dict values often, create another dict or set (up to you to keep them in sync)
+
+}
+\vfill
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Dictionary Indexing}
+
+\vfill
+{\Large
+dictionaries have no defined order
+}
+\vfill
+\begin{verbatim}
+In [352]: d = {'one':1, 'two':2, 'three':3}
+
+In [353]: d
+Out[353]: {'one': 1, 'three': 3, 'two': 2}
+
+In [354]: d.keys()
+Out[354]: ['three', 'two', 'one']
+\end{verbatim}
+\vfill
+\end{frame} 
+
+%-------------------------------
+\begin{frame}[fragile]{dict iterating}
+
+{\Large \verb|for| iterates the keys}
+\vfill
+\begin{verbatim}
+>>> d = {'name': 'Brian', 'score': 42}
+>>> for x in d:
+...   print x
+...
+score name
+\end{verbatim}
+\vfill
+{note the different order...}
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{dict keys and values}
+
+\vfill
+\begin{verbatim}
+>>> d.keys()
+['score', 'name']
+
+>>> d.values()
+[42, 'Brian']
+
+>>> d.items()
+[('score', 42), ('name', 'Brian')]
+\end{verbatim}
+\vfill
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{dict keys and values}
+
+{\Large iterating on everything}
+\vfill
+\begin{verbatim}
+￼>>> d = {'name': 'Brian', 'score': 42}
+>>> for k, v in d.items():
+...   print "%s: %s" % (k, v)
+...
+score: 42
+name: Brian
+\end{verbatim}
+\vfill
 \end{frame}
 
 % ---------------------------------------------
-\begin{frame}
-\frametitle{Table of Contents}
-%\tableofcontents[currentsection]
-  \tableofcontents
-\end{frame}
-
-
-\section{Review/Questions}
-
-% ---------------------------------------------
-\begin{frame}{Review of Previous Class}
+\begin{frame}[fragile]{Dictionary Performance }
 
 \begin{itemize}
-  \item ...
+  \item￼indexing is fast and constant time: O(1)
+  \item x in s cpnstant time: O(1)
+  \item visiting all is proportional to n: O(n)
+  \item inserting is constant time: O(1)
+  \item deleting is constant time: O(1)
+\end{itemize}
+
+\vfill
+\url{ http://wiki.python.org/moin/TimeComplexity}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{ Sets }
+
+\vfill
+{\Large \verb|set| is an unordered collection of distinct values}
+
+\vfill
+{\Large Essentially a dict with only keys}
+
+\vfill
+
+\end{frame} 
+
+%-------------------------------
+\begin{frame}[fragile]{Set Constructors}
+
+\vfill
+\begin{verbatim}
+>>> set()
+set([])
+>>> set([1, 2, 3])
+set([1, 2, 3])
+# as of 2.7
+>>> {1, 2, 3}
+set([1, 2, 3])
+>>> s = set()
+>>> s.update([1, 2, 3])
+>>> s
+set([1, 2, 3])
+\end{verbatim}
+\vfill
+
+\end{frame}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{ Set Properties}
+
+\vfill
+{\Large \verb|Set| members must be hashable}
+
+\vfill
+{\Large Like dictionary keys -- and for same reason (efficient lookup)}
+
+\vfill
+{\Large No indexing (unordered) }
+
+\vfill
+\begin{verbatim}
+>>> s[1]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'set' object does not support indexing
+\end{verbatim}
+
+\vfill
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{ Set Methods}
+
+\begin{verbatim}
+>> s = set([1])
+>>> s.pop() # an arbitrary member
+1
+>>> s.pop()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 'pop from an empty set'
+
+>>> s = set([1, 2, 3])
+>>> s.remove(2)
+>>> s.remove(2)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+KeyError: 2
+\end{verbatim}
+
+\vfill
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{ Set Methods}
+
+\begin{verbatim}
+s.isdisjoint(other)
+
+s.issubset(other)
+
+s.union(other, ...)
+
+s.intersection(other, ...)
+
+s.difference(other, ...)
+
+s.symmetric_difference( other, ...)
+\end{verbatim}
+
+\vfill
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{ Frozen Set}
+
+\vfill
+{\Large Also \verb|frozenset|}
+
+\vfill
+{\Large immutable -- for use as a key in a dict\\
+(or another set...)}
+
+\vfill
+\begin{verbatim}
+>>> fs = frozenset((3,8,5))
+>>> fs.add(9)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'frozenset' object has no attribute 'add'
+\end{verbatim}
+
+\vfill
+\end{frame} 
+
+%-------------------------------
+\begin{frame}{LAB}
+
+\vfill
+{\LARGE Dan's dict LAB
+\vfill
+or
+\vfill
+Optional LAB (if you already know lists and dicts...)
+}
+
+\begin{itemize}
+  \item Coding Kata 14 - Dave Thomas \\
+    \url{http://codekata.pragprog.com/2007/01/ kata_fourteen_t.html}
+  \item See how far you can get on this task using “The Adventures of Sherlock Holmes” as input: sherlock.txt in the week04 directory (UTF-8)
+  \item  This is intentionally open-ended and underspecified. There are many interesting decisions to make.
 \end{itemize}
 
 \end{frame}
 
-
-% header
-% ---------------------------------------------
-\begin{frame}{Homework review}
-
-  {\Large Homework notes }
-
-\end{frame}
-
-\section{First Section}
-
-% ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
-
- {\Large A topicc}
-
-\begin{verbatim}
-some code example
-\end{verbatim}
-
-\end{frame} 
-
-\section{Another Section}
-
-% ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
-
- {\Large A topicc}
-
-\begin{verbatim}
-some code example
-\end{verbatim}
-
-\end{frame} 
+%%-------------------------------
+%\begin{frame}{Lightning Talk}
+%
+%{\center
+%
+%\LARGE Lighting Talk:
+%\vfill
+%Rob
+%\vfill
+% 
 
 \end{document}
-
- 
