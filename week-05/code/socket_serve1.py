@@ -14,7 +14,7 @@ import socket
 serversocket = socket.socket( socket.AF_INET, socket.SOCK_STREAM)
 
 #bind the socket to localhost, high port
-serversocket.bind(('localhost', 55559),)
+serversocket.bind(('localhost', 55555),)
 #become a server socket
 serversocket.listen(5)
 
@@ -37,4 +37,4 @@ if True:
     clientsocket.send("This is some text")
     
 ## put this in your browser while this is running:
-##    http://localhost:55557/a_file
+##    http://localhost:55555/a_file

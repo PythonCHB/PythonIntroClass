@@ -30,9 +30,15 @@
 \begin{frame}{Review of Previous Class}
 
 \begin{itemize}
-  \item ...
+  \item String formatting
+  \item File reading and writing
+  \item Unicode
+  \item Exception Handling
+  \item Path and Directories
 \end{itemize}
 
+\vfill
+{\Large Questions?}
 \end{frame}
 
 
@@ -42,6 +48,68 @@
 
   {\Large Homework notes }
 
+\end{frame}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{CodingBat}
+
+{\Large List-1 -- sum2}
+
+\begin{verbatim}
+def sum2(nums):
+    if ( len( nums ) > 1 ):
+        return nums[0] + nums[1]
+    elif ( nums ):
+        return nums[0]
+    return 0
+\end{verbatim}
+
+{\Large \verb|sum()| is handy: }
+
+\begin{verbatim}
+def sum2(nums):
+    return sum(nums[:2])
+\end{verbatim}
+
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{CodingBat}
+
+{\Large \verb| String-1 -- make_tags|}
+
+\begin{verbatim}
+def make_tags(tag, word):
+    return "<" + tag + ">" + word + "</" + tag + ">"
+\end{verbatim}
+
+{\Large string formatting...}
+
+\begin{verbatim}
+def make_tags(tag, word):
+    return "<%s>%s</%s>"%(tag,word,tag)
+\end{verbatim}
+
+\begin{verbatim}
+def make_tags(tag, word):
+    return "<%(tag)s>%(word)s</%(tag)s>"% \
+                       {'tag':tag, 'word':word}
+\end{verbatim}
+
+\end{frame} 
+
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\center
+
+\LARGE Lighting Talk:
+\vfill
+Joshua
+\vfill
+
+}
 \end{frame}
 
 \section{More on function calling}
@@ -140,10 +208,6 @@ In [157]: def fun(x=y):
 In [158]: fun()
 x is: 4
 
-In [159]: y = 6
-
-In [160]: fun()
-x is: 4
 \end{verbatim}
 
 \end{frame} 
@@ -175,18 +239,18 @@ x is: 4
 \begin{frame}[fragile]{Keyword arguments}
 
 \begin{verbatim}
-In [161]: l = []
-In [162]: for i in range(3):
-   .....:     def fun(x=i):
-   .....:         print x
-   .....:     l.append(fun)
-In [163]: l
-Out[163]: [<function __main__.fun>, <function __main__.fun>, <function __main__.fun>]
-In [164]: l[0]
-Out[164]: <function __main__.fun>
-In [165]: l[0]()
+>>> l = []
+>>> for i in range(3):
+>>>     def fun(x=i):
+>>>         print x
+>>>     l.append(fun)
+>>> l
+[<function __main__.fun>, <function __main__.fun>, <function __main__.fun>]
+>>> l[0]
+<function __main__.fun>
+>>> l[0]()
 0
-In [166]: l[1]()
+>>> l[1]()
 1
 \end{verbatim}
 
@@ -232,12 +296,21 @@ In [189]: for f in l:
 %-------------------------------
 \begin{frame}{LAB}
 
+{\Large keyword arguments}
 \begin{itemize}
-  \item keyword arguments
+  \item Write a function that has four optional parameters\\
+        (with defaults):
+  \begin{itemize}
+      \item foreground\_color
+      \item background\_color
+      \item link\_color
+      \item visited\_link\_color
+  \end{itemize}
+  \item Have it print the colors.
+  \item Call it with a couple different parameters set 
 \end{itemize}
 
 \end{frame}
-
 
 %-------------------------------
 \begin{frame}{Lightning Talk}
@@ -246,14 +319,11 @@ In [189]: for f in l:
 
 \LARGE Lighting Talk:
 \vfill
-Joshua
+David
 \vfill
 
 }
 \end{frame}
-
-
-
 
 \section{Lists, Tuples...}
 
@@ -960,18 +1030,21 @@ In [395]: for i in g:
 
 \end{frame}
 
-%-------------------------------
+%%-------------------------------
 \begin{frame}{Lightning Talk}
 
 {\center
 
 \LARGE Lighting Talk:
+
 \vfill
-David
+Rob
 \vfill
 
 }
-\end{frame}
+
+\end{frame} 
+%
 
 % ##################################
 \section{Dictionaries and Sets}
@@ -1270,6 +1343,21 @@ Out[340]: {0: 'this_0', 1: 'this_1', 2: 'this_2',
 (not as useful with the dict() constructor...)
 \end{frame} 
 
+% ----------------------------------------------
+\begin{frame}[fragile]{Switch ?}
+
+{\Large How do you spell switch/case in Python?}
+
+\vfill
+{\Large Put the values to switch on in the keys:}
+
+\vfill
+{\Large Functions to call in values:}
+
+\vfill
+demo: sample code (\verb|switch_case.py|)
+\end{frame} 
+
 
 % ---------------------------------------------
 \begin{frame}[fragile]{ Sets }
@@ -1430,10 +1518,6 @@ the keyword arguments are: {'this': 5, 'that': 7}
 
 \end{frame} 
 
-
-
-
-
 %-------------------------------
 \begin{frame}{LAB}
 
@@ -1455,15 +1539,17 @@ Optional LAB
 
 \end{frame}
 
-%%-------------------------------
-%\begin{frame}{Lightning Talk}
-%
-%{\center
-%
-%\LARGE Lighting Talk:
-%\vfill
-%Rob
-%\vfill
-% 
+%-------------------------------
+\begin{frame}{Homework}
+
+\begin{itemize}
+  \item Spend more time (or some time) with the Coding Kata from lab. Get it basically working.
+  \item Experiment with different lengths for the lookup key. (3 words, 4 words, 3 letters, etc)
+  \item This assignment is about playing around with the algorithm and data.
+\end{itemize}
+
+\end{frame}
+
+
 
 \end{document}
