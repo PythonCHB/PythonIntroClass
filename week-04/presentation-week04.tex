@@ -330,7 +330,7 @@ David
 % ---------------------------------------------
 \begin{frame}[fragile]{Lists}
 
- {\Large List Literals}
+ {\Large Lists Literals}
 
 \begin{verbatim}
 >>> []
@@ -346,7 +346,7 @@ David
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{List Indexing}
 
  {\Large Indexing just like all sequences}
 
@@ -365,9 +365,9 @@ IndexError: list index out of range
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{List Mutability}
 
-{\Large List are mutable}
+{\Large Lists are mutable}
 
 \begin{verbatim}
 >>> food = ['spam', 'eggs', 'ham']
@@ -379,13 +379,13 @@ IndexError: list index out of range
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{List Elements}
 
 {\Large Each element is a value, and can be in multiple lists and have multiple
 names (or no name)}
 
 \begin{verbatim}
-￼  >>> name = 'Brian'
+  >>> name = 'Brian'
    >>> a = [1, 2, name]
    >>> b = [3, 4, name]
    >>> name
@@ -403,9 +403,9 @@ names (or no name)}
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{List Methods}
 
-{\Large ￼\verb| .append(), .insert()|}
+{\Large \verb| .append(), .insert()|}
 
 \begin{verbatim}
 >>> food = ['spam', 'eggs', 'ham']
@@ -420,9 +420,9 @@ names (or no name)}
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{List Methods}
 
-{\large ￼\verb| .extend()|}
+{\large \verb| .extend()|}
 
 \begin{verbatim}
 >>> food = ['spam', 'eggs', 'ham']
@@ -445,9 +445,9 @@ names (or no name)}
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{List Methods}
 
-{\large ￼\verb|￼pop(), remove() |}
+{\large \verb|pop(), remove() |}
 
 \begin{verbatim}
 In [203]: food = ['spam', 'eggs', 'ham', 'toast']
@@ -461,14 +461,12 @@ In [207]: food.remove('ham')
 In [208]: food
 Out[208]: ['eggs']
 \end{verbatim}
-
 \end{frame} 
-￼￼
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{List Constructor}
 
-{\large ￼\verb|list()| accepts any sequence and returns a list of that sequence}
+{\large \verb|list()| accepts any sequence and returns a list of that sequence}
 \begin{verbatim}
 >>> word = 'Python '
 >>> chars = []
@@ -479,11 +477,11 @@ Out[208]: ['eggs']
 >>> list(word)
 ['P', 'y', 't', 'h', 'o', 'n', ' ']
 \end{verbatim}
-
 \end{frame} 
-￼￼
+
+
 % ---------------------------------------------
-\begin{frame}[fragile]{Lists}
+\begin{frame}[fragile]{String to List to String}
 
 {\large If you need to change individual letters... you can do this,
 but usually \verb|somestring.replace()| will be enough }
@@ -498,11 +496,10 @@ Out[220]: 'Kris'
 \end{verbatim}
 
 \end{frame} 
-￼￼
-% ---------------------------------------------
-\begin{frame}[fragile]{Lists}
 
-{\large Building up strings:}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Building up strings in a list}
 
 \begin{verbatim}
 In [221]: msg = []
@@ -522,7 +519,7 @@ And one more line
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Slicing}
+\begin{frame}[fragile]{List Slicing}
 
 {\large Slicing makes a copy}
 
@@ -544,7 +541,7 @@ Out[231]: ['eggs', 'bacon']
 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Slicing}
+\begin{frame}[fragile]{List Slicing}
 
 {\large Easy way to copy a whole list}
 
@@ -559,12 +556,13 @@ Out[234]: False
 
 \end{verbatim}
 
-{\Large but the copy is ``shallow''}
+{\Large but the copy is ``shallow''}: \
+\url{http://docs.python.org/library/copy.html}
 
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Slicing}
+\begin{frame}[fragile]{List Slicing}
 
 {\Large ``Shallow'' copy}
 
@@ -606,7 +604,7 @@ Out[258]: ['spam', ['eggs']]
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Iterating}
+\begin{frame}[fragile]{List Iterating}
 
 {\Large Iterating over a list}
 
@@ -624,7 +622,7 @@ sushi
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Processing lists}
+\begin{frame}[fragile]{Processing Lists}
 
 {\Large A common pattern}
 
@@ -643,7 +641,7 @@ del(somelist)  # maybe
 % ---------------------------------------------
 \begin{frame}[fragile]{Mutating Lists}
 
-{\Large if you’re going to change the list, iterate over a copy for safety }
+{\Large if you're going to change the list, iterate over a copy for safety }
 
 \begin{verbatim}
 >>> food = ['spam', 'eggs', 'ham', 'sushi']
@@ -674,6 +672,7 @@ del(somelist)  # maybe
    >>> food
    ['spam', 'eggs', 'ham', 'fish', 'chips']
 \end{verbatim}
+(the operator makes a new list...)
 
 \end{frame} 
 
@@ -681,7 +680,7 @@ del(somelist)  # maybe
 \begin{frame}[fragile]{in}
 
 \begin{verbatim}
-￼>>> food = ['spam', 'eggs', 'ham']
+>>> food = ['spam', 'eggs', 'ham']
 >>> 'eggs' in food
 True
 >>> 'chicken feet' in food
@@ -693,10 +692,9 @@ False
 % ---------------------------------------------
 \begin{frame}[fragile]{reverse()}
 
-{\large Iterating over a list}
 
 \begin{verbatim}
-￼>>> food = ['spam', 'eggs', 'ham']
+>>> food = ['spam', 'eggs', 'ham']
 >>> food.reverse()
 >>> food
 ['ham', 'eggs', 'spam']
@@ -809,7 +807,7 @@ Out[290]: 2
 \begin{frame}[fragile]{List Performance }
 
 \begin{itemize}
-  \item￼indexing is fast and constant time: O(1)
+  \item indexing is fast and constant time: O(1)
   \item x in s proportional to n: O(n)
   \item visiting all is proportional to n: O(n)
   \item operating on the end of list is fast and constant time: O(1) \\
@@ -978,7 +976,7 @@ Out[343]: [0, 4, 8]
  'AttributeError',
  'BufferError',
  'EOFError',
- 'EnvironmentError',
+ ....
 \end{verbatim}
 
 \end{frame} 
@@ -1026,6 +1024,10 @@ In [395]: for i in g:
 
 \vfill
 {\LARGE Dan's list Lab}
+
+\vfill
+\url{https://github.com/PythonCHB/PythonIntroClass/wiki/Week-4-Exercises}
+
 \vfill
 
 \end{frame}
@@ -1055,7 +1057,7 @@ Rob
 {\Large Python calls it a \verb|dict| }
 
 \vfill
-{\Large Other terms:}
+{\Large Other languages call it:}
 \begin{itemize}
   \item dictionary
   \item associative array
@@ -1102,10 +1104,10 @@ Rob
 >>> d = {1: 'one', 0: 'zero'}
 >>> d[0]
 'zero'
->>> d['non-­‐existing key']
+>>> d['non-existing key']
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-KeyError: 'fish'
+KeyError: 'non-existing key'
 \end{verbatim}
 
 \end{frame} 
@@ -1190,7 +1192,7 @@ Same average time regardless of size
 \vfill
 also... Python name look-ups are implemented with dict:
 
- --- it’s highly optimized
+ --- its highly optimized
 \end{frame} 
 
 
@@ -1225,7 +1227,7 @@ if you need to check dict values often, create another dict or set (up to you to
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{Dictionary Indexing}
+\begin{frame}[fragile]{Dictionary Ordering (not)}
 
 \vfill
 {\Large
@@ -1245,7 +1247,7 @@ Out[354]: ['three', 'two', 'one']
 \end{frame} 
 
 %-------------------------------
-\begin{frame}[fragile]{dict iterating}
+\begin{frame}[fragile]{Dictionary Iterating}
 
 {\Large \verb|for| iterates the keys}
 \vfill
@@ -1283,7 +1285,7 @@ score name
 {\Large iterating on everything}
 \vfill
 \begin{verbatim}
-￼>>> d = {'name': 'Brian', 'score': 42}
+>>> d = {'name': 'Brian', 'score': 42}
 >>> for k, v in d.items():
 ...   print "%s: %s" % (k, v)
 ...
@@ -1297,7 +1299,7 @@ name: Brian
 \begin{frame}[fragile]{Dictionary Performance }
 
 \begin{itemize}
-  \item￼indexing is fast and constant time: O(1)
+  \item indexing is fast and constant time: O(1)
   \item x in s cpnstant time: O(1)
   \item visiting all is proportional to n: O(n)
   \item inserting is constant time: O(1)
@@ -1521,19 +1523,21 @@ the keyword arguments are: {'this': 5, 'that': 7}
 %-------------------------------
 \begin{frame}{LAB}
 
-{\LARGE Dan's dict LAB
+{\Large Dan's dict LAB:}\\
+\url{https://github.com/PythonCHB/PythonIntroClass/wiki/Week-4-Exercises}
 
 \vfill
+
 or
 
 \vfill
-Optional LAB
-}
+{\Large Optional LAB}
+
 
 \begin{itemize}
   \item Coding Kata 14 - Dave Thomas \\
     \url{http://codekata.pragprog.com/2007/01/ kata_fourteen_t.html}
-  \item See how far you can get on this task using “The Adventures of Sherlock Holmes” as input: sherlock.txt in the week04 directory (ascii)
+  \item See how far you can get on this task using The Adventures of Sherlock Holmes as input: sherlock.txt in the week04 directory (ascii)
   \item  This is intentionally open-ended and underspecified. There are many interesting decisions to make.
 \end{itemize}
 

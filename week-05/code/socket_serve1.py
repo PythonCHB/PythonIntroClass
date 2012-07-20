@@ -18,6 +18,14 @@ serversocket.bind(('localhost', 55555),)
 #become a server socket
 serversocket.listen(5)
 
+html = """
+<html>
+    <body>
+        <h1>This is some text.</h1>
+    </body>
+</html>"""
+
+
 # accept a single request
 #while True:
 if True:
@@ -34,7 +42,7 @@ if True:
     print clientsocket.recv(1024)
     
     # now lets send something:
-    clientsocket.send("This is some text")
+    clientsocket.send(html)
     
 ## put this in your browser while this is running:
 ##    http://localhost:55555/a_file
