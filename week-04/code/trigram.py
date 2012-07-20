@@ -7,8 +7,8 @@ A solution to the trigram coding Kata:
 
 http://codekata.pragprog.com/2007/01/kata_fourteen_t.html
 """
-infilename = "sherlock_small.txt"
-#infilename = "sherlock.txt"
+# infilename = "sherlock_small.txt"
+infilename = "sherlock.txt"
 
 import string
 
@@ -41,18 +41,24 @@ words = in_data.split()# loop through the words
 for i in range(len(words) - 2):
     pair = " ".join(words[i:i+2])
     follower = words[i+2]
-    if pair in word_pairs:
-        print "pair is repeated:", pair
-        word_pairs[pair].append(follower)
-    else:
-        word_pairs[pair] = [follower]
+    word_pairs.setdefault(pair,[]).append(follower)
 
 # create some new text
+
+# A little reporting
+for pair, followers in word_pairs.items():
+    if len(followers) > 1:
+        print pair, followers
+    
 
 import random
 new_text = []        
 for i in range (10): #just do a few
-    pair = random.sample(word_pairs, 1)   
-    
+    pair = random.sample(word_pairs, 1)[0]  
+    print pair 
+    follower = random.sample(word_pairs[pair], 1)[0]
+    new_text.extend( (pair, follower) )
 
-print word_pairs     
+new_text = " ".join(new_text)
+
+print new_text                    
