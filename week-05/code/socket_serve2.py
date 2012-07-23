@@ -18,7 +18,7 @@ serversocket = socket.socket( socket.AF_INET, socket.SOCK_STREAM)
 serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 #bind the socket to localhost, high port
-serversocket.bind(('localhost', 55555),)
+serversocket.bind((HOST, PORT),)
 #become a server socket
 serversocket.listen(5)
 

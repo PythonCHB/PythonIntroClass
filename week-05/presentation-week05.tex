@@ -1,7 +1,7 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 5]{Introduction  to Python}
+\title[Week 5: Building a Web Server from Scratch]{Introduction to Python}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{July 25, 2012}
@@ -30,7 +30,10 @@
 \begin{frame}{Review of Previous Class}
 
 \begin{itemize}
-  \item ...
+  \item Keyword arguments/parameters
+  \item Lists
+  \item Dictionaries
+  \item Sets
 \end{itemize}
 
 \end{frame}
@@ -44,31 +47,254 @@
 
 \end{frame}
 
-\section{First Section}
+\begin{frame}{Class Structure}
+
+{\Large
+This class is different -- more a tutorial than a class: lots of coding.
+
+\vfill
+We're going to run through building a really basic HTTP server from the ground up.
+
+\vfill
+We'll see how far we get.
+}
+
+\vfill
+Note: I'm no expert -- I'm learning along with you...
+\end{frame}
+
+\section{The Protocols}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+\begin{frame}[fragile]{Sockets}
 
- {\Large A topicc}
+{\Large ``Socket'' at either end of a pathway: client and server can be
+"plugged in" to communicate}
 
-\begin{verbatim}
-some code example
-\end{verbatim}
+{\Large Five pieces of data to uniquely identify a connection}
+
+\begin{itemize}
+  \item Transport protocol (UDP, TCP) (we'll use TCP)
+  \item remote IP address
+  \item Remote port number
+  \item Local IP address
+  \item Local port number 
+\end{itemize}
+
+\vfill
+(use localhost on both ends for this class...)
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{HTTP}
+
+{\LARGE {\bf H}yper{\bf T}ext {\bf T}ransfer {\bf P}rotocol}
+
+ {\Large Client-Server: }
+\begin{itemize}
+  \item requests
+  \item responses
+\end{itemize}
+
+{\Large Each has:}
+
+\begin{itemize}
+  \item Method specification (request)
+  \item Status line (response)
+  \item  Headers (RFC 822-compliant)\\[0.1in]
+  (optionally)
+  \item Entity headers
+  \item Blank line
+  \item Entity body
+\end{itemize}
+ 
+\vfill
+ ( RFC 2616 )
 
 \end{frame} 
 
-\section{Another Section}
+%-------------------------------
+\begin{frame}{HTTP Requests}
 
-% ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+{\Large Request Methods  }
 
- {\Large A topicc}
+\begin{itemize}
+  \item GET -- Request a URI content
+  \item HEAD -- GET headers only
+  \item POST -- PUT save URI content
+  \item PUT  -- POST Request URI content, with entity transfer to server
+\end{itemize}
 
+\vfill
+There are four others -- but these are the ones most used
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{HTTP request}
+
+{\Large Example HTTP GET request}
 \begin{verbatim}
-some code example
+GET /a_file HTTP/1.1
+Host: localhost:55555
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:12.0) Gecko/20100101 Firefox/12.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en-us,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
 \end{verbatim}
 
-\end{frame} 
+\end{frame}
+
+%-------------------------------
+\begin{frame}{HTTP Responses}
+
+{\Large Response Codes}
+
+\begin{itemize}
+\item 200 OK
+\item 404 Not Found
+\item 301 Moved Permanently
+\item 302 Moved Temporarily
+\item 303 See Other (HTTP 1.1 only)
+\item 500 Server Error
+\end{itemize}
+
+\vfill
+There are four others -- but these are the ones most used
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{HTTP Response header}
+
+\begin{verbatim}
+HTTP/1.0 200 OK
+Date: Fri, 31 Dec 1999 23:59:59 GMT
+Content-Type: text/html
+Content-Length: 1354
+
+<html>
+<body>
+<h1>Happy New Millennium!</h1>
+(more file contents)
+... </body> </html>
+\end{verbatim}
+
+\vfill
+Blank line between header and body critical!\\
+ \hspace{0.25in} (\verb|\r\n| linefeeds)
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{HTTP Response header}
+
+{\Large Header-Name: value}
+
+\vfill
+{\Large Quick reference to HTTP headers:}
+
+\vfill
+\url{http://www.cs.tut.fi/~jkorpela/http.html}
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{HTTP Response header}
+
+{\Large body data:
+
+\vfill
+\verb| Content-Type: : xyz 
+
+\vfill
+Mime types we might want:
+}
+
+\begin{itemize}
+  \item \verb|text/plain|
+  \item \verb|text/html|
+  \item \verb|image/png|
+  \item \verb|image/jpeg|
+\end{itemize}
+
+\vfill
+\url{http://www.webmaster-toolkit.com/mime-types.shtml}
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Debugging}
+
+{\Large￼Debugging Tools}
+
+\begin{itemize}
+  \item windows:\\
+    \url{http://www.fiddler2.com/fiddler2/}
+  \item windows \& mac:\\
+    \url{http://www.charlesproxy.com/}
+  \item Firefox:\\ 
+    \url{http://getfirebug.com/}
+  \item Safari, Chrome and IE: built in
+\end{itemize}
+
+\end{frame}
+
+
+%%-------------------------------
+\begin{frame}[fragile]{Building an HTTP Server}
+
+\vfill
+{\Large We've got everything we need to know to build a simple server}
+
+\vfill
+(GET only for now...)
+
+\vfill
+{\Large Build an HTTP server that can serve up the files in: \\[0.1in]
+\verb|week-05\code\web|}\\
+
+\vfill
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Building an HTTP Server}
+
+{\Large Incremental Development:}
+\begin{enumerate}
+  \item A socket server that can receive a request (and print that request to the console)
+  \item Server returns a simple reply
+  \item Server returns a properly formatted HTML reply
+  \item Server returns a directory listing
+  \item Server returns the file asked for
+  \item Server returns multiple file types
+\end{enumerate}
+
+\end{frame}
+
+
+
+%-------------------------------
+\begin{frame}[fragile]{Python Socket Module}
+
+{\Large }
+\begin{verbatim}
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+\end{verbatim}
+\verb| AF_INET | : Internet Family of Protocols
+
+\verb| SOCK_STREAM | : TCP
+
+\vfill
+{\Large Set some options:}
+\begin{verbatim}
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  
+\end{verbatim}
+\verb| SOL_SOCKET |: ???
+
+\verb| SO_REUSEADDR |: re-use the address -- so the OS won't reserve it
+
+
+\end{frame}
+
+
 
 \end{document}
 

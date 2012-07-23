@@ -1,11 +1,7 @@
 #!/usr/bin/env python
 
 """
-Example from the HowTo:
-
-http://docs.python.org/howto/sockets.html
-
-Then edited by Chris Barker
+A simple socket client -- for testing
 """
 
 HOST = "localhost"
