@@ -1,0 +1,38 @@
+Sockets:
+
+"it's the bind() that makes it a server"
+
+"it's the connect that makes it a client"
+
+who sends and receives is application dependent.
+
+one half of the connection has to have some a-priory knowledge.
+
+
+telnet briandorsey.info 80
+
+GET / HTTP/1.1
+Host briandorsey.info
+
+telnet briandorsey.info 80
+
+GET / HTTP/1.1         
+Host: yumikodorsey.com
+
+use client to make a micro web browser - one site, dump the html to the console.
+
+Steps:
+
+echo server -- echo client
+
+echo server: point the browser at it
+
+edit echo server to return something else -- some hhtp
+
+have it add the right headers for http.
+
+
+
+
+
+

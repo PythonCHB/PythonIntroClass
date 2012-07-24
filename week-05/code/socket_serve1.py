@@ -35,6 +35,7 @@ html = """
 if True:
     #accept connections from outside
     print "calling accept"
+    print "go to: %s in your browser"% "http://localhost:55555/a_file"
     (clientsocket, address) = serversocket.accept()
     print "accept returned"
     #now do something with the clientsocket

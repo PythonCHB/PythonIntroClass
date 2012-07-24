@@ -26,8 +26,7 @@ def OK_response(body):
     header = []
     header.append("HTTP/1.0 200 OK")
     
-    dt = datetime.datetime.utcnow()
-    header.append("Date: %s"%dt.isoformat())
+    header.append(httpdate.httpdate_now())
     #header.append("Date: Fri, 31 Dec 1999 23:59:59 GMT")
     header.append("Content-Type: text/html")
     if not body: # for a HEAD request
@@ -37,12 +36,11 @@ def OK_response(body):
     
     return '\r\n'.join(header)
 
-def Fail_404_Response():
+def fail_404_Response():
     header = []
     header.append("HTTP/1.0 404")
-    header.append
+    header.append(httpdate.httpdate_now())
     
-
 
 def parse_request(request):
     '''

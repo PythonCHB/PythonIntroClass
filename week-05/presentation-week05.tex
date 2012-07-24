@@ -85,12 +85,57 @@ Note: I'm no expert -- I'm learning along with you...
 (use localhost on both ends for this class...)
 \end{frame} 
 
+%-------------------------------
+\begin{frame}[fragile]{Python Socket Module}
+
+{\Large }
+\begin{verbatim}
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+\end{verbatim}
+\verb| AF_INET | : Internet Family of Protocols
+
+\verb| SOCK_STREAM | : TCP
+
+\vfill
+{\Large Set some options:}
+\begin{verbatim}
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  
+\end{verbatim}
+\verb| SOL_SOCKET |: ???
+
+\verb| SO_REUSEADDR |: re-use the address -- so the OS won't reserve it
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{A Socket Client/Server}
+
+\begin{verbatim}
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+# set an option to tell the OS to re-use the socket
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+# the bind makes it a server
+s.bind( (host,port) ) 
+s.listen(backlog) 
+
+while True: # keep looking for new connections forever
+    client, address = s.accept() # look for a connection
+    data = client.recv(size)
+    if data: # if the connection was closed there would be no data
+        client.send(data) 
+        client.close()
+\end{verbatim}
+\end{frame}
+
+
 % ---------------------------------------------
 \begin{frame}[fragile]{HTTP}
 
 {\LARGE {\bf H}yper{\bf T}ext {\bf T}ransfer {\bf P}rotocol}
 
  {\Large Client-Server: }
+
 \begin{itemize}
   \item requests
   \item responses
@@ -103,9 +148,7 @@ Note: I'm no expert -- I'm learning along with you...
   \item Status line (response)
   \item  Headers (RFC 822-compliant)\\[0.1in]
   (optionally)
-  \item Entity headers
-  \item Blank line
-  \item Entity body
+  \item Entity headers and body
 \end{itemize}
  
 \vfill
@@ -119,7 +162,7 @@ Note: I'm no expert -- I'm learning along with you...
 {\Large Request Methods  }
 
 \begin{itemize}
-  \item GET -- Request a URI content
+  \item GET  -- Request a URI content
   \item HEAD -- GET headers only
   \item POST -- PUT save URI content
   \item PUT  -- POST Request URI content, with entity transfer to server
@@ -167,7 +210,7 @@ There are four others -- but these are the ones most used
 \begin{frame}[fragile]{HTTP Response header}
 
 \begin{verbatim}
-HTTP/1.0 200 OK
+HTTP/1.1 200 OK
 Date: Fri, 31 Dec 1999 23:59:59 GMT
 Content-Type: text/html
 Content-Length: 1354
@@ -202,7 +245,7 @@ Blank line between header and body critical!\\
 {\Large body data:
 
 \vfill
-\verb| Content-Type: : xyz 
+\verb| Content-Type: xyz/abc | 
 
 \vfill
 Mime types we might want:
@@ -254,6 +297,8 @@ Mime types we might want:
 NOTE: you can use the date formatting found in \verb| httpdate.py |
 \end{frame}
 
+
+
 %-------------------------------
 \begin{frame}{Building an HTTP Server}
 
@@ -261,36 +306,27 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 \begin{enumerate}
   \item A socket server that can receive a request (and print that request to the console)
   \item Server returns a simple reply
-  \item Server returns a properly formatted HTML reply
+  \item Server returns a properly formatted HTTP reply
   \item Server returns a directory listing
+  \item Server returns a 404 error
   \item Server returns the file asked for
   \item Server returns multiple file types
 \end{enumerate}
 
 \end{frame}
 
-
-
 %-------------------------------
-\begin{frame}[fragile]{Python Socket Module}
+\begin{frame}[fragile]{http\_serve1.py}
 
-{\Large }
-\begin{verbatim}
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-\end{verbatim}
-\verb| AF_INET | : Internet Family of Protocols
-
-\verb| SOCK_STREAM | : TCP
-
-\vfill
-{\Large Set some options:}
-\begin{verbatim}
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  
-\end{verbatim}
-\verb| SOL_SOCKET |: ???
-
-\verb| SO_REUSEADDR |: re-use the address -- so the OS won't reserve it
-
+{\Large Edit \verb|echo_serve1.py| to print the request}
+\begin{enumerate}
+  \item Point your browser at \verb|echo_server.py| -- what do you get?
+  \item Save it as \verb| http_serve.py |
+  \item Edit it to print the request to the console
+  \item Edit it to return a bit of html (\verb| tiny_html.html |)
+  \item What happens when you point your browser to it? \\
+        Try a couple different browsers -- I get a different result with Firefox and Safari
+\end{enumerate}
 
 \end{frame}
 
