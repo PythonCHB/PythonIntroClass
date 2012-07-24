@@ -307,10 +307,11 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
   \item A socket server that can receive a request (and print that request to the console)
   \item Server returns a simple reply
   \item Server returns a properly formatted HTTP reply
-  \item Server returns a directory listing
   \item Server returns a 404 error
   \item Server returns the file asked for
+  \item Server returns a directory listing
   \item Server returns multiple file types
+  \item Server returns a calculated response
 \end{enumerate}
 
 \end{frame}
@@ -321,7 +322,7 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 {\Large Edit \verb|echo_serve1.py| to print the request}
 \begin{enumerate}
   \item Point your browser at \verb|echo_server.py| -- what do you get?
-  \item Save it as \verb| http_serve.py |
+  \item Save it as \verb| http_serve1.py |
   \item Edit it to print the request to the console
   \item Edit it to return a bit of html (\verb| tiny_html.html |)
   \item What happens when you point your browser to it? \\
@@ -330,7 +331,78 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 
 \end{frame}
 
+%-------------------------------
+\begin{frame}[fragile]{http\_serve2.py}
 
+{\Large Return a properly formatted HTTP response}
+\begin{enumerate}
+  \item Save \verb|http_serve1.py|  as \verb|http_serve2.py|
+  \item Add code that generates an HTTP ``OK'' header \\
+        (don't forget the blank line! (\verb|\r\n|)
+  \item Use \verb|httpdate.httpdate_now()| to give you an HTTP date string
+  \item What happens when you point your browser to it now?
+\end{enumerate}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{http\_serve3.py}
+
+{\Large Parse the request}
+\begin{enumerate}
+  \item Save \verb|http_serve2.py|  as \verb|http_serve3.py|
+  \item Add code that parses the HTTP request -- it should give you the URI requested
+  \item Have it check to make sure it's a GET request
+  \item print the URI (file name) to the console
+\end{enumerate}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{http\_serve4.py}
+
+{\Large Parse the request}
+\begin{enumerate}
+  \item Save \verb|http_serve3.py|  as \verb|http_serve4.py|
+  \item Add code that parses the URI -- so you can figure out what file is requested
+  \item check to see if is a directory or a file
+  \item return a listing (simple text) of the dir if it's a dir
+  \item return a 404 otherwise
+\end{enumerate}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{http\_serve5.py}
+
+{\Large Support various file types}
+\begin{enumerate}
+  \item Save \verb|http_serve4.py|  as \verb|http_serve5.py|
+  \item If the request is for a file -- return that file
+  \item have it be a different mime type depending on the type of file
+  \item support: \verb| .html, .txt, .jpeg, .png|
+\end{enumerate}
+\vfill
+{\Large You now have a pretty functional web server!} 
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{http\_serve6.py}
+
+{\Large If we have time...}
+\begin{enumerate}
+  \item Save \verb|http_serve5.py|  as \verb|http_serve6.py|
+  \item Format the Dir listing as HTML
+  \item Make the files in the listing clickable links.
+\end{enumerate}
+ and / or
+\begin{enumerate}
+  \item Make a simple web app (non-static)
+  \item Have \url{localhost:50000/the_time} return a web page with the current time.
+\end{enumerate}
+\vfill
+{\Large You now have a very functional web server!} 
+\end{frame}
 
 \end{document}
 
