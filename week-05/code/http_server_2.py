@@ -8,7 +8,7 @@ HOST = "localhost"
 PORT = 55555
 
 import socket
-import datetime
+import httpdate
 
 #create an INET, STREAMing socket
 serversocket = socket.socket( socket.AF_INET, socket.SOCK_STREAM)
@@ -18,7 +18,7 @@ serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 serversocket.bind(('localhost', 55555),)
 
 #become a server socket
-serversocket.listen(1) #only accept on connection
+serversocket.listen(1) #only accept one connection
 
 html = open('tiny_html.html').read()
 
@@ -26,7 +26,7 @@ def OK_response(body):
     header = []
     header.append("HTTP/1.0 200 OK")
     
-    dt = datetime.datetime.now()
+    dt = datetime.datetime.utcnow()
     header.append("Date: %s"%dt.isoformat())
     #header.append("Date: Fri, 31 Dec 1999 23:59:59 GMT")
     header.append("Content-Type: text/html")
@@ -36,6 +36,13 @@ def OK_response(body):
         header.append(body)
     
     return '\r\n'.join(header)
+
+def Fail_404_Response():
+    header = []
+    header.append("HTTP/1.0 404")
+    header.append
+    
+
 
 def parse_request(request):
     '''
