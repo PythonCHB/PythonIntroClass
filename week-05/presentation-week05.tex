@@ -38,14 +38,40 @@
 
 \end{frame}
 
-
-% header
 % ---------------------------------------------
 \begin{frame}{Homework review}
 
-  {\Large Homework notes }
+{\Large Dave Thomas Coding Kata 14 } 
+
+\vfill
+\url{http://codekata.pragprog.com/2007/01/kata_fourteen_t.html}
+
+\vfill My results: \\ honour my gems hundred year old forever do not even two
+might end was a he realised how yes when i stronger if i perfectly happy and
+revealed it to windows were blocked a thing is to sound him rd floor that would
+induce the work by people must sit without with jabez wilson bad compliment
+...
+
+\vfill
+My code: \verb+week-04/code/trigram.py
 
 \end{frame}
+
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge David}
+
+\vfill
+}
+\end{frame}
+
 
 \begin{frame}{Class Structure}
 
@@ -63,7 +89,7 @@ We'll see how far we get.
 Note: I'm no expert -- I'm learning along with you...
 \end{frame}
 
-\section{The Protocols}
+\section{Sockets}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Sockets}
@@ -71,24 +97,25 @@ Note: I'm no expert -- I'm learning along with you...
 {\Large ``Socket'' at either end of a pathway: client and server can be
 "plugged in" to communicate}
 
-{\Large Five pieces of data to uniquely identify a connection}
+\vfill
+{\Large Five pieces of data to uniquely identify a connection:}
 
 \begin{itemize}
   \item Transport protocol (UDP, TCP) (we'll use TCP)
-  \item remote IP address
+  \item Remote IP address
   \item Remote port number
   \item Local IP address
   \item Local port number 
 \end{itemize}
 
 \vfill
-(use localhost on both ends for this class...)
+(use localhost (127.0.0.1) on both ends for this class...)
 \end{frame} 
 
 %-------------------------------
 \begin{frame}[fragile]{Python Socket Module}
 
-{\Large }
+{\Large Create a socket:}
 \begin{verbatim}
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 \end{verbatim}
@@ -97,45 +124,99 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 \verb| SOCK_STREAM | : TCP
 
 \vfill
-{\Large Set some options:}
+{\Large Set an option:}
 \begin{verbatim}
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  
 \end{verbatim}
-\verb| SOL_SOCKET |: ???
+ re-use the address -- so the OS won't reserve it
 
-\verb| SO_REUSEADDR |: re-use the address -- so the OS won't reserve it
-
+\vfill
+(Python docs say "see the UNIX man pages...)
 \end{frame}
 
 %-------------------------------
-\begin{frame}[fragile]{A Socket Client/Server}
+\begin{frame}[fragile]{A socket server}
 
+{\Large \verb|echo_server.py|}
 \begin{verbatim}
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-# set an option to tell the OS to re-use the socket
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 # the bind makes it a server
-s.bind( (host,port) ) 
+s.bind( (host, port) ) 
 s.listen(backlog) 
 
 while True: # keep looking for new connections forever
     client, address = s.accept() # look for a connection
     data = client.recv(size)
     if data: # if the connection was closed there would be no data
+        print "received: %s, sending it back"%data
         client.send(data) 
         client.close()
 \end{verbatim}
 \end{frame}
 
+%-------------------------------
+\begin{frame}[fragile]{A socket client}
+
+{\Large \verb|echo_client.py|}
+\begin{verbatim}
+while True:
+    s = socket.socket(socket.AF_INET, 
+                      socket.SOCK_STREAM) 
+    s.connect((host,port)) 
+    msg = raw_input('what should I send? >> ')
+    if msg:
+        s.send(msg) 
+        data = s.recv(size) 
+        s.close() 
+\end{verbatim}
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Mini-LAB}
+
+{\Large Start up \verb|echo_server.py|}
+
+\vfill
+{\Large Start up \verb|echo_client.py|}
+
+\vfill
+(in different terminals...)
+
+\vfill
+{\Large Watch what happens when you use the client}
+
+\vfill
+If any of you are using a shared system -- change your port numbers
+
+NOTE: running from iPython can cause trouble...
+\end{frame}
+
+
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge Drew}
+
+\vfill
+}
+\end{frame}
+
+
+\section{HTTP}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{HTTP}
 
-{\LARGE {\bf H}yper{\bf T}ext {\bf T}ransfer {\bf P}rotocol}
-
- {\Large Client-Server: }
-
+\centering{ \LARGE {\bf H}yper{\bf T}ext {\bf T}ransfer {\bf P}rotocol } 
+\vfill
+{\Large Client-Server: }
 \begin{itemize}
   \item requests
   \item responses
@@ -162,11 +243,13 @@ while True: # keep looking for new connections forever
 {\Large Request Methods  }
 
 \begin{itemize}
-  \item GET  -- Request a URI content
+  \item GET  -- Read URI content
   \item HEAD -- GET headers only
-  \item POST -- PUT save URI content
-  \item PUT  -- POST Request URI content, with entity transfer to server
+  \item POST -- Create
+  \item PUT  -- Update (entity transfer to server)
+  \item DELETE  -- delete content
 \end{itemize}
+(GET and POST different ways to do similar things...)
 
 \vfill
 There are four others -- but these are the ones most used
@@ -279,6 +362,7 @@ Mime types we might want:
 
 \end{frame}
 
+\section{Building an HTTP server}
 
 %%-------------------------------
 \begin{frame}[fragile]{Building an HTTP Server}
@@ -290,11 +374,9 @@ Mime types we might want:
 (GET only for now...)
 
 \vfill
-{\Large Build an HTTP server that can serve up the files in: \\[0.1in]
+{\LARGE Build an HTTP server that can serve up the files in:
 \verb|week-05\code\web|}\\
 
-\vfill
-NOTE: you can use the date formatting found in \verb| httpdate.py |
 \end{frame}
 
 
@@ -319,7 +401,7 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 %-------------------------------
 \begin{frame}[fragile]{http\_serve1.py}
 
-{\Large Edit \verb|echo_serve1.py| to print the request}
+{\Large Edit \verb|echo_serve1.py| to print the request:}
 \begin{enumerate}
   \item Point your browser at \verb|echo_server.py| -- what do you get?
   \item Save it as \verb| http_serve1.py |
@@ -334,10 +416,10 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 %-------------------------------
 \begin{frame}[fragile]{http\_serve2.py}
 
-{\Large Return a properly formatted HTTP response}
+{\Large Return a properly formatted HTTP response:}
 \begin{enumerate}
   \item Save \verb|http_serve1.py|  as \verb|http_serve2.py|
-  \item Add code that generates an HTTP ``OK'' header \\
+  \item Add code that generates an HTTP ``200 OK'' header \\
         (don't forget the blank line! (\verb|\r\n|)
   \item Use \verb|httpdate.httpdate_now()| to give you an HTTP date string
   \item What happens when you point your browser to it now?
@@ -346,9 +428,25 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 \end{frame}
 
 %-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge Phillip}
+
+\vfill
+}
+\end{frame}
+
+
+%-------------------------------
 \begin{frame}[fragile]{http\_serve3.py}
 
-{\Large Parse the request}
+{\Large Parse the request:}
 \begin{enumerate}
   \item Save \verb|http_serve2.py|  as \verb|http_serve3.py|
   \item Add code that parses the HTTP request -- it should give you the URI requested
@@ -361,7 +459,7 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 %-------------------------------
 \begin{frame}[fragile]{http\_serve4.py}
 
-{\Large Parse the request}
+{\Large Return a Listing:}
 \begin{enumerate}
   \item Save \verb|http_serve3.py|  as \verb|http_serve4.py|
   \item Add code that parses the URI -- so you can figure out what file is requested
@@ -375,7 +473,7 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 %-------------------------------
 \begin{frame}[fragile]{http\_serve5.py}
 
-{\Large Support various file types}
+{\Large Support various file types:}
 \begin{enumerate}
   \item Save \verb|http_serve4.py|  as \verb|http_serve5.py|
   \item If the request is for a file -- return that file
@@ -402,6 +500,49 @@ NOTE: you can use the date formatting found in \verb| httpdate.py |
 \end{enumerate}
 \vfill
 {\Large You now have a very functional web server!} 
+\end{frame}
+
+\section{Wrap Up / Homework}
+
+%-------------------------------
+\begin{frame}[fragile]{Standard Library Support}
+
+{\Large It's unlikely that you'll need to use raw sockets}
+
+\vfill
+{\Large Standard Library Modules}
+\begin{itemize}
+  \item httplib
+  \item urllib2 (requests (PyPI) )
+  \item smtplib
+  \item poplib
+  \item imaplib
+\end{itemize}
+
+{\Large Third Party Modules}
+\begin{itemize}
+  \item requests (cleaner interface that urllib2)
+  \item paramiko (SSH)
+  \item Probably one for anything you're likely to do...
+\end{itemize}
+  
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{Homework}
+
+\begin{itemize}
+  \item Think Python ch. 15-18
+  \item Finish what you didn't get to in class
+  \item When a *.py file is asked for: 
+    \begin{itemize}
+      \item Don't return the script's contents
+      \item Return the result of running the script (stdout)\\
+            (\verb|subprocess.Popen()| will be useful)
+      \item Test with a script that prints the time (or something...)
+      \item You've just re-invented CGI
+    \end{itemize}
+\end{itemize}
 \end{frame}
 
 \end{document}

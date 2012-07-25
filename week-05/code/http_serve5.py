@@ -27,6 +27,7 @@ mime_types={}
 mime_types['html'] =  "text/html"
 mime_types['htm']  =  "text/html"
 mime_types['txt']  =  "text/plain"
+mime_types['py']   =  "text/plain"
 mime_types['png']  =  "image/png"
 mime_types['jpeg'] =  "image/jpg"
 mime_types['jpg']  =  "image/jpg"
