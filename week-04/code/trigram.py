@@ -20,7 +20,7 @@ import random
 # I use this to purge the punctuation..
 
 # stuff I want to keep:
-valid = string.letters + "'"
+valid = string.letters + "'" # keep the contractions
 all = ''.join([chr(i) for i in range(256)])
 table = []
 for c in all:
@@ -38,6 +38,8 @@ for i in range(61):
 in_data = open(infilename, 'r').read()
 
 # Dictionary for trigram results:
+# The keys will be all the word pairs
+# The values will be a list of the words that follow each pair
 word_pairs = {}
 
 # lower-case everything to remove that complication:
@@ -55,6 +57,10 @@ words = [word for word in words if word != "'"]# loop through the words
 for i in range(len(words) - 2):
     pair = " ".join(words[i:i+2])
     follower = words[i+2]
+    # setdefault() returns the value if pair is already in the dict
+    #    if it's not, it adds it, setting the value to a an empty list 
+    #    then it returns the list, which we then append the following
+    #    word to.
     word_pairs.setdefault(pair,[]).append(follower)
 
 
@@ -65,7 +71,7 @@ for i in range(len(words) - 2):
 
 # create some new text
 new_text = []        
-for i in range (100): #just do a few
+for i in range (100): # do 100 sets.
     pair = random.sample(word_pairs, 1)[0]  
     follower = random.sample(word_pairs[pair], 1)[0]
     new_text.extend( (pair, follower) )
