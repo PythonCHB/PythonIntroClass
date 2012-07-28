@@ -10,6 +10,8 @@ port = 50000
 backlog = 5 # how many connections can we stack up
 size = 1024 # number of bytes to receive at once
 
+root_dir = 'web' # must be run from code dir...
+
 print "point your browser to http://localhost:%i"%port
 
 ## create the socket
@@ -21,14 +23,25 @@ s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.bind( (host,port) ) 
 s.listen(backlog) 
 
-def OK_response(entity):
+html = open("tiny_html.html").read()
+
+mime_types={}
+mime_types['html'] =  "text/html"
+mime_types['htm']  =  "text/html"
+mime_types['txt']  =  "text/plain"
+mime_types['png']  =  "image/png"
+mime_types['jpeg'] =  "image/jpg"
+mime_types['jpg']  =  "image/jpg"
+
+def OK_response(entity, extension='html'):
     """
     returns an HTTP response: header and entity in a string
     """
     resp = []
     resp.append('HTTP/1.1 200 OK')
     resp.append(httpdate.httpdate_now())
-    resp.append( 'Content-Type: text/plain' )
+    type = mime_types.get(extension, 'text/plain')
+    resp.append( 'Content-Type: %s'%type )
     resp.append('Content-Length: %i'%len(entity))
     resp.append('')
     resp.append(entity)
@@ -75,12 +88,9 @@ def parse_request(request):
     """
     # first line should be the method line:
     lines = request.split("\r\n")
-    print lines
     
     method, URI, protocol = lines[0].split()
-    print method
-    print URI
-    print protocol
+
     # a bit of checking:
     if method.strip() != "GET":
         raise ValueError("I can only process a GET request") 
@@ -89,25 +99,60 @@ def parse_request(request):
 
     return URI
 
-def format_dir_list(dir_list):
-    msg = ["Directory Listing:"]
-    for d in dir_list:
-        msg.append(d)
-    return "\n".join(msg)
+def format_dir_list(URI):
+    """
+    format the contests of dir as HTML with links
+    """
+    dir = os.path.join(root_dir, URI)
+    names = os.listdir(dir)
+
+    dirs = [d for d in names if os.path.isdir(os.path.join(dir,d))]
+    files = [d for d in names if os.path.isfile(os.path.join(dir,d))]
+
+    html =[]
+    html.append("<http> <body>")
+    html.append("<h2>%s</h2>"%URI)
+    print "URI:", URI
+    if URI: # don't need the parent dir at the root
+        html.append('<a href="..">Parent</a>' )
+    html.append("<h3>Directories:</h3>")
+    html.append("  <ul>")
+    for d in dirs:
+        html.append('    <li> <a href="%s">%s </a></li>'%(os.path.join(URI,d), d))
+    html.append("  </ul>")
+    html.append("<h3>Files:</h3>")
+    html.append("  <ul>")
+    for f in files:
+        html.append('    <li> <a href="%s"> %s </a> </li>'%(os.path.join(URI,f), f) )
+    html.append("  </ul>")
+    html.append("</body> </http>")
+    return "\n".join(html)
+
+def get_time_page():
+    """
+    returns and html page with the current time in it
+    """
+    time = httpdate.httpdate_now()
+    html = "<html>  <body>  <h1> %s </h1> </body> </html>"%time
+    return html
 
 def get_file(URI):
-    root_dir = 'web' # must be run from code dir...
-    URI = URI.lstrip('/') # os.path.join does not like a leading slash
-    filename = os.path.join( root_dir, URI)
-    print "path to file:", filename
-    if os.path.isfile(filename):
-        print "it's a file"
-        raise NotImplementedError("I can't handle a file yet")
-    elif os.path.isdir(filename):
-        print "it's a dir"
-        return format_dir_list(os.listdir(filename)), 'txt'
+        
+    URI = URI.strip('/') #weird-- os.path.join does not like a leading slash
+    # check if this is the time server option
+    if URI.lower() == "get_time":
+        return get_time_page(), 'html'
     else:
-        raise ValueError("there is nothing by that name")    
+        filename = os.path.join( root_dir, URI)
+        if os.path.isfile(filename):
+            contents = open(filename, 'rb').read()
+            ext = os.path.splitext(filename)[1].strip('.')
+            return contents, ext
+        elif os.path.isdir(filename):
+            return format_dir_list(URI), 'htm'
+        else:
+            raise ValueError("there is nothing by that name")
+    
 
 while True: # keep looking for new connections forever
     client, address = s.accept() # look for a connection
@@ -115,15 +160,11 @@ while True: # keep looking for new connections forever
     if request: # if the connection was closed there would be no data
         print "received:", request
         URI = parse_request(request)
-        print "URI requested is:", URI
         try:
             file_data, ext = get_file(URI)
-            response = OK_response(file_data)
-        except ValueError as err:
-            print err
+            response = OK_response(file_data, ext)
+        except ValueError:
             response = Error_response(URI)
-        print "sending:"
-        print response[:200]
         client.send(response) 
         client.close()
 

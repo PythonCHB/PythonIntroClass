@@ -1,21 +1,16 @@
-Folders:
-
-     Brian's: echo_server.py and echo_client.py work nice when run from dos command prompt. Echo client sends a "Hello, world" and gets it back from the server. print_time.py works as expected. When called from Safary with "http://localhost:8080/" as the URL, thirty_minute_webserver.py displays a list of the files in the folder as links, one per row, with thirty_minute_webserver.py as one of the links. When you click the link, the browser shows you the file (text, mostly, or the image in favicon.ico).
 
      web: folder of resources that can be requested with the fourth, fifth and sixth server scripts.
 
 
-Files:
-
-     Chris's echo_client.py and echo_server.py work together to have the server return each thing the client sends and the client takes input from the user on what to send.
-
+     echo_client.py and echo_server.py work together to have the server return each thing the client sends and the client takes input from the user on what to send. YOU can start them each in its own console, and type things in the client console to see what happens.
+     
      httpdate.py: Formats dates to HTTP 1.1 spec.
 
-     http_serve1.py: Returns tiny_html.html without headers, which shows up fine in Safari. I couldn't figure out how to quit this from within the cmd window where I had run this.
+     http_serve1.py: Returns tiny_html.html without headers, which shows up fine in Safari. NOTE: On Windows, ctrl+C won't quit the script while it is waiting for a reply. If you hit ctrl+C, then point the browser at it, it will quit. Or you can quit it by closing the console or killing the Python.exe process in taskmgr
 
      http_serve2.py: Returns tiny_html.html with headers and also prints the first 120 characters of the response.
 
-     http_serve3.py: Same as previous but also prints the requested resource and querystring.
+     http_serve3.py: Same as previous but also prints the requested resource and querystring. This requires the code to parse the request header.
 
      http_serve4.py: Same as previous but instead of tiny_html.html, it returns a list of the files and folders in the web folder in plain text. Or if you point the url to the images subfolder of web (like: http://localhost:50000/images/) you get a list of the files in the images folder.
 
@@ -30,3 +25,10 @@ Files:
      this_dir.html: Template HTML for a directory listing of the folders and files in the week-05\code\ directory.
 
      tiny_html.html: File returned by the first three server scripts.
+     
+     
+Brian's Folder: Examples from previous version of this class (Brian is the previous teacher of this class):
+
+     echo_server.py and echo_client.py work nice when run from dos command prompt. Echo client sends a "Hello, world" and gets it back from the server. print_time.py works as expected. When called from Safari with "http://localhost:8080/" as the URL, thirty_minute_webserver.py displays a list of the files in the folder as links, one per row, with thirty_minute_webserver.py as one of the links. When you click the link, the browser shows you the file (text, mostly, or the image in favicon.ico).
+
+

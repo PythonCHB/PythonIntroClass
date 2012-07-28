@@ -5,12 +5,16 @@ import os
 
 import httpdate
 
+import subprocess
+
 host = '' # listen on all connections (WiFi, etc) 
 port = 50000 
 backlog = 5 # how many connections can we stack up
 size = 1024 # number of bytes to receive at once
 
-print "point your browser to http://localhost:%i"%port
+root_dir = 'web' # must be run from code dir...
+
+print "point your browser to http://localhost:%i/make_time.py"%port
 
 ## create the socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
@@ -46,18 +50,25 @@ def OK_response(entity, extension='html'):
 
     return "\r\n".join(resp)
 
-def Error_response(URI):
+def Error_response(URI, error_code=404):
     """
     returns an HTTP 404 Not Found Error response:
     
     URI is the name of the entity not found 
     """
+    errors = {500: "Server Error",
+              404: "Not Found",
+              301: "Moved Permanently",
+              302: "Moved Temporarily",
+              303: "See Other"
+              }
+    
     resp = []
-    resp.append('HTTP/1.1 404 Not Found')
+    resp.append('HTTP/1.1 %i %s'%(error_code, errors[error_code]))
     resp.append(httpdate.httpdate_now())
     resp.append('Content-Type: text/plain')
     
-    msg = "404 Error:\n %s \n not found"%( URI )    
+    msg = "%i Error:\n %s \n %s"%( error_code, URI, errors[error_code] )    
 
     resp.append('Content-Length: %i'%( len(msg) ) )
     resp.append('')
@@ -86,12 +97,9 @@ def parse_request(request):
     """
     # first line should be the method line:
     lines = request.split("\r\n")
-    print lines
     
     method, URI, protocol = lines[0].split()
-    print method
-    print URI
-    print protocol
+
     # a bit of checking:
     if method.strip() != "GET":
         raise ValueError("I can only process a GET request") 
@@ -100,17 +108,33 @@ def parse_request(request):
 
     return URI
 
-def format_dir_list(dir_list):
+def format_dir_list(URI):
     """
-    format the dir list as HTML
+    format the contests of dir as HTML with links
     """
-    html = ["<html>  <body>"]
-    html.append(" <h1>Directory Listing</h1>")
+    dir = os.path.join(root_dir, URI)
+    names = os.listdir(dir)
 
-    for d in dir_list:
-        html.append( "<p> %s </p>"%d )
-    html.append( "</body> </html>" )
+    dirs = [d for d in names if os.path.isdir(os.path.join(dir,d))]
+    files = [d for d in names if os.path.isfile(os.path.join(dir,d))]
 
+    html =[]
+    html.append("<http> <body>")
+    html.append("<h2>%s</h2>"%URI)
+    print "URI:", URI
+    if URI: # don't need the parent dir at the root
+        html.append('<a href="..">Parent</a>' )
+    html.append("<h3>Directories:</h3>")
+    html.append("  <ul>")
+    for d in dirs:
+        html.append('    <li> <a href="%s">%s </a></li>'%(os.path.join(URI,d), d))
+    html.append("  </ul>")
+    html.append("<h3>Files:</h3>")
+    html.append("  <ul>")
+    for f in files:
+        html.append('    <li> <a href="%s"> %s </a> </li>'%(os.path.join(URI,f), f) )
+    html.append("  </ul>")
+    html.append("</body> </http>")
     return "\n".join(html)
 
 def get_time_page():
@@ -121,24 +145,38 @@ def get_time_page():
     html = "<html>  <body>  <h1> %s </h1> </body> </html>"%time
     return html
 
+def run_python_script(URI):
+    """
+    runs the python script in the URI
+    
+    returns std out from running the script
+    
+    raises a subprocess.CalledProcessError if something goes wrong
+    """
+    script = os.path.join(root_dir, URI)
+    result = subprocess.check_output(["python", script])
+    return result
+    
+
 def get_file(URI):
-        
-    root_dir = 'web' # must be run from code dir...
-    URI = URI.strip('/') #weird-- os.path.join does not like a leading slash
+    """
+    returns the contents of the file in the URI -- and a file extension for the mime type.
+    """
+    URI = URI.strip('/') #os.path.join does not like a leading slash
     # check if this is the time server option
     if URI.lower() == "get_time":
         return get_time_page(), 'html'
+    # check if it's a python file
+    if os.path.splitext(URI)[1] == ".py":
+        return run_python_script(URI), 'html'            
     else:
         filename = os.path.join( root_dir, URI)
-        print "path to file:", filename
         if os.path.isfile(filename):
-            print "it's a file"
             contents = open(filename, 'rb').read()
             ext = os.path.splitext(filename)[1].strip('.')
             return contents, ext
         elif os.path.isdir(filename):
-            print "it's a dir"
-            return format_dir_list(os.listdir(filename)), 'htm'
+            return format_dir_list(URI), 'htm'
         else:
             raise ValueError("there is nothing by that name")
     
@@ -149,14 +187,13 @@ while True: # keep looking for new connections forever
     if request: # if the connection was closed there would be no data
         print "received:", request
         URI = parse_request(request)
-        print "URI requested is:", URI
         try:
             file_data, ext = get_file(URI)
             response = OK_response(file_data, ext)
-        except ValueError:
+        except ValueError: # file not found
             response = Error_response(URI)
-        print "sending:"
-        print response[:200]
+        except subprocess.CalledProcessError: # somethign wrong with the python script
+            response = Error_response(URI, 500)
         client.send(response) 
         client.close()
 

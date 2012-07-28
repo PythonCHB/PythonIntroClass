@@ -35,7 +35,7 @@ infile = open(infilename, 'r')
 for i in range(61):
     infile.readline()
 # read the rest of the file into memory
-in_data = open(infilename, 'r').read()
+in_data = infile.read()
 
 # Dictionary for trigram results:
 # The keys will be all the word pairs
