@@ -8,20 +8,43 @@ This module does some more consolidating...
 class Element(object):
     tag = "html"
     indent = "  "
-    kids = [] # just so it's always there
-    
-    def append(self, element):
-        self.kids.append(element)
-        
-class Html(object):
-    """
-    class for the main html element
-    
-    all it holds in kids -- no raw text
-    """
 
-    indent = "  "
-
+class JustTextElement(Element):
+    """
+    base class for an html element with only text -- no children
+    
+    """
+    def __init__(self, txt):
+        self.txt = txt
+    def render(self, file_out, ind = ""):
+        """
+        an html rendering method for elements that put the tags on different lines
+        """
+        file_out.write(ind)
+        file_out.write("<%s>\n"%self.tag )
+        file_out.write(ind + self.indent)
+        file_out.write(self.txt)
+        file_out.write("\n" + ind)
+        file_out.write("</%s>\n"%self.tag)
+ 
+class SameLineElement(JustTextElement):
+    """
+    Base class for an element with just text that puts the tags on the same
+    line as the text
+    """
+    def render(self, file_out, ind = ""):
+        """
+        an html rendering method for elements that put the tags on same line
+        """
+        file_out.write(ind)
+        file_out.write("<%s>"%self.tag)
+        file_out.write(self.txt)
+        file_out.write("</%s>\n"%self.tag)
+ 
+class JustKidsElement(Element):
+    """
+    Base class for elements that only hold kids -- no raw text
+    """
     def __init__(self):
         self.kids = []
 
@@ -40,62 +63,29 @@ class Html(object):
             kid.render(file_out, ind + self.indent)
         file_out.write(ind)
         file_out.write("</%s>\n"%self.tag)
+                 
+class Html(JustKidsElement):
+    """
+    class for the main html element
+    """
+    tag = "html"
 
-class Body(Html):
+class Body(JustKidsElement):
+    """
+    class for the main body element
+    """
     tag = "body"
 
-
-class Element(object):
+class Head(JustKidsElement):
     """
-    base class for an html element
-    
-    must be sub-classed to be useful    
+    class for the html header data
     """
-    tag = "" #should be over-ridden by subclasses
-    indent = "  "
-    def __init__(self, txt):
-        self.txt = txt
-    def render(self, file_out, ind = ""):
-        """
-        an html rendering method for elements that put the tags on different lines
-        """
-        file_out.write(ind)
-        file_out.write("<%s>\n"%self.tag )
-        file_out.write(ind + self.indent)
-        file_out.write(self.txt)
-        file_out.write("\n" + ind)
-        file_out.write("</%s>\n"%self.tag)
-
-class Head(object):
     tag = "head"
-    def __init__(self):
-        self.kids = []
-    def append(self, element):
-        self.kids.append(element)
-    def render(self, file_out, ind = ""):
-        """
-        an html render that renders the children of an element inside the element
-        """
-        file_out.write(ind)
-        file_out.write("<%s>\n"%self.tag)
-        for kid in self.kids:
-            kid.render(file_out, ind + "    ")
-        file_out.write(ind)
-        file_out.write("</%s>\n"%self.tag)
 
-class Title(Element):
+class Title(SameLineElement):
     tag = "title"
 
-    def render(self, file_out, ind = ""):
-        """
-        an html rendering method for elements that put the tags on same line
-        """
-        file_out.write(ind)
-        file_out.write("<%s>"%self.tag)
-        file_out.write(self.txt)
-        file_out.write("</%s>\n"%self.tag)
-
-class P(Element):
+class P(JustTextElement):
     tag = "p"
 
 if __name__ == "__main__":
