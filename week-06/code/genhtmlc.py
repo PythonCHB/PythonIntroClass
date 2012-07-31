@@ -1,16 +1,9 @@
-# genhtml.py  Python class example.
+"""
+genhtmlc.py  Python class example.
 
-# Generate xml (actually a small subset of html) like the following example:
-# <html><head><title>PythonClass - Revision 1087:</title></head>
-# <body>
-#  <h2>PythonClass - Revision 1087:</h2>
-#  <ul>
-#   <li><a href="../">..</a></li>
-#   <li><a href="branches/">branches/</a></li>
-#   <li><a href="tags/">tags/</a></li>
-#   <li><a href="trunk/">trunk/</a></li>
-#  </ul>
-# </body></html>
+This module adds a <p> element
+
+"""
 
 class Head(object):
     tag = "head"
@@ -53,6 +46,7 @@ if __name__ == "__main__":
     import sys
     h = Head()
     h.append(Title("PythonClass = Revision 1087:"))
-    h.append(P(";sdlf ;sdjf a;siof ja;soifja;soif a;osfdj aso;fdi jao;sfd kioih"))
+    h.append(P("Here is a paragprah of text -- there could be more of them, but this is enough  to show that we can do some text"))
     h.render(sys.stdout)
+
 
