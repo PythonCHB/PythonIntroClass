@@ -1,7 +1,7 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 6]{Introduction  to Python}
+\title[Intro to Python: Week 6]{Introduction  to Python:\\Object Oriented Programming}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{August 01, 2012}
@@ -23,52 +23,380 @@
   \tableofcontents
 \end{frame}
 
+%-------------------------------
+\begin{frame}{Lightning Talks}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talks today:  }
+
+\vfill
+{\Huge Brett and Matt}
+
+\vfill
+}
+\end{frame}
+
 
 \section{Review/Questions}
 
 % ---------------------------------------------
-\begin{frame}{Review of Previous Class}
+\begin{frame}[fragile]{Review of Previous Class}
 
 \begin{itemize}
-  \item ...
+  \item Built an HTTP server
+  \item Very basics of sockets
+  \item Basics of HTTP protocol
+  \item Got a server working (even proto-CGI!)
+\end{itemize}
+\vfill
+review of my \verb|http_serve8.py|
+\end{frame}
+
+
+\section{Object Oriented Programming}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+ {\Large More about Python implementation than OO design/strengths/weaknesses}
+
+\vfill
+{\Large One reason for this:\\
+Folks can't even agree on what OO ``really`` means}
+
+\vfill
+The Quarks of Object-Oriented Development - Deborah J. Armstrong:\\
+\url{http://agp.hx0.ru/oop/quarks.pdf}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+ {\LARGE Is Python a ``True'' Object-Oriented Language?}
+
+\vfill
+{\Large (Doesn't support full encapsulation, doesn't require objects, etc...)}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+ {\LARGE I don't Care!}
+
+\vfill
+{\Large Good software design is about code-reuse, clean separation of concerns,
+refactorability, testability, etc...}
+
+\vfill
+{\Large OO can help with all that, but:
+\begin{itemize}
+  \item it doesn't guarantee it
+  \item it can get in the way
+\end{itemize}
+}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+ {\LARGE Python is a Dynamic Language}
+
+\vfill
+{\Large That clashes with ``pure'' OO}
+
+\vfill
+{\Large Think in terms of what makes sense for you project
+
+ -- not any one paradigm of software design.
+}
+
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+ {\LARGE OO for this class:}
+
+\vfill
+{\Large 
+``Objects can be thought of as wrapping their data \\[.03in]
+within a set of functions designed to ensure that \\[.03in]
+the data are used appropriately, and to assist in \\[.03in]
+that use``
+}
+
+\vfill
+{\small
+\url{http://en.wikipedia.org/wiki/Object-oriented_programming}
+}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+{\LARGE Even simpler:}
+
+\vfill
+{\Large 
+Objects are data and the functions that act on them in one place.
+}
+
+\vfill
+{\Large 
+In Python: just another namespace.
+}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+{\LARGE The OO buzzwords:
+
+\vfill
+\begin{itemize}
+  \item data abstraction
+  \item encapsulation
+  \item messaging
+  \item modularity
+  \item polymorphism
+  \item inheritance
+\end{itemize}
+}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+{\LARGE You can do OO in C}
+
+(see the GTK+ project)
+
+\vfill
+{\Large 
+``OO languages'' give you some handy tools to make it easier (and safer).
+}
+
+\vfill
+\begin{itemize}
+  \item polymorphism (duck typing gives you this anyway)
+  \item inheritance
 \end{itemize}
 
-\end{frame}
-
-
-% header
-% ---------------------------------------------
-\begin{frame}{Homework review}
-
-  {\Large Homework notes }
-
-\end{frame}
-
-\section{First Section}
+\end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+\begin{frame}[fragile]{Object Oriented Programming}
 
- {\Large A topicc}
+\vfill
+{\LARGE OO is the dominant model for the past couple decades
 
-\begin{verbatim}
-some code example
-\end{verbatim}
+\vfill
+You will need to use it:
+
+\vfill
+-- It's a good idea for a lot of problems
+
+\vfill
+-- You'll need to work with OO packages
+}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Oriented Programming}
+
+\vfill
+{\LARGE Some definitions}
+
+\begin{description}
+  \item[class] A category of objects: particular data and behavior: A circle (same as a type in python)
+  \item[instance] A particular object of a class: a specific circle
+  \item[object] the general case of a instance -- really any value\\ (in Python anyway)
+  \item[attribute] something that belongs to an object (or class)
+    -- generally thought of as a variable, or single object, as apposed to a ...
+  \item[method] a function that belongs to a class
+\end{description}
 
 \end{frame} 
 
-\section{Another Section}
+
+\section{Python Classes}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+\begin{frame}[fragile]{Python Classes}
 
- {\Large A topicc}
+{\Large The \verb|class| statement}
+
+\vfill
+{\large \verb|class| creates a new type object:}
 
 \begin{verbatim}
-some code example
+In [4]: class C(object):
+    pass
+   ...: 
+In [5]: type(C)
+Out[5]: type
 \end{verbatim}
 
+{\large It is created when the statement is run -- much like \verb|def|}
+
+\vfill
+(note on``new style'' classes)
+
 \end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python Classes}
+
+{\Large Note about the book (TP):}
+
+Chapters 15 and 16 use a style that generally isn't recommended:
+
+\begin{verbatim}
+In [6]: class Point(object):
+   ...:     pass
+In [7]: p = Point()
+In [8]: p.x = 4
+In [9]: p.y = 2
+\end{verbatim}
+
+Python is Dynamic -- you can do this, but you generally want more structure,
+defaults, etc. 
+
+\vfill
+(it used to be a quick and dirty "struct" -- but use a named tuple now)
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python Classes}
+
+{\Large Basic Structure}
+
+\begin{verbatim}
+class Point(object):
+#( everything defined in here is in the class namespace)
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+## create an instance of that class        
+p = Point(3,4)
+
+## access the attributes
+print "p.x is:", p.x
+print "p.y is:", p.y
+\end{verbatim}
+
+see: \verb|simple_class| in \verb|code| dir
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python Classes}
+
+{\LARGE The Initializer}
+
+\vfill
+{\Large The \verb|__init__| special method is called when a new instance of a class is created.}
+
+\vfill
+{\Large You can use it to do any set-up you need}
+
+\vfill
+\begin{verbatim}
+class Point(object):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+\end{verbatim}
+\vfill
+{\Large It gets the arguments passed to the class constructor}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python Classes}
+
+{\LARGE \verb|self|}
+
+\vfill
+{\Large The instance of the class is passed as the first parameter for every method.}
+
+\vfill
+{\Large ``\verb|self|'' is only a convention -- but you DO want to use it.}
+
+\vfill
+\begin{verbatim}
+class Point(object):
+    def a_function(self, x, y):
+...
+\end{verbatim}
+\vfill
+{\Large Does this look familiar from C-style procedural programming?}
+\end{frame} 
+
+
+%%-------------------------------
+%\begin{frame}{LAB}
+%
+%\begin{itemize}
+%  \item
+%\end{itemize}
+%
+%\end{frame}
+%
+%
+%%-------------------------------
+%\begin{frame}{Lightning Talk}
+%
+%{\centering
+%
+%\vfill
+%{\LARGE Lightning Talk:  }
+%
+%\vfill
+%{\Huge Brett}
+%
+%\vfill
+%}
+%\end{frame}
+%%-------------------------------
+%\begin{frame}{LAB}
+%
+%\begin{itemize}
+%  \item
+%\end{itemize}
+%
+%\end{frame}
+%
+%%-------------------------------
+%\begin{frame}{Lightning Talk}
+%
+%{\centering
+%
+%\vfill
+%{\LARGE Lightning Talk:  }
+%
+%\vfill
+%{\Huge Matt}
+%
+%\vfill
+%}
+%\end{frame}
+%
 
 \end{document}
 
