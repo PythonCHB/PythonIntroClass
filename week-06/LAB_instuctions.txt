@@ -120,7 +120,7 @@ Step 8:
    head of the page, before the html element.
    
    You can do this by subclassing Element, overriding render(), but then
-   calling the Element render from the new render.
+   calling the Element render() from the new render().
    
 You now have a pretty full-featured html renderer -- play with it, add some
 new tags, etc....Maybe integrate it into your http server...

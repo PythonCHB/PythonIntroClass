@@ -36,3 +36,6 @@ foreach (var animal in zoo) {
 Jon's traffic simpulator -- homework?
 
 Quiz-06.py
+
+check lookup order for multiple inheritance.
+

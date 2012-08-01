@@ -759,13 +759,13 @@ Ask yourself:\\
 You only want to subclass list if your class could be used anywhere is list is.
 \end{frame}
 
-
 % ---------------------------------------------
 \begin{frame}[fragile]{Attribute resolution order}
 
 {\Large When you access an attribute:
 
-\verb|An_Instance.something|}
+\vfill
+\hspace{0.2in}\verb|An_Instance.something|}
 
 \vfill
 {\Large Python looks for it in this order:}
@@ -835,19 +835,112 @@ GvR: ``Five Minute Multi- methods in Python'':\\
 
 \end{frame} 
 
-
-
-
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}[fragile]{LAB}
 
-{Keep going....}
+{\Large We're going to the rest: steps 4 - 8}
+
+\vfill
+{\Large Step 4:}
 
 \begin{itemize}
-  \item
+  \item Extend the Element class to accept a set of attributes as keywords to the
+  constructor, i.e.:
+  \begin{verbatim}
+Element("some text content",
+        id="TheList",
+        style="line-height:200\%")
+  \end{verbatim}
+    ( remember \verb|**kwargs| ? )
+  \item The render method will need to be extended to render the attributes properly.
+\end{itemize}
+
+\vfill
+You can now render some \verb|<p>| tags (and others) with attributes  
+\end{frame}
+
+%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+{\Large Step 5:}
+
+\begin{itemize}
+   \item Create a "SelfClosingTag" subclass of Element, to render tags like:
+   
+   \verb|<meta charset="UTF-8" />|
+   
+   \item You will need to override the render method to render just the one tag and
+   attributes.
+   
+   \item create a couple subclasses of SelfClosingTag for \verb|<meta>| and \verb|<hr>|
+   (horizontal rule) -- and \verb|<br />| or ??? if you like
+   \end{itemize}
+
+\vfill
+You can now render an html page with a proper \verb|<head>| (\verb|<meta />| and \verb|<title>| elements)
+\end{frame}
+
+\begin{frame}[fragile]{LAB}
+
+{\Large Step 6:}
+
+\begin{itemize}
+   \item  Create an A class for an anchor (link) element. Its constructor should
+          look like: \verb|A(self, link, content)| -- where link is the link,
+          and content is what you see. It can be called like so:
+
+   
+   \verb|A("http://google.com", "link")|
+
+  \item You should be able to subclass from \verb|Element|, and only override
+        the \verb|__init__|\\
+        -- Calling the \verb|Element __init__| from the  \verb|A __init__|
+\end{itemize}
+
+\vfill
+    You can now add a link to your web page.
+\end{frame}
+
+\begin{frame}[fragile]{LAB}
+
+{\Large Step 7:}
+
+\begin{itemize}
+   \item Create \verb|Ul| class for an unordered list (really simple subclass of Element)
+   
+   \item Create \verb|Li| class for an element in a list (also really simple)
+   
+   \item add a list to your web page.
+   
+   \item Create a Header class -- this one should take an integer argument for the
+   header level. i.e \verb|<h1>, <h2>, <h3>|, called like:
+   
+   \item \verb|H(2, "The text of the header")| for an \verb|<h2>| header
+   
+   \item It can subclass from \verb|OneLineTag| -- overriding the \verb|__init__|, then calling
+       the superclass \verb|__init__|
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}[fragile]{LAB}
+
+{\Large Step 8:}
+
+\begin{itemize}
+   \item Update the Html element class to render the "\verb|<!DOCTYPE html>|" tag at the
+   head of the page, before the \verb|html| element.
+   
+   \item You can do this by subclassing \verb|Element|, overriding \verb|render()|, but then
+   calling the \verb|Element render()| from the new \verb|render()|.
+\end{itemize}
+
+\vfill
+You now have a pretty full-featured html renderer -- play with it, add some
+new tags, etc....Maybe integrate it into your http server...
+\end{frame}
+
+
 
 % ---------------------------------------------
 \begin{frame}[fragile]{multiple inheritance}
@@ -876,15 +969,27 @@ class Combined(Super1, Super2, Super3):
 \begin{frame}[fragile]{mix-ins}
 
 \vfill
-{\Large Why you might want to do multiple inheritance}
+{\Large Hierarchies are not always simple}
+\vfill
+\begin{itemize}
+  \item Animal
+  \begin{itemize}
+    \item Mammal
+    \begin{itemize}
+      \item GiveBirth()
+    \end{itemize}
+    \item Bird
+    \begin{itemize}
+      \item LayEggs()
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\vfill
+{\Large Where do you put a Platapus or an Armadillo?}
 
 \vfill
-{\Large \verb|FLoatCanvas| example}
-
-\vfill
+{\Large Real World Example: \verb|FloatCanvas|}
 \end{frame} 
-
-
 
 %%-------------------------------
 %\begin{frame}{LAB}
