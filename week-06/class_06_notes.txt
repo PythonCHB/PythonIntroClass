@@ -1,0 +1,34 @@
+Notes for week 5 class:
+
+
+mix-ins
+
+polymorphism
+
+classes are for code re-use, not for defining taxonomies
+
+if you have a class with two methods, and one of them is __init__ -- you don't need a class.
+
+class attributes -- sharing a value...
+
+how do you spelling "switch/case" with classes
+
+   http://stackoverflow.com/questions/126409/ways-to-eliminate-switch-in-code
+
+foreach (var animal in zoo) {
+    switch (typeof(animal)) {
+        case "dog":
+            echo animal.bark();
+            break;
+
+        case "cat":
+            echo animal.meow();
+            break;
+    }
+}
+
+becomes
+
+foreach (var animal in zoo) {
+    echo animal.speak();
+}

@@ -1,0 +1,58 @@
+Instructions for html renderer exercise:
+
+
+Goal: a set of classes to render html pages.
+      we'll try to get to all the features required to render:
+      
+sample_html.html
+
+
+
+Step 1:
+
+  Create an "Element" class for rendering an html element (xml element). 
+  
+  It should have class attributes for the tag name ("html" first) and the
+  indentation (spaces to indent for pretty printing)
+  
+  the constructor signature should look like:
+    Element(content=None)
+       where content is a string
+
+  It should have an "append" method that can add another string to the content
+  
+  It should have a render(file_out, ind = "") method that renders the tag
+     and the strings in the content.
+
+     file_out could be an file-like object (i.e have a write() method ).
+     
+     "ind" is a string with the indentation level in it -- i.e the amount that
+     the tag should be indented (for pretty printing). (maybe 4 spaces per level).
+     The amount of indentaiton shold be set by the class attribute: "indent"
+     
+     you can test with sys.stdout to print to the console, and/or use a
+     cStringIO.sStringIO object to store it in a string - or pass a file
+     
+you should now be able to render an html tag with text in it as contents.
+     
+Step 2:
+  Create a couple subclasses of Element, for a <body> tag and <p> tag. All you
+  should have to do is override the "tag" attribute.
+
+  Now you can render a few different types of element.
+   
+  Extend the Element.render() method so that it can render other elements
+  inside the tag in addition to strings. Simple recursion should 
+  do it. i.e. it can call the render() method of the elements it contains.
+
+  figure out a way to deal with the fact the the contents elements could be
+  either simple strings or Elements with render methods...(there are a few
+  ways to handle that...)
+
+  You should now be able to render a basic web page with an html tag around
+  the whole thing, and body tag inside, and multiple <p> tags inside that,
+  with text inside that
+
+Step 3:
+
+    
