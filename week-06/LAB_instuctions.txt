@@ -54,5 +54,76 @@ Step 2:
   with text inside that
 
 Step 3:
+  Create a <head> element -- simple subclass.
 
+  Create a OneLineTag subclass of Element:
+    It should override the render method, to render eveything on one line --
+      for the simple tags, like:
     
+    <title> PythonClass - Class 6 example </title>
+    
+  Create a Title subclass of OneLineTag class for the title.
+  
+  You should now be able to render an html doc with a head element, with a
+  title element in that, and a body element with some <P> elements and some text.
+  
+Step 4:
+  Extend the Element class to accept a set of attributes as keywords to the
+  constructor, ie.:
+  
+  Element("some text content", id="TheList", style="line-height:200%")
+  
+  The render method will need to be extended to render the attributes properly.
+
+  You can now render some <p> tags (and others) with attributes  
+    
+Step 4:
+   Create a "SelfClosingTag" subclass of Element, to render tags like:
+   
+   <meta charset="UTF-8" />
+   
+   You will need to override the render method to render just the one tag and
+   attributes.
+   
+   create a couple subclasses of SelfClosingTag for <meta> and <hr>
+   (horizontal rule) -- and <br /> or ??? if you like
+   
+   You can now render an html page with a proper <head> (<meta /> and <title> elements)
+   
+Step 5: 
+    Create a A class for an anchor (link) element. Its constructor shoudl look like:
+       A(self, link, content) -- where link is the link, and cointent is what you see. It can be called like so:
+       
+       A("http://google.com", "link")
+    You should be able to subclass from Element, and only override the __init__
+       - Calling the Element __init__ from the  A __init__
+       
+    You can now add a link to your web page.
+    
+Step 6:
+   Create Ul class for an unordered list (really simple subclass of Element)
+   
+   Create Li class for an element in a list (also really simple)
+   
+   add a list to your web page.
+   
+   Create a Header class -- this one should take an ineger argument for the
+   header level. i.e <h1>, <h2>, <h3>, called like:
+   
+   H(2, "The text of the header") for an <h2> header
+   
+   It can subclass from OneLineTag -- overriding the __init__, then calling
+       the superclass __init__
+   
+Step 6:
+   Update the Html element class to render the "<!DOCTYPE html>" tag at the
+   head of the page, before the html element.
+   
+   You can do this by subclassing Element, overriding render(), but then
+   calling the Element render from the new render.
+   
+You now have a pretty full-featured html renderer -- play with it, add some
+new tags, etc....Maybe integrate it into your http server...
+
+
+   

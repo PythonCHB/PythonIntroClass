@@ -139,13 +139,13 @@ class Li(Element):
     tag = "li"
 
 
-class H(Element):
+class H(OneLineTag):
     """
     class for header tags, the level is specified in a parameter
 
     """
     def __init__(self, level, content, **attributes):
-        Element.__init__(self, content, **attributes)
+        OneLineTag.__init__(self, content, **attributes)
         
         self.tag = "h%i"%level
 
@@ -192,3 +192,4 @@ if __name__ == "__main__":
     f.reset()
     open("test_html.html", 'w').write(f.read())
 
+    print "new version"
