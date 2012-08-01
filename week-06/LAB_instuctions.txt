@@ -6,8 +6,6 @@ Goal: a set of classes to render html pages.
       
 sample_html.html
 
-
-
 Step 1:
 
   Create an "Element" class for rendering an html element (xml element). 
@@ -24,7 +22,7 @@ Step 1:
   It should have a render(file_out, ind = "") method that renders the tag
      and the strings in the content.
 
-     file_out could be an file-like object (i.e have a write() method ).
+     file_out could be any file-like object (i.e have a write() method ).
      
      "ind" is a string with the indentation level in it -- i.e the amount that
      the tag should be indented (for pretty printing). (maybe 4 spaces per level).
@@ -37,7 +35,7 @@ you should now be able to render an html tag with text in it as contents.
      
 Step 2:
   Create a couple subclasses of Element, for a <body> tag and <p> tag. All you
-  should have to do is override the "tag" attribute.
+  should have to do is override the "tag" class attribute.
 
   Now you can render a few different types of element.
    
@@ -57,7 +55,7 @@ Step 3:
   Create a <head> element -- simple subclass.
 
   Create a OneLineTag subclass of Element:
-    It should override the render method, to render eveything on one line --
+    It should override the render method, to render everything on one line --
       for the simple tags, like:
     
     <title> PythonClass - Class 6 example </title>
@@ -73,11 +71,13 @@ Step 4:
   
   Element("some text content", id="TheList", style="line-height:200%")
   
+  ( remember **kwargs ? )
+  
   The render method will need to be extended to render the attributes properly.
 
   You can now render some <p> tags (and others) with attributes  
     
-Step 4:
+Step 5:
    Create a "SelfClosingTag" subclass of Element, to render tags like:
    
    <meta charset="UTF-8" />
@@ -90,7 +90,7 @@ Step 4:
    
    You can now render an html page with a proper <head> (<meta /> and <title> elements)
    
-Step 5: 
+Step 6: 
     Create a A class for an anchor (link) element. Its constructor shoudl look like:
        A(self, link, content) -- where link is the link, and cointent is what you see. It can be called like so:
        
@@ -100,7 +100,7 @@ Step 5:
        
     You can now add a link to your web page.
     
-Step 6:
+Step 7:
    Create Ul class for an unordered list (really simple subclass of Element)
    
    Create Li class for an element in a list (also really simple)
@@ -115,7 +115,7 @@ Step 6:
    It can subclass from OneLineTag -- overriding the __init__, then calling
        the superclass __init__
    
-Step 6:
+Step 8:
    Update the Html element class to render the "<!DOCTYPE html>" tag at the
    head of the page, before the html element.
    

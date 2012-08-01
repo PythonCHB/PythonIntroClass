@@ -32,3 +32,7 @@ becomes
 foreach (var animal in zoo) {
     echo animal.speak();
 }
+
+Jon's traffic simpulator -- homework?
+
+Quiz-06.py
