@@ -722,9 +722,43 @@ class CircleR2(Circle):
 ...
     def get_area(self):
         return Circle.get_area(self, self.radius*2)
-        
 \end{verbatim}
+
+\vfill
+There is nothing special about \verb|__init__| except that it gets called automatically.
 \end{frame} 
+
+\begin{frame}[fragile]{When to Subclass}
+
+\vfill
+{\Large ``Is a'' relationship: Subclass/inheritance}
+
+\vfill
+{\Large ``Has a'' relationship: Composition}
+\end{frame}
+
+\begin{frame}[fragile]{When to Subclass}
+
+{\Large ``Is a'' vs ``Has a'' }
+
+\vfill
+You may have a class that needs to accumulate an arbitrary number of objects.
+
+\vfill
+A list can do that -- do should you subclass list?
+
+\vfill
+Ask yourself:\\
+
+\vfill
+-- IS you class a list (with some extra functionality)?\\
+\hspace{0.4in}or\\
+-- Does you class HAVE a list?\\
+
+\vfill
+You only want to subclass list if your class could be used anywhere is list is.
+\end{frame}
+
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Attribute resolution order}
@@ -750,6 +784,60 @@ It can get more complicated...\\
 \url{http://www.python.org/getit/releases/2.3/mro/}
 \end{frame} 
 
+% ---------------------------------------------
+\begin{frame}[fragile]{What are Python classes, really?}
+
+{\Large Putting aside the OO theory...}
+
+\vfill
+{\Large Python classes are:}
+
+\begin{itemize}
+  \item Namespaces
+  \begin{itemize}
+    \item One for the class object
+    \item One for each instance
+  \end{itemize}
+  \item Attribute resolution order
+  \item Auto tacking-on of \verb|self|
+\end{itemize}
+
+\vfill
+{\Large That's about it -- really!}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Type-Based dispatch}
+
+{\Large From Think Python:}
+
+\begin{verbatim}
+  if isinstance(other, A_Class):
+      Do_something_with_other
+  else:
+      Do_something_else
+\end{verbatim}
+
+\vfill
+{\Large Usually better to use ``duck typing'' (polymorphism)}
+
+\vfill
+{\Large But when it's called for:}
+\begin{itemize}
+    \item \verb|isinstance()|
+    \item \verb|issubclass()|
+\end{itemize}
+
+\vfill
+GvR: ``Five Minute Multi- methods in Python'':\\
+{\small \url{http://www.artima.com/weblogs/viewpost.jsp?thread=101605} }
+
+\end{frame} 
+
+
+
+
 %-------------------------------
 \begin{frame}{LAB}
 
@@ -765,6 +853,23 @@ It can get more complicated...\\
 \begin{frame}[fragile]{multiple inheritance}
 
 {\Large Multiple inheritance: Pulling from more than one class}
+
+\vfill
+\begin{verbatim}
+class Combined(Super1, Super2, Super3):
+    def __init__(self, something, something else):
+        Super1.__init__(self, ......)        
+        Super2.__init__(self, ......)        
+        Super3.__init__(self, ......)        
+\end{verbatim}
+(calls to the super class \verb|__init__| are optional -- usage dependent)
+
+\vfill
+{\Large Attribute resolution -- right to left}
+
+\vfill
+{\Large Why would you want to do this?}
+
 \end{frame} 
 
 % ---------------------------------------------
