@@ -80,15 +80,12 @@ Step 4:
 Step 5:
    Create a "SelfClosingTag" subclass of Element, to render tags like:
    
-   <meta charset="UTF-8" />
+   <hr /> and <br /> (horizontal rule and line break).
    
    You will need to override the render method to render just the one tag and
-   attributes.
+   attributes, if any.
    
-   create a couple subclasses of SelfClosingTag for <meta> and <hr>
-   (horizontal rule) -- and <br /> or ??? if you like
-   
-   You can now render an html page with a proper <head> (<meta /> and <title> elements)
+   Create a couple subclasses of SelfClosingTag for and <hr /> and <br />
    
 Step 6: 
     Create a A class for an anchor (link) element. Its constructor shoudl look like:
@@ -121,6 +118,13 @@ Step 8:
    
    You can do this by subclassing Element, overriding render(), but then
    calling the Element render from the new render.
+   
+   Create a subclass of SelfClosingTag for <meta charset="UTF-8" /> (like
+   for <hr /> and <br /> and add the meta element to the beginning of
+   the head element to give your document an encoding.
+   
+   These doctype and encoding are HTML 5 and you can check this at validator.w3.org.
+
    
 You now have a pretty full-featured html renderer -- play with it, add some
 new tags, etc....Maybe integrate it into your http server...
