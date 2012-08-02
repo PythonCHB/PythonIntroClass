@@ -9,7 +9,7 @@ class Element(object):
     """
     An element with multiple items in the content
     """
-    tag = ""
+    tag = "html"
     indent = "    "
     def __init__(self, content=None):
         """
@@ -44,13 +44,10 @@ class Element(object):
         file_out.write(ind)
         file_out.write('</%s>'%self.tag)
 
-class Html(Element):
-    tag = "html"
-
 
 if __name__ == "__main__":
     import sys, cStringIO
-    page = Html()
+    page = Element()
 
     page.append("Here is a paragraph of text -- there could be more of them, but this is enough  to show that we can do some text")
 
