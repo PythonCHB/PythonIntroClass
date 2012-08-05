@@ -1,7 +1,7 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 7]{Introduction  to Python}
+\title[Intro to Python: Week 7]{Introduction  to Python\\ More OO -- Decorators and Generators}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{August 08, 2012}
@@ -27,10 +27,17 @@
 \section{Review/Questions}
 
 % ---------------------------------------------
-\begin{frame}{Review of Previous Class}
+\begin{frame}[fragile]{Review of Previous Class}
 
 \begin{itemize}
-  \item ...
+  \item Really Quick OO overview
+  \item Built an html generator, using: 
+  \begin{itemize}
+    \item A base class with a couple methods
+    \item Subclasses overriding class attributes
+    \item Subclasses overriding a method
+    \item Subclasses overriding the \verb|__init__|
+  \end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -44,31 +51,94 @@
 
 \end{frame}
 
-\section{First Section}
+\section{More OO}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+\begin{frame}[fragile]{multiple inheritance}
 
- {\Large A topicc}
+{\Large Multiple inheritance:\\
+\hspace{0.2in} Pulling from more than one class}
+
+\vfill
+\begin{verbatim}
+class Combined(Super1, Super2, Super3):
+    def __init__(self, something, something else):
+        Super1.__init__(self, ......)        
+        Super2.__init__(self, ......)        
+        Super3.__init__(self, ......)        
+\end{verbatim}
+(calls to the super class \verb|__init__| are optional -- case dependent)
+
+\vfill
+{\Large Attribute resolution -- left to right}
+
+\vfill
+( Why would you want to do this? )
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{mix-ins}
+
+\vfill
+{\Large Hierarchies are not always simple}
+\vfill
+\begin{itemize}
+  \item Animal
+  \begin{itemize}
+    \item Mammal
+    \begin{itemize}
+      \item GiveBirth()
+    \end{itemize}
+    \item Bird
+    \begin{itemize}
+      \item LayEggs()
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\vfill
+{\Large Where do you put a Platypus or an Armadillo?}
+
+\vfill
+{\Large Real World Example: \verb|FloatCanvas|}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{properties}
+
+{\Large Simple attributes:}
 
 \begin{verbatim}
-some code example
+In [5]: class C(object):
+        def __init__(self):
+                self.x = 5
+In [6]: c = C()
+In [7]: c.x
+Out[7]: 5
+In [8]: c.x = 8
+In [9]: c.x
+Out[9]: 8
 \end{verbatim}
 
 \end{frame} 
 
-\section{Another Section}
 
-% ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
 
- {\Large A topicc}
+\section{Special Methods}
 
-\begin{verbatim}
-some code example
-\end{verbatim}
 
-\end{frame} 
+%\section{Another Section}
+%
+%% ---------------------------------------------
+%\begin{frame}[fragile]{First Topic}
+%
+% {\Large A topicc}
+%
+%\begin{verbatim}
+%some code example
+%\end{verbatim}
+%
+%\end{frame} 
 
 \end{document}
 

@@ -288,16 +288,16 @@ defaults, etc.
 {\Large About the simplest class:}
 
 \begin{verbatim}
->>> class Point:
+>>> class Point(object):
 ...     x = 1
 ...     y = 2
 >>> Point
 <class __main__.Point at 0x2bf928>
->>> p
-<__main__.Point instance at 0x2de918>
 >>> Point.x
 1
 >>> p = Point()
+>>> p
+<__main__.Point instance at 0x2de918>
 >>> p.x
 1
 \end{verbatim}
