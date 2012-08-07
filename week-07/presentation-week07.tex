@@ -127,18 +127,90 @@ Out[9]: 8
 \section{Special Methods}
 
 
-%\section{Another Section}
-%
-%% ---------------------------------------------
-%\begin{frame}[fragile]{First Topic}
-%
-% {\Large A topicc}
-%
-%\begin{verbatim}
-%some code example
-%\end{verbatim}
-%
-%\end{frame} 
+\section{Iterators / Generators}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Iterators}
+
+{\Large Iterators are one of the main reasons Python code is so readable:}
+
+\begin{verbatim}
+for x in just_about_anything:
+    do_stuff(x)
+\end{verbatim}
+
+{\Large you can loop through anything that satisfies the iterator protocol}
+
+\vfill
+\url{http://docs.python.org/library/stdtypes.html#iterator-types}
+\end{frame} 
+
+\begin{frame}[fragile]{Iterator Protocol}
+
+{\Large An iterator must have the following methods:}
+
+\begin{verbatim}
+iterator.__iter__()
+\end{verbatim}
+
+Return the iterator object itself. This is required to allow both containers
+and iterators to be used with the for and in statements.
+
+\begin{verbatim}
+iterator.next()
+\end{verbatim}
+
+Return the next item from the container. If there are no further items,
+raise the StopIteration exception.
+
+\end{frame} 
+
+
+\begin{frame}[fragile]{Example Iterator}
+
+\begin{verbatim}
+class IterateMe_1(object):
+    def __init__(self, stop=5):
+        self.current = 0
+        self.stop = 5
+    def __iter__(self):
+        return self
+    def next(self):
+        if self.current < self.stop:
+            self.current += 1
+            return self.current
+        else:
+            raise StopIteration
+\end{verbatim}
+
+{\Large This is a simple version of \verb|xrange()|}
+
+\end{frame} 
+
+%%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+\begin{itemize}
+  \item  Extend (\verb|iterator_1.py|) to be more like \verb|xrange()| --
+         add three input parameters: \verb|iterator_2(start, stop, step=1)|
+  \item  See what happens if you break out in the middle of the loop:
+\begin{verbatim}
+    it = IterateMe_2(2, 20, 2)
+    for i in it:
+        if i > 10:  break
+        print i
+\end{verbatim}
+And then pick up again:
+\begin{verbatim}
+    for i in it:
+        print i
+\end{verbatim}
+  \item  Does \verb|xrange()| behave the same?\\
+          -- make yours match \verb|xrange()|.
+\end{itemize}
+
+\end{frame}
+
 
 \end{document}
 
