@@ -102,10 +102,14 @@ class Combined(Super1, Super2, Super3):
 \vfill
 {\Large Real World Example: \verb|FloatCanvas|}
 \end{frame} 
+\section{Properties}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{properties}
+\begin{frame}[fragile]{Accessing Attributes}
 
+{\Large One of the strengths of Python is lack of clutter}
+
+\vfill
 {\Large Simple attributes:}
 
 \begin{verbatim}
@@ -116,15 +120,70 @@ In [6]: c = C()
 In [7]: c.x
 Out[7]: 5
 In [8]: c.x = 8
-In [9]: c.x
-Out[9]: 8
 \end{verbatim}
 
 \end{frame} 
 
+% ---------------------------------------------
+\begin{frame}[fragile]{Getter and Setters?}
+
+{\Large What if you need to add behavior later?}
+
+\begin{itemize}
+  \item do some calculation
+  \item check data validity
+  \item keep things in sync
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Getter and Setters?}
+
+{\Large Getters and Setters?}
+
+\begin{verbatim}
+class C(object):
+    ...
+    def get_x(self):
+        return self.x
+    def set_x(self, x):
+        self.x = x
+>>> c = C()
+>>> c.get_x()
+>>> 5
+>>> c.set_x(8)
+>>> c.get_x()
+>>> 8
+\end{verbatim}
+{\Large Ugly and verbose -- Java?}
+
+\vfill
+\url{http:// python is not java}
+\end{frame} 
+
+\begin{frame}[fragile]{property}
+
+{\Large When (and if) you need them}
+
+\begin{verbatim}
+class C(object):
+    def getx(self):
+        return self._x
+    def setx(self, value):
+        self._x = value
+    def delx(self):
+        del self._x
+    x = property(getx, setx, delx, "I'm the 'x' property.")
+\end{verbatim}
+{\Large Interface is still like simple attribute access}
+
+\end{frame} 
 
 
 \section{Special Methods}
+
+
 
 
 \section{Iterators / Generators}
@@ -187,6 +246,19 @@ class IterateMe_1(object):
 
 \end{frame} 
 
+%------------------------------
+\begin{frame}[fragile]{itertools}
+
+{\Large \verb|itertools| is a collection of utilities that make it easy to
+build an iterator that iterates over sequences in various common ways}
+
+\begin{verbatim}
+
+\end{verbatim}
+
+\url{http://docs.python.org/library/itertools.html}
+
+\end{frame}
 %%-------------------------------
 \begin{frame}[fragile]{LAB}
 
@@ -208,8 +280,117 @@ And then pick up again:
   \item  Does \verb|xrange()| behave the same?\\
           -- make yours match \verb|xrange()|.
 \end{itemize}
+\end{frame}
+
+%%-------------------------------
+\begin{frame}[fragile]{generators}
+
+\Large{￼Generators give you the iterator immediately
+no access to the underlying data
+... if it even exists}
+
+\vfill
+\Large{ Conceptually, iterators are about various way st o loop over data,
+generators, generate the data on the fly}
+
+\vfill
+\Large{ Practically, they behave similarly}
 
 \end{frame}
+
+%%-------------------------------
+\begin{frame}[fragile]{yield}
+
+\Large{￼\verb|yield| is a way to make a quickie generator with a function:}
+
+\begin{verbatim}
+def a_generator_function(params):
+    some_stuff
+    yield(something)
+\end{verbatim}
+
+\vfill
+\Large{ Generator functions "yield" a value, rather than returning it }
+
+\vfill
+\Large{ State is preserved in between yields }
+
+\end{frame}
+
+%%-------------------------------
+\begin{frame}[fragile]{yield}
+
+\Large{￼A function with \verb|yield| in it is a ``factory'' for a generator}
+
+\Large{￼Each time you call it, you get a new generator:}
+ 
+\begin{verbatim}
+def a_generator_function(params):
+    some_stuff
+    yield(something)
+
+gen_a = a_generator()
+gen_b = a_generator()
+\end{verbatim}
+
+\vfill
+\Large{ Each instance keeps its own state. }
+
+\vfill
+\Large{ Really just a shorthand for an iterator class that does the book keeping for you.}
+
+\end{frame}
+
+%%-------------------------------
+\begin{frame}[fragile]{yield}
+
+\Large{￼An example: like \verb|xrange()|}
+
+\begin{verbatim}
+def y_xrange(start, stop, step=1):
+    i = start
+    while i < stop:
+        yield i
+        i += step
+\end{verbatim}
+
+\end{frame}
+
+%%-------------------------------
+\begin{frame}[fragile]{yield}
+
+{\Large Note:}
+
+\begin{verbatim}
+In [164]: gen = y_xrange(2,6)
+
+In [165]: type(gen)
+Out[165]: generator
+
+In [166]: dir(gen)
+Out[166]: 
+...
+ '__iter__',
+...
+ 'next',
+\end{verbatim}
+{\Large So the generator {\bf is} an iterator}
+\end{frame}
+
+%%-------------------------------
+\begin{frame}[fragile]{yield}
+
+{\Large A generator function can be a method in a class:}
+
+\begin{verbatim}
+A cool example here...
+
+www.learningpython.com/2009/02/23/iterators-iterables--and-genertors-oh-my
+\end{verbatim}
+
+\end{frame}
+
+
 
 
 \end{document}

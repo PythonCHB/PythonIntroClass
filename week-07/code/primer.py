@@ -2,32 +2,32 @@ import math
 
 def intsum():  # 1 + 2 + 3 + 4 + 5...
     a = 0
-    while 1:
+    while True:
         yield (a * (a + 1)) / 2
         a += 1
 
 def intsum2():  # 1 + 2 + 3 + 4 + 5...
     a = b = 0
-    while 1:
+    while True:
         yield b
         a += 1
         b = b + a
 
 def dub():  # 1, 2, 4, 8, 16, 32, 64...
     a = 1
-    while 1:
+    while True:
         yield a
         a = a * 2
 
 def fib():  # 1, 1, 2, 3, 5, 8, 13, 21, 34...
     a, b = 0, 1
-    while 1:
+    while True:
         yield b
         a, b = b, a + b
 
 def prime():  # 2, 3, 5, 7, 11, 13, 17, 19, 23...
     a = 2
-    while 1:
+    while True:
         yield a
         p = False
         while not p:
