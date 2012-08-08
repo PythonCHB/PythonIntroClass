@@ -527,7 +527,7 @@ object.__delslice__(self, i, j)
 \begin{frame}[fragile]{special methods}
 
 \vfill
-{\Large When you want your class to act like a "standard" calss in some way:}
+{\Large When you want your class to act like a "standard" class in some way:}
 
 \vfill
 {\Large Look up the magic methods you need and define them}
@@ -539,7 +539,37 @@ object.__delslice__(self, i, j)
 \url{http://www.rafekettler.com/magicmethods.html}
 \end{frame} 
 
+\begin{frame}[fragile]{LAB}
 
+{\Large Write a ``Circle'' class:}
+\begin{verbatim}
+>> c = Circle(radius=3)
+>> c.diameter
+6
+>> c.diameter = 8
+>> c.radius 
+4
+>> c.area
+50.26548245743669
+\end{verbatim}
+{\Large Use properties so you can keep the radius and diameter in sync}
+{\Large Write and \verb|__add__| method so you can add two circles}
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge Jeffery}
+
+\vfill
+}
+\end{frame}
 
 \section{Iterators / Generators}
 
@@ -779,20 +809,6 @@ More interesting if [1, 2, 3] is also a generator
 
 \end{frame}
 
-%-------------------------------
-\begin{frame}{Lightning Talk}
-
-{\centering
-
-\vfill
-{\LARGE Lightning Talk:  }
-
-\vfill
-{\Huge Jeffery}
-
-\vfill
-}
-\end{frame}
 
 %-------------------------------
 \begin{frame}[fragile]{Homework}
