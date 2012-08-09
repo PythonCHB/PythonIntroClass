@@ -28,6 +28,8 @@
 
 {\centering
 
+{\LARGE NOTE: class canceled next week}
+
 \vfill
 {\LARGE Lightning Talks today:  }
 
@@ -432,7 +434,8 @@ also, what if we had a bunch of references to superclass?
 {\Large ``super() considered super!'' by Raymond Hettinger }
 \vfill
 \url{http://rhettinger.wordpress.com/2011/05/26/super-considered-super/}
-
+\vfill
+ maybe use super() for your html subclassing...
 \end{frame} 
 
 \section{Special Attributes}
@@ -505,6 +508,23 @@ object.__delslice__(self, i, j)
 
 \end{frame} 
 
+\begin{frame}[fragile]{special methods}
+
+{\Large Example -- to define addition:}
+
+\begin{verbatim}
+def __add__(self, v):
+    """
+    redefine + as element-wise vector sum
+    """
+    assert len(self) == len(v)
+    return vector([x1 + x2 for x1, x2 in zip(self, v)])
+\end{verbatim}
+
+( from a nice complete example in \verb|code/vector.py| )
+
+\end{frame} 
+
 
 \begin{frame}[fragile]{special methods}
 
@@ -514,7 +534,7 @@ object.__delslice__(self, i, j)
 {\Large You only need to define the ones that are going to get used}
 
 \vfill
-{\Large but you probably want to define at least these:}
+{\Large But you probably want to define at least these:}
 
 \vfill
 \verb|object.__str__|: Called by the str() built-in function and by the print statement to compute the “informal” string representation of an object.
@@ -541,7 +561,10 @@ object.__delslice__(self, i, j)
 
 \begin{frame}[fragile]{LAB}
 
-{\Large Write a ``Circle'' class:}
+{Write a ``Circle'' class:}
+
+Example run code in \verb|test_circle.py|
+
 \begin{verbatim}
 >> c = Circle(radius=3)
 >> c.diameter
@@ -549,11 +572,12 @@ object.__delslice__(self, i, j)
 >> c.diameter = 8
 >> c.radius 
 4
->> c.area
-50.26548245743669
 \end{verbatim}
-{\Large Use properties so you can keep the radius and diameter in sync}
-{\Large Write and \verb|__add__| method so you can add two circles}
+Use properties so you can keep the radius and diameter in sync
+
+Write an \verb|__add__| method so you can add two circles
+
+(and have \verb|__str__| and \verb|__repr__| methods)
 \end{frame}
 
 %-------------------------------
@@ -671,18 +695,18 @@ And then pick up again:
 %%-------------------------------
 \begin{frame}[fragile]{generators}
 
-\Large{￼Generators give you the iterator immediately
+\Large{￼Generators give you the iterator immediately:
 no access to the underlying data ... if it even exists}
 
 \vfill
-\Large{ Conceptually:}
+{\bf Conceptually:}
 
 iterators are about various ways to loop over data,
 
 generators generate the data on the fly
 
 \vfill
-\Large{ Practically:}
+{\bf Practically:}
 
 You can use either either way (and a generator is one type of iterator)
 
@@ -714,8 +738,10 @@ def a_generator_function(params):
 
 \Large{￼A function with \verb|yield| in it is a ``factory'' for a generator}
 
+\vfill
 \Large{￼Each time you call it, you get a new generator:}
  
+\vfill
 \begin{verbatim}
 gen_a = a_generator()
 gen_b = a_generator()
@@ -775,6 +801,7 @@ Out[166]:
 \vfill
 {\Large More about iterators and generators:}
 
+\vfill
 \url{http://www.learningpython.com/2009/02/23/iterators-iterables-and-generators-oh-my/}
 
 \vfill
@@ -812,6 +839,8 @@ More interesting if [1, 2, 3] is also a generator
 
 %-------------------------------
 \begin{frame}[fragile]{Homework}
+
+{\LARGE NOTE: class canceled next week}
 
 \vfill
 {\Large Pickup from last week -- For a portion of the system you're responsible for testing:}
