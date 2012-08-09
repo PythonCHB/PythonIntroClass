@@ -48,3 +48,4 @@ if __name__ == "__main__":
     for i in range(101):
         print i, v.next(), w.next(), x.next(), y.next(), z.next()
 
+# try x^2, x^3, counting by threes, x^e, counting by minus seven
