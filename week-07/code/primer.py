@@ -30,12 +30,12 @@ def prime():  # 2, 3, 5, 7, 11, 13, 17, 19, 23...
     while True:
         yield a
         p = False
-        while not p:
-            a += 1
-            p = True
+        while not p:                    # while not prime
+            a += 1                      # try the next integer
+            p = True                    # assume it is prime...
             for x in xrange(2, int(math.floor(math.sqrt(a))) + 1):
                 if a % x == 0:
-                    p = False
+                    p = False           # ...unless it isn't
                     break
 
 
@@ -48,3 +48,4 @@ if __name__ == "__main__":
     for i in range(101):
         print i, v.next(), w.next(), x.next(), y.next(), z.next()
 
+# try x^2, x^3, counting by threes, x^e, counting by minus seven
