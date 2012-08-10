@@ -84,6 +84,7 @@
 
 {\LARGE Syntax:}
 
+\vfill
 \begin{verbatim}
 @logged
 def add(a, b):
@@ -91,13 +92,157 @@ def add(a, b):
     return a + b
 \end{verbatim}
 
-{\Large Demo and Motivation:}
+\vfill
+{\Large Demo and Motivation: \verb|basicmath.py| }
 
-\begin{verbatim}
-
-\end{verbatim}
+\vfill
+PEP: \url{http://www.python.org/dev/peps/pep-0318/}
 
 \end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorators}
+
+{\LARGE \verb|@| decorator operator is an abbreviation:}
+
+\vfill
+\begin{verbatim}
+@f
+def g:
+    pass
+\end{verbatim}
+
+\vfill
+same as
+
+\vfill
+\begin{verbatim}
+def g:
+    pass
+g = f(g)
+\end{verbatim}
+
+\vfill
+{\Large ``Syntactic Sugar'' -- but really quite nice}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorators}
+
+{\LARGE demo:
+
+\vfill
+\begin{verbatim}
+memoize.py
+\end{verbatim}
+
+}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorator  examples}
+
+{\LARGE Examples from the stdlib:}
+
+\vfill
+{\Large Does this structure:}
+
+\vfill
+\begin{verbatim}
+def g:
+    pass
+g = f(g)
+\end{verbatim}
+
+\vfill
+
+{\Large look familiar from last class?}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorator examples}
+
+{\LARGE \verb|staticmethod()|}
+
+\vfill
+\begin{verbatim}
+￼class C(object):
+    def add(a, b):
+        return a + b
+    add = staticmethod(add)
+\end{verbatim}
+
+\vfill
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorator examples}
+
+{\LARGE \verb|staticmethod()|}
+
+\vfill
+{\Large Decorator form:}
+\begin{verbatim}
+￼class C(object):
+    @staticmethod
+    def add(a, b):
+        return a + b
+\end{verbatim}
+
+\vfill
+
+{\LARGE ( and \verb|classmethod| )}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{examples}
+
+{\LARGE \verb|property()|}
+
+\vfill
+\begin{verbatim}
+￼￼class C(object):
+    def __init__(self):
+        self._x = None
+    def getx(self):
+        return self._x
+    def setx(self, value):
+        self._x = value
+    def delx(self):
+        del self._x
+    x = property(getx, setx, delx,
+                 "I'm the 'x' property.")
+\end{verbatim}
+
+\vfill
+becomes...
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorator examples}
+
+\begin{verbatim}
+class C(object):
+    def __init__(self):
+        self._x = None
+    @property
+    def x(self):
+        """I'm the 'x' property."""
+        return self._x
+    @x.setter
+    def x(self, value):
+        self._x = value
+    @x.deleter
+    def x(self):
+        del self._x
+\end{verbatim}
+
+\vfill
+Puts the info close to where it is used
+\end{frame} 
+
 
 
 %-------------------------------
