@@ -1,7 +1,8 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 8]{Introduction  to Python}
+\title[Intro to Python: Week 8]{Introduction  to Python\\
+                                Decorators -- Debugging -- Packages and Packaging}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{August 22, 2012}
@@ -27,10 +28,20 @@
 \section{Review/Questions}
 
 % ---------------------------------------------
-\begin{frame}{Review of Previous Class}
+\begin{frame}[fragile]{Review of Previous Class}
+
+{\Large Lightning talk today: Peter}
 
 \begin{itemize}
-  \item ...
+    \item Some more OO
+    \begin{itemize}
+      \item Multiple inheritance / mix-ins
+      \item Properties
+      \item \verb|staticmethod| and \verb|classmethod|
+      \item Special methods (``dunder'')
+    \end{itemize}
+      \item Iterators
+      \item Generators
 \end{itemize}
 
 \end{frame}
@@ -38,18 +49,89 @@
 
 % header
 % ---------------------------------------------
-\begin{frame}{Homework review}
+\begin{frame}[fragile]{Homework review}
 
-  {\Large Homework notes }
+{\Large Who added some classes to some ``real'' code?}
+
+{\Large 
+\begin{itemize}
+      \item Multiple inheritance / mix-ins ?
+      \item Property ?
+      \item \verb|staticmethod| or \verb|classmethod| ?
+      \item Special methods ?
+      \item Iterator or Generators ?
+\end{itemize}
+}
+\end{frame}
+
+\section{Decorators}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorators}
+
+{\LARGE Decorators are wrappers around functions}
+
+\vfill
+{\LARGE They let you add code before an after the execution of a function}
+
+\vfill
+{\LARGE Creating a custom version of that function}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Decorators}
+
+{\LARGE Syntax:}
+
+\begin{verbatim}
+@logged
+def add(a, b):
+    """add() adds things"""
+    return a + b
+\end{verbatim}
+
+{\Large Demo and Motivation:}
+
+\begin{verbatim}
+
+\end{verbatim}
+
+\end{frame} 
+
+
+%-------------------------------
+\begin{frame}{LAB}
+
+\begin{itemize}
+  \item
+\end{itemize}
 
 \end{frame}
 
-\section{First Section}
+% Lightning Talk Slide
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge Peter}
+
+\vfill
+}
+\end{frame}
+
+
+\section{Debugging}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{First Topic}
 
- {\Large A topicc}
+ {\Large A topic}
 
 \begin{verbatim}
 some code example
@@ -57,18 +139,58 @@ some code example
 
 \end{frame} 
 
-\section{Another Section}
+%-------------------------------
+\begin{frame}{LAB}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+
+\section{Packages and Packaging}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{First Topic}
 
- {\Large A topicc}
+ {\Large A topic}
 
 \begin{verbatim}
 some code example
 \end{verbatim}
 
 \end{frame} 
+
+%-------------------------------
+\begin{frame}{LAB}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Wrap up}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+
+
+%-------------------------------
+\begin{frame}{Homework}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
 
 \end{document}
 

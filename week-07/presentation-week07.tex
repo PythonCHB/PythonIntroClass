@@ -1,7 +1,7 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 7]{Introduction  to Python\\ More OO -- Decorators and Generators}
+\title[Intro to Python: Week 7]{Introduction  to Python\\ More OO -- Iterators and Generators}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{August 08, 2012}
@@ -640,7 +640,7 @@ raise the StopIteration exception.
 class IterateMe_1(object):
     def __init__(self, stop=5):
         self.current = 0
-        self.stop = 5
+        self.stop = stop
     def __iter__(self):
         return self
     def next(self):
@@ -832,7 +832,12 @@ More interesting if [1, 2, 3] is also a generator
 %%-------------------------------
 \begin{frame}[fragile]{LAB}
 
-{\Large generator lab}
+\vfill
+{\LARGE generator lab:}
+
+\vfill
+{\LARGE \verb| code/primer.py |}
+\vfill
 
 \end{frame}
 
@@ -849,8 +854,8 @@ More interesting if [1, 2, 3] is also a generator
         four classes)
   \item Try to make use or something from today:
   \begin{itemize}
-    \item mix-ins
-    \item properties
+    \item Mix-ins
+    \item Properties
     \item Magic methods
     \item iterator or generator
   \end{itemize}
