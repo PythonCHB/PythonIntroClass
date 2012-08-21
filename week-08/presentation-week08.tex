@@ -229,7 +229,6 @@ class C(object):
         self._x = None
     @property
     def x(self):
-        """I'm the 'x' property."""
         return self._x
     @x.setter
     def x(self, value):
@@ -243,13 +242,70 @@ class C(object):
 Puts the info close to where it is used
 \end{frame} 
 
+% ---------------------------------------------
+\begin{frame}[fragile]{examples}
+
+{\LARGE CherryPy}
+
+\vfill
+\begin{verbatim}
+import cherrypy
+class HelloWorld(object):
+    @cherrypy.expose
+    def index(self):
+        return "Hello World!"
+cherrypy.quickstart(HelloWorld())
+\end{verbatim}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{examples}
+
+{\LARGE Pyramid}
+
+\vfill
+\begin{verbatim}
+
+@template
+def A_view_function(request)
+   .....
+@json
+def A_view_function(request)
+   ......
+
+
+\end{verbatim}
+
+so you don't need to think about what your view is returning...
+
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{decorators...}
+
+{\Large For this class:}
+
+\vfill
+{\Large Mostly want to you to know how to use decorators that someone else has written}
+
+\vfill
+{\Large Have a basic idea what they do when you do use them}
+
+\end{frame} 
 
 
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}[fragile]{LAB}
 
 \begin{itemize}
-  \item
+  \item Re-write the properties from last week's \verb|Circle| class to use the
+        decorator syntax (see a couple slides back for an example)
+
+  \item Write a decorator that can be used to wrap any function that returns a
+        string in a \verb|<p>| element from the html builder from the previous
+        couple classes (the \verb|P Element| subclass).
 \end{itemize}
 
 \end{frame}
