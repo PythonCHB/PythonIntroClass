@@ -72,7 +72,7 @@
 {\LARGE Decorators are wrappers around functions}
 
 \vfill
-{\LARGE They let you add code before an after the execution of a function}
+{\LARGE They let you add code before and after the execution of a function}
 
 \vfill
 {\LARGE Creating a custom version of that function}
@@ -134,7 +134,7 @@ g = f(g)
 
 \vfill
 \begin{verbatim}
-memoize.py
+decorator.py
 \end{verbatim}
 
 }
@@ -475,7 +475,7 @@ powerful, awesome, and a bit annoying
 
 \begin{frame}[fragile]{Logging Module}
 
-{\LARGE Using the standard module means you can share your logging with third
+{\LARGE Using the standard logging module means you can share your logging with third
 party packages, etc.}
 
 \vfill
@@ -555,15 +555,10 @@ A bug that disappears or alters its behavior when one attempts to probe or isola
 
 \end{frame} 
 
+%--------------------------------
 \begin{frame}[fragile]{PDB}
 
-( I've never used any of these much -- but ...)
-
-\vfill
-{\Large Getting started with pdb (blog post):}
-
-\url{http://pythonconquerstheuniverse.wordpress.com/2009/09/10/debugging-in-python/}\\
-(Nice simple intro)
+( I've never used it much -- but ...)
 
 \vfill
 {\Large Python Debugging Techniques}
@@ -572,6 +567,20 @@ A bug that disappears or alters its behavior when one attempts to probe or isola
 \vfill
 {\Large Use pdb to debug Django (screencast):}
 \url{http://ericholscher.com/blog/2008/aug/31/using-pdb-python-debugger-django-debugging-series-/}
+\end{frame} 
+
+%--------------------------------
+\begin{frame}[fragile]{Visual Debuggers}
+\vfill
+{\Large Visual debuggers in many IDEs:}
+\begin{itemize}
+  \item WingIDE
+  \item PyDEV / Eclipse
+  \item SpyderPyDEV
+  \item PyCharm
+  \item .....
+\end{itemize}
+
 
 \end{frame} 
 
@@ -581,12 +590,19 @@ A bug that disappears or alters its behavior when one attempts to probe or isola
 %-------------------------------
 \begin{frame}{LAB}
 
-{\Large PDB lab}
+{\LARGE PDB lab}
+\vfill
+{\Large Follow this tutorial:}
 
-\begin{itemize}
-  \item
-\end{itemize}
+\vfill
+{\Large Getting started with pdb:}
 
+\url{http://pythonconquerstheuniverse.wordpress.com/2009/09/10/debugging-in-python/}\\
+
+\vfill
+{\Large Try it on your own code -- or class code}
+
+\vfill
 \end{frame}
 
 
@@ -599,7 +615,7 @@ A bug that disappears or alters its behavior when one attempts to probe or isola
 {\Large A module is a file with python code in it}
 
 \vfill
-{\Large A package is a directory with and \verb|__init__.py| file in it}
+{\Large A package is a directory with an \verb|__init__.py| file in it}
 
 \vfill
 {\Large And usually other modules, packages, etc...}
@@ -612,16 +628,10 @@ my_package
 \end{verbatim}
 
 \begin{verbatim}
-    import my_package
+import my_package
 \end{verbatim}
 
 runs \verb|my_package/__init__.py|
-
-\begin{verbatim}
-    import my_package.module_a
-\end{verbatim}
-
-runs \verb|my_package/__init__.py| and \verb|my_package.module_a.py|
 
 \end{frame} 
 
@@ -720,10 +730,10 @@ Comes with the system, but:
 {\Large From binaries: }
 
 \vfill
-{\Large Windows: MSI installers}
+{\Large Windows:} MSI installers
 
 \vfill
-{\Large OS-X: dmg installers }
+{\Large OS-X:} dmg installers 
 
 (make sure to get compatible packages)
 
@@ -732,33 +742,450 @@ Comes with the system, but:
 
 \end{frame} 
 
+% ---------------------------------------------
+\begin{frame}[fragile]{Installing Packages}
+
+{\Large In the beginning, there was the \verb|distutils|:}
+
+\url{....}
+
+{\Large But \verb|distutils| is missing some key features:}
+\begin{itemize}
+  \item package versioning
+  \item package discovery
+  \item auto-install
+\end{itemize}
+
+\vfill
+{\Large And then came \verb|PyPi|}
+
+\vfill
+{\Large And then came \verb|setuptools|}
+
+\vfill
+{\Large But that wasn't well maintained...}
+
+\vfill
+{\Large So now there is \verb|distribute/pip|}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Installing Packages}
+
+\vfill
+{\LARGE Actually, it's a bit of a mess}
+\vfill
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Packaging Time line}
+
+{\centering
+\includegraphics[width=4.5in]{PackagingTimeline.pdf}
+}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Packaging Tools}
+
+{\centering
+\includegraphics[width=4.5in]{packaging1.pdf}
+}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Current State of Packaging}
+
+{\centering
+\includegraphics[width=4.5in]{PackagingCurrentState.pdf}
+}
+\vfill
+\url{http://guide.python-distribute.org/introduction.html}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Compiled Packages}
+
+{\LARGE Biggest issue is with compiled extensions\\[0.1in]
+\hfill(C/C++, etc)\hfill
+}
+\vfill
+{\Large -- You need the right compiler set up}
+
+\vfill
+{\LARGE Dependencies}
+
+\vfill
+{\Large -- Here's were it gets really ugly}
+
+\vfill
+{\Large -- Particularly on Windows}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Compiled Packages}
+
+{\LARGE Linux}
+
+\vfill
+{\Large Pretty straightforward:}
+
+\vfill
+{\Large 1) Is there a system package \\[0.1in] (rpm, deb, apt-get, etc...)?
+}
+
+\vfill
+{\Large 2) Install the dependencies, build from source:\\[0.1in]
+\verb python setup.py build ; python setup.py install 
+}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Compiled Packages}
+
+{\LARGE Windows}
+
+\vfill
+{\Large Sometimes simpler:}
+
+\vfill
+{\Large 1) A lot of packages have Windows binaries:\\[0.1in]
+            - Usually for \url{python.org} builds \\[0.1in]
+            - Make sure you get 32 or 64 bit correct
+}
+
+\vfill
+{\Large 2) But if no binaries: \\[0.1in]
+           - Hope the dependencies are available!\\[0.1in]
+           - Set up the compiler (MS "Express" version usually works)
+}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Compiled Packages}
+
+{\LARGE OS-X}
+
+\vfill
+{\Large Lots of Python versions:\\[0.1in]
+  - Apple's built-in (different for each version of OS)\\[0.1in]
+  - \url{python.org} builds.\\
+  \hspace{0.5in}- 32 bit PPC+Intel\\
+  \hspace{0.5in}- 32+64 bit Intel\\[0.1in]
+  - Macports
+  - Homebrew
+}
+
+
+\vfill
+{\Large Binary Installers (dmg or egg) have to match python version}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Compiled Packages}
+
+{\LARGE OS-X}
+
+\vfill
+{\Large If you have to build it yourself:}
+
+\vfill
+{\Large Xcode compiler (the right version:\\[0.1in]
+  - Version 3.* for 32 bit PPC+Intel\\[0.1in]
+  - Version 4.* for 32+64 bit Intel\\
+}
+
+\vfill
+{\Large If extra dependencies:\\[0.1in]
+  - macports or home brew often easiest way to build them
+}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Final Recommendation}
+
+{\Large First try: \verb|pip install|}
+
+\vfill
+{\Large If that doesn't work:}
+
+\vfill
+{\Large Read the docs of the package you want to install}
+
+\vfill
+{\Large Do what they say}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{virtualenv}
+
+{\Large \verb|virtualenv| is a tool to create isolated Python environments.}
+
+\vfill
+{\Large Very useful for developing multiple apps}
+
+\vfill
+{\Large Or deploying more than one on one system}
+
+\vfill
+\url{http://www.virtualenv.org/en/latest/index.html}
+\end{frame} 
+
+\begin{frame}[fragile]{virtualenv}
+
+{\Large ￼keep an eye on}
+
+\vfill
+{\Large distutils2 / packaging / pysetup }
+
+\vfill
+{\large (They are trying to solve the problem!) }
+
+\vfill
+(\url{http://packages.python.org/Distutils2/})
+\end{frame} 
+
+\section{Distributing}
+
+\begin{frame}[fragile]{Distributing}
+
+{\LARGE What if you need to distribute you own:}
+
+\vfill
+{\Large Scripts}
+
+\vfill
+{\large Libraries }
+
+\vfill
+{\large Applications }
+\vfill
+
+\end{frame} 
+
+\begin{frame}[fragile]{Scripts}
+
+\vfill
+{\LARGE Often you can just copy, share, or check in the script to source
+control and call it good.}
+
+\vfill
+But only if it's a single file, and doesn't need anything non-standard
+\end{frame} 
+
+\begin{frame}[fragile]{Scripts}
+
+\vfill
+{\LARGE ￼When the script needs more than just the stdlib (or your company standard environment)}
+
+\vfill
+{\LARGE You have an application, not a script}
+
+\vfill
+
+\end{frame} 
+
+\begin{frame}[fragile]{Libraries}
+
+\vfill
+{\LARGE When you read the distutils docs, it's usually libraries they’re talking about}
+
+
+\vfill
+{\LARGE Scripts + library is the same...}
+
+
+\vfill
+(\url{http://docs.python.org/distutils/})
+\end{frame} 
+
+\begin{frame}[fragile]{distutils}
+
+\vfill
+{\LARGE \verb|distutils| makes it easy to do the easy stuff:}
+
+\vfill
+{\Large Distribute and install to multiple platforms, etc.}
+
+\vfill
+{\Large Even binaries, installers and compiled packages}
+
+\vfill
+{\Large (Except dependencies)}
+
+\vfill
+(\url{http://docs.python.org/distutils/})
+\end{frame} 
+
+\begin{frame}[fragile]{distutils basics}
+
+\vfill
+{\Large It's all in the \verb|setup.py file|:}
+
+\begin{verbatim}
+from distutils.core import setup
+setup(name='Distutils',
+      version='1.0',
+      description='Python Distribution Utilities',
+      author='Greg Ward',
+      author_email='gward@python.net',
+      url='http://www.python.org/sigs/distutils-sig/',
+      packages=['distutils', 'distutils.command'],
+     )
+\end{verbatim}
+\vfill
+(\url{http://docs.python.org/distutils/})
+\end{frame} 
+
+\begin{frame}[fragile]{distutils basics}
+
+{\Large Once your setup.py is written, you can:}
+
+\begin{verbatim}
+python setup.py ...
+
+build         build everything needed to install
+install       install everything from build directory
+sdist         create a source distribution
+              (tarball, zip file, etc.)
+bdist         create a built (binary) distribution
+bdist_rpm     create an RPM distribution
+bdist_wininst create an executable installer for MS Windows
+upload        upload binary package to PyPI
+\end{verbatim}
+
+\end{frame} 
+
+%----------------------------------------------
+\begin{frame}[fragile]{More complex packaging}
+
+{\Large For a complex package:}
+
+\vfill
+{\Large You want to use a well structured setup:}
+
+\vfill
+\url{http://guide.python-distribute.org/creation.html}
+\vfill
+\end{frame} 
+
+%----------------------------------------------
+\begin{frame}[fragile]{develop mode}
+
+{\Large While you are developing your package, Installing it is a pain.}
+
+\vfill
+{\Large But you want your code to be able to import, etc. as though it were installed}
+
+\vfill
+{\Large \verb|setup.py develop| installs links to your code, rather than copies
+ -- so it looks like it's installed, but it's using the original source}
+
+\vfill
+{\Large You need \verb|distribute| (or \verb|setuptools|) to use it.}
+\vfill
+\end{frame} 
+
+%----------------------------------------------
+\begin{frame}[fragile]{Applications}
+
+{\Large For a complete application:}
+\begin{itemize}
+  \item Web apps
+  \item GUI apps
+\end{itemize}
+
+{\Large Multiple options:}
+\begin{itemize}
+  \item Virtualenv + VCS
+  \item zc.buildout ( \url{http://www.buildout.org/} )
+  \item System packages (rpm, deb, ...)
+  \item Bundles...
+\end{itemize}
+
+\end{frame} 
+
+%----------------------------------------------
+\begin{frame}[fragile]{Bundles}
+
+{\Large
+Bundles are Python + all your code + plus all the dependencies --
+all in one single ``bundle'' 
+
+\vfill
+Most popular on Windows and OS-X
+}
+\begin{verbatim}
+  py2exe
+  py2app
+  pyinstaller
+ ...
+\end{verbatim}
+
+{\Large User doesn't even have to know it's python }
+
+\vfill
+Examples: \\
+\hspace{0.5in} \url{http://www.bitpim.org/} \\
+\hspace{0.5in} \url{http://response.restoration.noaa.gov/nucos}
+
+\end{frame} 
 
 
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}[fragile]{LAB}
+
+{\Large Write a setup.py for a script of yours}
 
 \begin{itemize}
-  \item
+  \item Ideally, your script relies on at least one other module
+  \item At a minimum, you'll need to specify \verb|scripts|
+  \item and probably \verb|py_modules|
+  \item try:
+  \begin{itemize}
+    \item \verb| python setup.py build| 
+    \item \verb| python setup.py install| 
+    \item \verb| python setup.py sdist| 
+    \item \verb| python setup.py bdist_wininst| 
+  \end{itemize}
+  \item EXTRA: install \verb|distribute|
+  \begin{itemize}
+    \item use: \verb|from setuptools import setup|
+    \item try: \verb| python setup.py develop| 
+  \end{itemize}
 \end{itemize}
 
 \end{frame}
 
-%-------------------------------
-\begin{frame}{Wrap up}
-
-\begin{itemize}
-  \item
-\end{itemize}
-
-\end{frame}
-
+%%-------------------------------
+%\begin{frame}{Wrap up}
+%
+%\begin{itemize}
+%  \item decorators
+%  \item 
+%  \item decorators
+%\end{itemize}
+%
+%\end{frame}
+%
 
 
 %-------------------------------
 \begin{frame}{Homework}
 
 \begin{itemize}
-  \item
+  \item Find a package or two and install it
+  \item Try to install it "from source" -- i.e. \verb|setup.py install| 
+  \itme Make a nice package of your class project (or something else)
 \end{itemize}
 
 \end{frame}
