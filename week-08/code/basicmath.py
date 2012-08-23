@@ -23,14 +23,14 @@ def logged(func):
     return wrapper
 
 
-##############################
-#def logged(func):
-#    def wrapper(*args):
-#        print '### %s(%s)' % (func.func_name, args)
-#        result = func(*args)
-#        print '### %s(%s) --> %r' % (func.func_name, args, result)
-#        return result
-#    return wrapper
+#############################
+def logged(func):
+    def wrapper(*args):
+        print '### %s(%s)' % (func.func_name, args)
+        result = func(*args)
+        print '### %s(%s) --> %r' % (func.func_name, args, result)
+        return result
+    return wrapper
 
 
 
@@ -39,17 +39,17 @@ def logged(func):
 def add(a, b):
     """add() adds things"""
     return a + b
-#add = logged(add)
+add = logged(add)
 
 def subtract(a, b):
     """subtract() subtracts two things"""
     return a - b
-#subtract = logged(subtract)
+subtract = logged(subtract)
 
 def even(a):
     """even() returns True if the value is even"""
     return a % 2 == 0
-#even = logged(even)
+even = logged(even)
 
 
 if __name__ == "__main__":
