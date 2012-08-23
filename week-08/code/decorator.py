@@ -30,10 +30,12 @@ def sieve(f):
     return siever
 
 s = [1, 2, 3, 4]
+print "s:", s
 oddsieve = sieve(odd)
-print oddsieve(s)
+print "oddsieve(s):", oddsieve(s)
+
 evensieve = sieve(even)
-print evensieve(s)
+print "evensieve(s):", evensieve(s)
 
 # The decorator operator @ abbreviates the preceding pattern
 # @f; def g  means g = f(g)
@@ -46,9 +48,11 @@ def osieve(i):
 def esieve(i):
     return not (i % 2)
 
+print "osieve(s):", osieve(s)
+print "esieve(s):", esieve(s)
 
-print osieve(s)
-print esieve(s)
+
+
 
 # You can also use a class as a decorator
 # because classes and objects are callable (via __init__ and __call__)
