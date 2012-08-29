@@ -29,13 +29,14 @@
 % ---------------------------------------------
 \begin{frame}[fragile]{Review of Previous Class}
 
-
+{\Large
 \vfill
 \begin{itemize}
   \item Decorators
   \item Debugging
   \item Packages and Packaging
 \end{itemize}
+}
 
 \vfill
 {\Large Lightning talk today: Chris}
@@ -46,7 +47,6 @@
 % ---------------------------------------------
 \begin{frame}[fragile]{Homework review}
 
-
 \vfill
 {\Large Did any of you find a package you couldn't install?}
 
@@ -56,12 +56,17 @@
 
 \vfill
 
+{\large Note: I couldn't \verb|'pip install'| pychecker -- I had to download
+the tarball and \verb|'python setup.py install'| it.}
+
 \end{frame}
 
-\section{Testing}
+\section{Testing / doctests}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Testing}
+
+{\huge NOTE:}
 
 \vfill
 {\LARGE A bit strange to be ``teaching'' testing \\[0.1in]
@@ -126,7 +131,7 @@ uncover new software bugs, or regressions, in existing functional and
 non-functional areas of a system after changes}
 
 \vfill
-{\Large Unit Testing}
+{\LARGE Unit Testing:}
 
 \vfill
 {\Large unit testing is a method by which individual units of source code,
@@ -145,27 +150,25 @@ they are fit for use}
 {\LARGE￼doctest}
 
 \vfill
-{\Large \vspace{0.3in} In the stdlib}
+{\Large \vspace{0.3in} -- In the stdlib}
 
 \vfill
-{\Large \vspace{0.3in} Unique to Python?}
+{\Large \vspace{0.3in} -- Unique to Python?}
 
 \vfill
-{\Large \vspace{0.3in} Literate programming}
+{\Large \vspace{0.3in} -- Literate programming}
 
 \vfill
-{\Large \vspace{0.3in} verify examples in in docs}
+{\Large \vspace{0.3in} -- Verify examples in in docs}
 
 \vfill
 \url{http://docs.python.org/library/doctest.html}
-}
+
 
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{doctest}
-
-{\LARGE￼doctest example}
+\begin{frame}[fragile]{doctest example}
 
 \begin{verbatim}
 def get(self):
@@ -178,24 +181,28 @@ def get(self):
 \end{verbatim}
 
 \vfill
+{\Large An exact dump of the command line output}
+
+\vfill
 \url{http://docs.python.org/library/doctest.html}
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{doctest}
+\begin{frame}[fragile]{doctest uses}
 
 {\large
+``
 As mentioned in the introduction, doctest has grown to have three primary uses:
 
 \begin{itemize}
-    Checking examples in docstrings.
-    Regression testing.
-    Executable documentation / literate testing.
+    \item Checking examples in docstrings.
+    \item Regression testing.
+    \item Executable documentation / literate testing.
 \end{itemize}
 
 These uses have different requirements, and it is important to distinguish them.
 In particular, filling your docstrings with obscure test cases makes for bad
-documentation.
+documentation.''
 }
 
 \vfill
@@ -205,7 +212,7 @@ documentation.
 % ---------------------------------------------
 \begin{frame}[fragile]{running doctests}
 
-{\large In \verb|__name__ == "__main__"| block:
+{\large In \verb|__name__ == "__main__"| block:}
 
 \begin{verbatim}
 if __name__ == "__main__":
@@ -225,21 +232,19 @@ if __name__ == "__main__":
 \begin{frame}[fragile]{running doctests}
 
 \vfill
-{\large In an external file:
+{\large In an external file:}
 
 \begin{verbatim}
-    doctest.testmfile("name_of_test_file.txt")
+    doctest.testfile("name_of_test_file.txt")
 \end{verbatim}
 
-{\large Tests the docs in the file (reSt format...) }
+{\large Tests the docs in the file (ReSt format...) }
 
 
 \vfill
 {\large With a test runner: more on that later}
 
-
 \vfill
-\url{http://sphinx.pocoo.org/}
 \end{frame} 
 
 % ---------------------------------------------
@@ -289,31 +294,47 @@ if __name__ == "__main__":
 
 \end{frame} 
 
-% ---------------------------------------------
-\begin{frame}[fragile]{pyunit}
+%-------------------------------
+\begin{frame}[fragile]{pep8}
 
-{\LARGE Not Really testing, but...}
+{\LARGE￼\verb|pep8.py|}
+
+\vfill
+{\Large tells you when you have code which doesn't follow PEP 8}
+
+\vfill
+\begin{verbatim}
+pip install pep8
+\end{verbatim}
+
+\vfill
+\url{http://pypi.python.org/pypi/pep8/}
 
 \end{frame} 
 
-
-
-
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}[fragile]{LAB}
 
-{\Large Testing LAB:}
+{\Large doctests:}
 
 \begin{itemize}
   \item doctest
-  \item unittest
-  \item pytest
-  \item run doctest with nose, pytest
+    \begin{itemize}
+       \item Add doctests to the Circle class we've done in the last few classes.
+       \item Run it from the \verb|if __name__ == "__main__"| clause\\
+             (\verb|code\circle.py|)
+    \end{itemize}
+  \item Code style
+    \begin{itemize}
+       \item Try running \verb|pylint, pychecker or pyflakes| on it 
+       \item Run pep8 on it
+       \item (or your own code)
+    \end{itemize}
+
 \end{itemize}
 
 \end{frame}
 
-% Lightning Talk Slide
 %-------------------------------
 \begin{frame}{Lightning Talk}
 
@@ -329,15 +350,521 @@ if __name__ == "__main__":
 }
 \end{frame}
 
+\section{Unit Testing}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Unit Testing}
+
+{\LARGE Gaining Traction}
+
+\vfill
+{\Large You need to test your code when you write it -- why not preserve those tests?}
+
+\vfill
+{\Large And allow you to auto-run them later?}
+
+\vfill
+{\LARGE Test-Driven development:}\\[0.1in]
+{\Large \hspace{0.3in} Write the tests before the code}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Unit Testing}
+
+{\LARGE My thoughts:}
+
+\vfill
+{\Large Unit testing encourages clean, decoupled design}
+
+\vfill
+{\Large If it's hard to write unit tests for -- it's not well designed}
+
+\vfill
+{\Large but...}
+
+\vfill
+{\Large ``complete'' test coverage is a fantasy}
+
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{PyUnit}
+
+{\LARGE PyUnit: the stdlib unit testing framework}
+
+\vfill
+{\Large \verb|import unittest|}
+
+\vfill
+{\Large More or less a port of Junit from Java}
+
+\vfill
+{\Large A bit verbose: you have to write classes \& methods}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{unittest example}
+
+{\small
+\begin{verbatim}
+import random
+import unittest
+
+class TestSequenceFunctions(unittest.TestCase):
+
+    def setUp(self):
+        self.seq = range(10)
+
+    def test_shuffle(self):
+        # make sure the shuffled sequence does not lose any elements
+        random.shuffle(self.seq)
+        self.seq.sort()
+        self.assertEqual(self.seq, range(10))
+
+        # should raise an exception for an immutable sequence
+        self.assertRaises(TypeError, random.shuffle, (1,2,3))
+\end{verbatim}
+}
+
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{unittest example (cont)}
+
+{\small
+\begin{verbatim}
+    def test_choice(self):
+        element = random.choice(self.seq)
+        self.assertTrue(element in self.seq)
+
+    def test_sample(self):
+        with self.assertRaises(ValueError):
+            random.sample(self.seq, 20)
+        for element in random.sample(self.seq, 5):
+            self.assertTrue(element in self.seq)
+
+if __name__ == '__main__':
+    unittest.main()
+\end{verbatim}
+}
+
+\vfill
+(\verb|code/unitest_example.py|)
+
+\vfill
+\url{http://docs.python.org/library/unittest.html}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{unittest}
+
+{\Large Lots of good tutorials out there:}
+
+\vfill
+{\Large Google: ``python unittest tutorial''}
+
+\vfill
+{\Large I learned from this one:}\\[0.1in]
+\url{http://www.diveintopython.net/unit_testing/index.html}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{nose and pytest}
+
+{\Large Due to its Java heritage, unittest is kind of verbose}
+
+\vfill
+{\Large also no test discovery}\\
+\hspace{0.2in}(though unittest2 does add that...)
+
+\vfill
+{\Large So folks invented nose and pytest}
+
+\end{frame} 
+
+\begin{frame}[fragile]{nose}
+
+{\LARGE \verb|nose|}
+
+\vfill
+{\Large \hspace{0.2in} Is nicer testing for python}
+
+\vfill
+{\Large \hspace{0.2in} nose extends unittest to make testing easier.}
+
+\vfill
+\begin{verbatim}
+ $ pip install nose
+
+ $ nosetests unittest_example.py 
+\end{verbatim}
+
+\vfill
+\url{http://nose.readthedocs.org/en/latest/}
+\end{frame} 
+
+\begin{frame}[fragile]{nose example}
+
+{\Large The same example -- with nose}
+
+{\small
+\begin{verbatim}
+import random
+import nose.tools
+
+seq = range(10)
+
+def test_shuffle():
+    # make sure the shuffled sequence does not lose any elements
+    random.shuffle(seq)
+    seq.sort()
+    assert seq == range(10)
+
+@nose.tools.raises(TypeError)
+def test_shuffle_immutable():
+    # should raise an exception for an immutable sequence
+    random.shuffle( (1,2,3) )
+\end{verbatim}
+}
+
+\end{frame} 
+
+\begin{frame}[fragile]{nose example (cont) }
+
+{\small
+\begin{verbatim}
+def test_choice():
+    element = random.choice(seq)
+    assert (element in seq)
+
+def test_sample():
+    for element in random.sample(seq, 5):
+        assert element in seq
+
+@nose.tools.raises(ValueError)
+def test_sample_too_large():
+    random.sample(seq, 20)
+\end{verbatim}
+}
+
+\vfill
+(\verb|code/test_random_nose.py|)
+
+\end{frame} 
+
+
+\begin{frame}[fragile]{pytest}
+
+{\LARGE \verb|pytest|}
+
+\vfill
+{\Large \hspace{0.2in} A mature full-featured testing tool}
+
+\vfill
+{\Large \hspace{0.2in} Provides no-boilerplate testing}
+
+\vfill
+{\Large \hspace{0.2in} Integrates many common testing methods}
+
+\vfill
+\begin{verbatim}
+ $ pip install pytest
+
+ $ py.test unittest_example.py 
+\end{verbatim}
+
+\vfill
+\url{http://pytest.org/latest/}
+\end{frame} 
+
+\begin{frame}[fragile]{pytest example}
+
+{\Large The same example -- with pytest}
+
+{\small
+\begin{verbatim}
+import random
+import pytest
+
+seq = range(10)
+
+def test_shuffle():
+    # make sure the shuffled sequence does not lose any elements
+    random.shuffle(seq)
+    seq.sort()
+    assert seq == range(10)
+
+def test_shuffle_immutable():
+    pytest.raises(TypeError, random.shuffle,  (1,2,3) )
+\end{verbatim}
+}
+
+\end{frame} 
+
+\begin{frame}[fragile]{pytest example (cont) }
+
+{\small
+\begin{verbatim}
+def test_choice():
+    element = random.choice(seq)
+    assert (element in seq)
+
+def test_sample():
+    for element in random.sample(seq, 5):
+        assert element in seq
+
+def test_sample_too_large():
+    with pytest.raises(ValueError):
+        random.sample(seq, 20)
+\end{verbatim}
+}
+
+\vfill
+(\verb|code/test_random_pytest.py|)
+
+\end{frame} 
+
+\begin{frame}[fragile]{With}
+
+{\LARGE Context Managers:} {\Large the \verb|with| statement}
+
+\vfill
+{\Large A class with \verb|__enter__()| and \verb|__exit__()| methods.}
+ 
+\vfill
+{\Large \verb|__enter__()| is run before your block of code}
+
+\vfill
+{\Large \verb|__enter__()| is run after your block of code}
+
+\vfill
+{\Large Can be used to setup/clenup before and after: open/closing files, db connections, etc}
+\end{frame} 
+
+\begin{frame}[fragile]{A Diversion }
+
+{\Large ``PEP 343: the \verb|with| statement''} \\
+\hspace{0.2in}  -- A.M. Kuchling
+
+\url{http://docs.python.org/dev/whatsnew/2.6.html#pep-343-the-with-statement}
+
+\vfill
+{\Large ``Understanding Python's \verb|with| statement''} \\
+\hspace{0.2in}  -- Fredrik Lundh 
+
+\url{http://effbot.org/zone/python-with-statement.htm}
+
+\vfill
+{\Large ``The Python \verb|with| Statement by Example''} \\
+\hspace{0.2in}  -- Jeff Preshing 
+
+\url{http://preshing.com/20110920/the-python-with-statement-by-example}
+
+\end{frame} 
+
+\begin{frame}[fragile]{Parameterized Tests}
+
+{\Large A whole set of inputs and outputs to test?}
+
+\vfill
+{\Large \verb|pytest| has a nice way to do that (so does nose...)}
+
+\begin{verbatim}
+import pytest
+@pytest.mark.parametrize(("input", "expected"), [
+    ("3+5", 8),
+    ("2+4", 6),
+    ("6*9", 42),
+])
+def test_eval(input, expected):
+    assert eval(input) == expected
+\end{verbatim}
+
+\url{http://pytest.org/latest/example/parametrize.html}
+
+\vfill
+(\verb|code/test_pytest_parameter.py|)
+\end{frame} 
+
+\begin{frame}[fragile]{Test Coverage}
+
+{\LARGE \verb|￼coverage.py |}
+
+\vfill
+{\Large Uses debugging hook to see which lines of code are actually executed
+-- plugins exist for most (all?) test runners}
+
+\vfill
+{\Large \verb|￼pip install coverage |}
+
+\vfill
+{\Large \verb|￼nosetests --with-coverage test_codingbat.py|}
+
+\vfill
+\url{http://nedbatchelder.com/code/coverage/}
+\end{frame}
+
+
+%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+{\Large Unit Testing:}
+
+\begin{itemize}
+  \item unittest
+    \begin{itemize}
+       \item Pick a \url{codingbat.com} example
+       \item Write a set of unit tests using \verb|unittest|
+         (\verb|code\codingbat.py  codingbat_unittest.py|)
+    \end{itemize}
+  \item pytest / nose
+    \begin{itemize}
+       \item Test a \url{codingbat.com} with nose or pytest
+       \item Try doing test-driven development
+         (\verb|code\test_codingbat.py|)
+    \end{itemize}
+
+  \item try running your circle doctest with nose, pytest\\
+        (and/or add doctests to your codingbat example)
+  \item try running \verb|coverage| on your tests
+\end{itemize}
+
+\end{frame}
 
 \section{Profiling}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Performance Testing}
 
- {\Large ``Premature optimization is the root of all evil''}
+{\Large ``Premature optimization is the root of all evil''}\\[0.1in]
+{\large \hspace{0.5in} -- Donald Knuth}
 
 \end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Profiling/timing}
+
+\vfill
+{\Large You can't optimize your code without knowing where the bottlenecks are.}
+
+\vfill
+{\Large Smarter people than me have said they they are almost always wrong
+when they try to logically determine where the slow code is. (I know I am)}
+
+\vfill
+{\Large ... and how to speed it up}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{timing}
+
+{\Large The really easy way:}
+
+\begin{verbatim}
+import time
+
+start = time.clock()
+  ... do_some_stuff ...
+print "It took %f seconds to run"%(time.clock - start)
+\end{verbatim}
+
+{\Large It works, it's easy, and it gives a gross approximation}
+
+\vfill
+(use \verb|time.clock()|, rather than \verb|time.time()|)
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{timing}
+
+{\Large The good way:}
+
+\begin{verbatim}
+import timeit
+
+timeit.timeit( statement, setup=some_stuff)
+
+\end{verbatim}
+
+{\Large It's kind of a pain, but gives meaningful results.}
+
+(can also be called on the command line)
+
+\vfill
+\url{http://docs.python.org/library/timeit.html}
+\vfill
+(\verb|code/timing.py|)
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{timing}
+
+{\Large The easy and good way:}
+
+\vfill
+{\LARGE \verb|ipython|:}
+\begin{verbatim}
+
+In [52]: import timing
+
+In [53]: %timeit timing.primes_stupid(5)
+100000 loops, best of 3: 10.9 us per loop
+
+\end{verbatim}
+
+{\Large Takes care of the setup/namespace stuff for you}
+
+\vfill
+\url{http://ipython.org/ipython-doc/dev/interactive/tutorial.html}
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{profiling}
+
+{\Large A profiler is a tool that describes the run time performance of a
+program, providing a variety of statistics}
+
+\vfill
+{\Large Helpful when you don't yet know where your bottlenecks are}
+
+\vfill
+{\Large The python profiler}
+
+\begin{verbatim}
+python -m cProfile profile_example.py  
+\end{verbatim}
+{\Large spews some stats}
+
+
+\vfill
+\url{http://docs.python.org/library/profile.html}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{python profiler}
+
+{\Large What you get:}
+
+\begin{description}
+  \item[ncalls] the number of calls.
+  \item[tottime] the total time spent in the given function (and excluding time made in calls to sub-functions),
+  \item[percall] the quotient of tottime divided by ncalls
+  \item[cumtime] the total time spent in this and all subfunctions (from invocation till exit). This figure is accurate even for recursive functions.
+  \item[percall] the quotient of cumtime divided by primitive calls
+\end{description}
+
+\end{frame} 
+
+
 
 %-------------------------------
 \begin{frame}{LAB}
