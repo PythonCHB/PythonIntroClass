@@ -27,43 +27,288 @@
 \section{Review/Questions}
 
 % ---------------------------------------------
-\begin{frame}{Review of Previous Class}
+\begin{frame}[fragile]{Review of Previous Class}
 
-Lightning talk today: Chris
 
+\vfill
 \begin{itemize}
-  \item ...
+  \item Decorators
+  \item Debugging
+  \item Packages and Packaging
 \end{itemize}
 
-\end{frame}
-
-
-% header
-% ---------------------------------------------
-\begin{frame}{Homework review}
-
-  {\Large Homework notes }
+\vfill
+{\Large Lightning talk today: Chris}
 
 \end{frame}
 
-\section{Decorators}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+\begin{frame}[fragile]{Homework review}
 
- {\Large A topicc}
 
-\begin{verbatim}
-some code example
-\end{verbatim}
+\vfill
+{\Large Did any of you find a package you couldn't install?}
+
+
+\vfill
+{\Large Did any of you write a \verb|setup.py| for you own code?}
+
+\vfill
+
+\end{frame}
+
+\section{Testing}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Testing}
+
+\vfill
+{\LARGE A bit strange to be ``teaching'' testing \\[0.1in]
+to a room full of professional testers.}
+
+\vfill
 
 \end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Testing}
+
+\vfill
+{\Large I don't need to tell you why testing is important}
+
+\vfill
+{\Large I'll focus on testing your Python code -- not another system}
+
+\vfill
+{\Large Mostly unit testing}
+
+\vfill
+{\Large And an introduction to some of the tools}
+
+\vfill
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python Testing Taxonomy}
+
+\begin{enumerate}
+  \item   Unit Testing Tools
+  \item    Mock Testing Tools
+  \item    Fuzz Testing Tools
+  \item    Web Testing Tools
+  \item    Acceptance/Business Logic Testing Tools
+  \item    GUI Testing Tools
+  \item    Source Code Checking Tools
+  \item    Code Coverage Tools
+  \item    Continuous Integration Tools
+  \item    Automatic Test Runners
+  \item    Test Fixtures
+  \item    Miscellaneous Python Testing Tools
+\end{enumerate}
+
+\vfill
+\url{http://wiki.python.org/moin/PythonTestingToolsTaxonomy}
+
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Testing}
+
+\vfill
+{\LARGE Regression Testing:}
+
+\vfill
+{\Large Regression testing is any type of software testing that seeks to
+uncover new software bugs, or regressions, in existing functional and
+non-functional areas of a system after changes}
+
+\vfill
+{\Large Unit Testing}
+
+\vfill
+{\Large unit testing is a method by which individual units of source code,
+sets of one or more computer program modules together with associated control
+data, usage procedures, and operating procedures, are tested to determine if
+they are fit for use}
+
+\vfill
+
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{doctest}
+
+{\LARGE￼doctest}
+
+\vfill
+{\Large \vspace{0.3in} In the stdlib}
+
+\vfill
+{\Large \vspace{0.3in} Unique to Python?}
+
+\vfill
+{\Large \vspace{0.3in} Literate programming}
+
+\vfill
+{\Large \vspace{0.3in} verify examples in in docs}
+
+\vfill
+\url{http://docs.python.org/library/doctest.html}
+}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{doctest}
+
+{\LARGE￼doctest example}
+
+\begin{verbatim}
+def get(self):
+    """ get() -> return TestClass's associated value.
+    >>> x = _TestClass(-42)
+    >>> print x.get()
+    -42
+    """
+    return self.val
+\end{verbatim}
+
+\vfill
+\url{http://docs.python.org/library/doctest.html}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{doctest}
+
+{\large
+As mentioned in the introduction, doctest has grown to have three primary uses:
+
+\begin{itemize}
+    Checking examples in docstrings.
+    Regression testing.
+    Executable documentation / literate testing.
+\end{itemize}
+
+These uses have different requirements, and it is important to distinguish them.
+In particular, filling your docstrings with obscure test cases makes for bad
+documentation.
+}
+
+\vfill
+\url{http://docs.python.org/library/doctest.html}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{running doctests}
+
+{\large In \verb|__name__ == "__main__"| block:
+
+\begin{verbatim}
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
+\end{verbatim}
+
+{\large (Tests the current module) }
+
+
+\vfill
+\url{http://docs.python.org/library/doctest.html}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{running doctests}
+
+\vfill
+{\large In an external file:
+
+\begin{verbatim}
+    doctest.testmfile("name_of_test_file.txt")
+\end{verbatim}
+
+{\large Tests the docs in the file (reSt format...) }
+
+
+\vfill
+{\large With a test runner: more on that later}
+
+
+\vfill
+\url{http://sphinx.pocoo.org/}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{running doctests}
+
+\vfill
+{\large In a documentation system:}
+
+\vfill
+{\LARGE Sphinx:}
+
+\vfill
+{\Large Sphinx is a tool that makes it easy to create intelligent and beautiful documentation}
+
+\vfill
+{\Large -- Lots of output options: html, pdf, epub, etc, etc...}
+
+\vfill
+{\Large -- Can auto-generate docs from docstrings}
+
+\vfill
+{\Large -- And run the doctests}
+
+\vfill
+\url{http://sphinx.pocoo.org/}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Code Checking}
+
+{\LARGE Not Really testing, but...}
+
+\vfill
+{\LARGE pychecker}\\
+\url{http://pychecker.sourceforge.net/}
+
+\vfill
+{\LARGE pylint}\\
+\url{http://www.logilab.org/857/}
+
+\vfill
+{\LARGE pyflakes}\\
+\url{http://pypi.python.org/pypi/pyflakes}
+
+\vfill
+{\Large Will help you keep your source code clean}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{pyunit}
+
+{\LARGE Not Really testing, but...}
+
+\end{frame} 
+
+
+
 
 %-------------------------------
 \begin{frame}{LAB}
 
+{\Large Testing LAB:}
+
 \begin{itemize}
-  \item
+  \item doctest
+  \item unittest
+  \item pytest
+  \item run doctest with nose, pytest
 \end{itemize}
 
 \end{frame}
@@ -85,21 +330,19 @@ some code example
 \end{frame}
 
 
-\section{Debugging}
+\section{Profiling}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+\begin{frame}[fragile]{Performance Testing}
 
- {\Large A topic}
-
-\begin{verbatim}
-some code example
-\end{verbatim}
+ {\Large ``Premature optimization is the root of all evil''}
 
 \end{frame} 
 
 %-------------------------------
 \begin{frame}{LAB}
+
+{\Large Profiling lab}
 
 \begin{itemize}
   \item
@@ -108,27 +351,6 @@ some code example
 \end{frame}
 
 
-\section{Packages and Packaging}
-
-% ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
-
- {\Large A topic}
-
-\begin{verbatim}
-some code example
-\end{verbatim}
-
-\end{frame} 
-
-%-------------------------------
-\begin{frame}{LAB}
-
-\begin{itemize}
-  \item something
-\end{itemize}
-
-\end{frame}
 
 %-------------------------------
 \begin{frame}{Wrap up}
@@ -139,28 +361,43 @@ some code example
 
 \end{frame}
 
-
-
 %-------------------------------
-\begin{frame}[fragile]{Homework}
+\begin{frame}[fragile]{Next Week:}
 
-\begin{itemize}
-    \item Make sure you've got your compiler working:
-    \begin{itemize}
-      \item see: (link to class Wiki)
-      \item You should be able to run: \\
-            \verb|week-10/code/setup.py build_ext|
-    \end{itemize}
-    \item Install Cython:
-    \begin{itemize}
-      \item \verb|pip install cython|\\
-        or
-      \item \url{www.cython.org}
-    \end{itemize}
+\vfill
+{\Large Votes are in:}
 
-\end{itemize}
+\vfill
+{\Large 4 votes for persistence: 0 for Extending with C}
+
+\vfill
+{\LARGE Persistence it is}
+
+\vfill
 
 \end{frame}
+
+
+%%-------------------------------
+%\begin{frame}[fragile]{Homework}
+%
+%\begin{itemize}
+%    \item Make sure you've got your compiler working:
+%    \begin{itemize}
+%      \item see: (link to class Wiki)
+%      \item You should be able to run: \\
+%            \verb|week-10/code/setup.py build_ext|
+%    \end{itemize}
+%    \item Install Cython:
+%    \begin{itemize}
+%      \item \verb|pip install cython|\\
+%        or
+%      \item \url{www.cython.org}
+%    \end{itemize}
+%
+%\end{itemize}
+%
+%\end{frame}
 
 
 \end{document}
