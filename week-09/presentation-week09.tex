@@ -344,7 +344,7 @@ pip install pep8
 {\LARGE Lightning Talk:  }
 
 \vfill
-{\Huge Peter}
+{\Huge Chris}
 
 \vfill
 }
@@ -630,7 +630,7 @@ def test_sample_too_large():
 
 \end{frame} 
 
-\begin{frame}[fragile]{With}
+\begin{frame}[fragile]{A Diversion:}
 
 {\LARGE Context Managers:} {\Large the \verb|with| statement}
 
@@ -763,7 +763,7 @@ when they try to logically determine where the slow code is. (I know I am)}
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{timing}
+\begin{frame}[fragile]{time.clock()}
 
 {\Large The really easy way:}
 
@@ -783,7 +783,7 @@ print "It took %f seconds to run"%(time.clock - start)
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{timing}
+\begin{frame}[fragile]{timeit}
 
 {\Large The good way:}
 
@@ -805,7 +805,7 @@ timeit.timeit( statement, setup=some_stuff)
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{timing}
+\begin{frame}[fragile]{\%timeit}
 
 {\Large The easy and good way:}
 
@@ -844,6 +844,7 @@ python -m cProfile profile_example.py
 \end{verbatim}
 {\Large spews some stats}
 
+(demo)
 
 \vfill
 \url{http://docs.python.org/library/profile.html}
@@ -861,23 +862,112 @@ python -m cProfile profile_example.py
   \item[cumtime] the total time spent in this and all subfunctions (from invocation till exit). This figure is accurate even for recursive functions.
   \item[percall] the quotient of cumtime divided by primitive calls
 \end{description}
+(demo: \verb|python -m cProfile profile_example.py|)
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{python profiler}
+
+{\Large You can also dump to a file:}
+
+\vfill
+{\verb|$ python -m cProfile -o profile_dump profile_example.py|}
+
+\vfill
+{\large This gives you a binary file you can examine with \verb|pstats|:}
+
+\vfill
+{demo: \verb|$ python -m pstats|}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{pstats}
+
+{\Large Running \verb|pstats|}
+{\small
+\begin{verbatim}
+$
+$ python -m pstats
+Welcome to the profile statistics browser.
+% read profile_dump
+profile_dump% stats
+Wed Aug 29 16:21:39 2012    profile_dump
+
+         51403 function calls in 0.032 seconds
+
+   Random listing order was used
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    51200    0.006    0.000    0.006    0.000 {method 'append' of 'list' objects}
+        1    0.000    0.000    0.032    0.032 profile_example.py:9(<module>)
+        1    0.001    0.001    0.032    0.032 profile_example.py:28(main)
+      100    0.022    0.000    0.027    0.000 profile_example.py:11(odd_numbers)
+      100    0.003    0.000    0.031    0.000 profile_example.py:19(sum_odd_numbers)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+profile_dump% 
+\end{verbatim}
+}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{pstats commands}
+
+{\Large Commands:}
+
+\begin{description}
+  \item[help] help on pstats or particular command
+  \item[stats] print the profile statistics
+  \item[sort] sort by various data fields
+  \item[strip] strips the leading path info from file names
+  \item[callers] Print callers statistics
+  \item[callees] Print callees statistics
+  \item[quit] quits
+\end{description}
+{\large Each has options to customize output}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{automating profile stats}
+
+{\Large \verb|cProfile| and \verb|pstats| are also modules}
+
+\vfill
+{\Large So you can script collection of profiles and stats}
+
+\vfill
+\url{http://docs.python.org/library/profile.html}
 
 \end{frame} 
 
 % ---------------------------------------------
 \begin{frame}[fragile]{performance tips}
 
-  \url{http://wiki.python.org/moin/PythonSpeed/PerformanceTips/}
+\vfill
+{\Large Some common python performance issues:}
+
+\vfill
+\url{http://wiki.python.org/moin/PythonSpeed/PerformanceTips/}
+
+\vfill
+(some nifty profiling tools described there, too)
 
 \end{frame} 
 
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}[fragile]{LAB}
 
 {\Large Profiling lab}
-
 \begin{itemize}
-  \item
+  \item run \verb|timeit| on some code of yours (or timing.py, or..)
+  \item run iPython's \%timeit on the same code.
+  \item try to make the factorial code in timing.py faster, and time the difference.
+  \item write some code that tests one of the performance issues in:\\
+        {\small \url{http://wiki.python.org/moin/PythonSpeed/PerformanceTips} }\\
+        use one of the \verb|timeit|s to see if you can make a difference.
+  \item try the profile tutorial at:\\
+        {\small \url{http://pysnippet.blogspot.com/2009/12/profiling-your-python-code.html} }
 \end{itemize}
 
 \end{frame}
@@ -885,11 +975,17 @@ python -m cProfile profile_example.py
 
 
 %-------------------------------
-\begin{frame}{Wrap up}
+\begin{frame}[fragile]{Wrap up}
 
-\begin{itemize}
-  \item something
-\end{itemize}
+%\vfill
+%{\Large Hopefully you've got a bit of an idea how to do\\[0.1in]
+%        unit testing in Python}
+
+\vfill
+{\Large And will now start doing it}
+
+\vfill
+{\Large And have an idea how to profile and time your code}
 
 \end{frame}
 
@@ -910,27 +1006,17 @@ python -m cProfile profile_example.py
 \end{frame}
 
 
-%%-------------------------------
-%\begin{frame}[fragile]{Homework}
-%
-%\begin{itemize}
-%    \item Make sure you've got your compiler working:
-%    \begin{itemize}
-%      \item see: (link to class Wiki)
-%      \item You should be able to run: \\
-%            \verb|week-10/code/setup.py build_ext|
-%    \end{itemize}
-%    \item Install Cython:
-%    \begin{itemize}
-%      \item \verb|pip install cython|\\
-%        or
-%      \item \url{www.cython.org}
-%    \end{itemize}
-%
-%\end{itemize}
-%
-%\end{frame}
+%-------------------------------
+\begin{frame}[fragile]{Homework}
 
+\begin{itemize}
+    \item Write some unit tests for your class project
+    \item Profile your class project
+    \item Use timeit to test the slowest part of the code
+    \item See if you can make it faster
+\end{itemize}
+
+\end{frame}
 
 \end{document}
 
