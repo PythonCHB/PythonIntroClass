@@ -8,10 +8,10 @@ def primes_stupid(N):
     """
     a really simple way to compute the first N prime numbers
     """
-    primes = [2,]
+    primes = [2]
     i = 3
     while len(primes) < N:
-        for j in range(2, i):
+        for j in range(2, i/2): # the "/2" is an optimization -- no point in checking even numbers
             if not i % j: # it's not prime
                 break
         else:

@@ -14,6 +14,7 @@ def test_shuffle():
     # make sure the shuffled sequence does not lose any elements
     random.shuffle(seq)
     seq.sort()
+    print "seq:", seq
     assert seq == range(10)
 
 def test_shuffle_immutable():

@@ -1,7 +1,7 @@
 \documentclass{beamer}
 %\usepackage[latin1]{inputenc}
 \usetheme{Warsaw}
-\title[Intro to Python: Week 10]{Introduction  to Python \\ Leveraging C libraries}
+\title[Intro to Python: Week 10]{Introduction  to Python \\ Persistence / Serialization}
 \author{Christopher Barker}
 \institute{UW Continuing Education / Isilon}
 \date{September 05, 2012}
@@ -29,10 +29,12 @@
 % ---------------------------------------------
 \begin{frame}{Review of Previous Class}
 
-Lightning talk today: John
+Lightning talks today: Chris and John
 
 \begin{itemize}
-  \item ...
+  \item doctests
+  \item unittests
+  \item profiling
 \end{itemize}
 
 \end{frame}
@@ -42,59 +44,215 @@ Lightning talk today: John
 % ---------------------------------------------
 \begin{frame}{Homework review}
 
-  {\Large Homework notes }
+{\Large Homework notes: }
+
+\vfill
+{\large Anyone add some doctests or unittests to his project?}
+
+\vfill
+{\large Anyone time or profile their project?}
+
+\vfill
+{\large Did you find some bottlenecks??}
 
 \end{frame}
 
-\section{Various Options}
+\section{Serialization / Persistence}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{CPython API}
+\begin{frame}[fragile]{Serialization}
 
- {\Large A topicc}
+\vfill
+{\Large I'm focusing on methods available in the Python standard library}
 
-\begin{verbatim}
-some code example
-\end{verbatim}
+\vfill
+{\Large Serialization is the process of putting your potentially complex
+(and nested) python data structures into a linear (serial) form .. i.e. a string of bytes}
+
+\vfill
+{\Large The serial form can be saved to a file, pushed over the wire, etc.}
+
+\vfill
 
 \end{frame} 
 
 % ---------------------------------------------
-\begin{frame}[fragile]{ctypes}
+\begin{frame}[fragile]{Persistence}
 
- {\Large A topicc}
+\vfill
+{\Large Persistence is saving your python data structure(s) to disk -- so they
+will persist once the python process is finished.}
 
-\begin{verbatim}
-some code example
-\end{verbatim}
+\vfill
+{\Large Any serial form can provide persistence (by dumping/loading it to/from
+a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 
-\end{frame} 
-% ---------------------------------------------
-\begin{frame}[fragile]{Automated Options}
-
-SWIG
-
-the QT thing
-
-Boost Python
-
-Pyrex/Cython
+\vfill
 
 \end{frame} 
 
 
-\section{The CPython API}
+\section{Python Specific Formats}
 
 % ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
+\begin{frame}[fragile]{Python Literals}
 
- {\Large A topicc}
-
-\begin{verbatim}
-some code example
-\end{verbatim}
+\vfill
+{\Large Putting plain old python literals in your file}
 
 \end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Pickle}
+
+\vfill
+{\Large Pickle is a binary format for python objects}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Shelve}
+
+\vfill
+{\Large A “shelf” is a persistent, dictionary-like object}
+
+\end{frame} 
+
+
+\section{Interchange Formats} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{JSON}
+
+\vfill
+{\Large JSON (JavaScript Object Notation) is a subset of JavaScript syntax
+        used as a lightweight data interchange format.}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{XML}
+
+\vfill
+{\Large XML is a standardized version of SGML, designed for use as a data
+        storage/interchange format.}
+
+\vfill
+{\Large NOTE: HTML is also SGML, and modern versions conform to the XML standard.}
+
+\vfill
+{\Large XML looks like:}
+
+\begin{verbatim} 
+....
+\end{verbatim} 
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{XML in the python std lib}
+
+
+\vfill
+{\Large \verb|xml.dom|: }
+
+\vfill
+{\Large \verb|xml.sax|: }
+
+\vfill
+{\Large \verb|xml.parsers.expat|: }
+
+\vfill
+{\Large \verb|xml.etree|: }
+
+
+\end{frame} 
+
+
+
+\section{DataBases} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{anydbm}
+
+\vfill
+{\Large \verb|anydbm| is a generic interface to variants of the DBM database (clones of the bsd dbm system)}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{sqlite}
+
+\vfill
+{\Large SQLite is a C library that provides a lightweight disk-based single-file database
+        that doesn't require a separate server process and allows accessing the
+        database using a nonstandard variant of the SQL query language}
+
+\vfill
+{\Large SQLite is very broadly used as as an embedded databases for storing
+        application-specific data etc. (Picassa, Apple tools, on iOS/Android,
+        small spatial databases, etc....}
+
+
+\vfill
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{DB-API}
+
+\vfill
+{\Large The DB-API spec (PEP 249) is a specification for interation between Pyton and Relational Databases.}
+
+\vfill
+{\Large Support by a large number of third-party Dasbase drivers:
+\begin{itemize}
+  \item MySQL
+  \item PostgreSQL
+  \item Oracle
+  \item MSSQL (?)
+  \item .....
+\end{itemize}
+}
+\vfill
+\url{http://www.python.org/dev/peps/pep-0249}
+\end{frame} 
+
+
+\section{Object-Relational Mappers}
+
+\section{Object databases}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object Databases}
+
+Python objects:
+\begin{itemize}
+  \item ZODB
+  \item Durus
+\end{itemize}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{NoSQL}
+
+Map-Reduce, etc....
+What to say here???
+
+Document-Oriented Storage: 
+\begin{itemize}
+  \item MongoDB (BSON inteface, JSON documents)
+  \item CouchDB (Apache):
+  \begin{itemize}
+    \item  JSON documents
+    \item  Javascript querying (MapReduce)  
+    \item  HTTP API  
+  \end{itemize}
+\end{itemize}
+
+\end{frame} 
+
 
 %-------------------------------
 \begin{frame}{LAB}
@@ -115,37 +273,28 @@ some code example
 {\LARGE Lightning Talk:  }
 
 \vfill
+{\Huge Chris}
+
+\vfill
+}
+\end{frame}
+
+% Lightning Talk Slide
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
 {\Huge Peter}
 
 \vfill
 }
 \end{frame}
 
-
-\section{ctypes}
-
-% ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
-
- {\Large A topic}
-
-\begin{verbatim}
-some code example
-\end{verbatim}
-
-\end{frame} 
-
-%-------------------------------
-\begin{frame}{LAB}
-
-\begin{itemize}
-  \item
-\end{itemize}
-
-\end{frame}
-
-
-\section{Cython}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{First Topic}
@@ -182,7 +331,7 @@ some code example
 \begin{frame}{Homework}
 
 \vfill
-{\Large Send me a copy of you project}
+{\Large Send me a copy of your project: due next Wed.}
 
 \vfill
 {\Large Keep learning about and using Python}
