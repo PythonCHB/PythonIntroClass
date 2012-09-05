@@ -109,6 +109,24 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 \vfill
 {\Large Pickle is a binary format for python objects}
 
+\vfill
+{\Large You can essentially dump any python object to disk (or string, or socket, or...}
+
+Example:
+\begin{verbatim}
+import pickle
+
+data1 = {'a': [1, 2.0, 3, 4+6j],
+         'b': ('string', u'Unicode string'),
+         'c': None}
+
+pickle.dump(open('data.pkl', 'wb'), output)
+\end{verbatim}
+
+{\Large \verb|cPickle| is faster than pickle, but
+can't be customized -- you usually want \verb|cPickle|} 
+
+\url{http://docs.python.org/library/pickle.html}
 \end{frame} 
 
 % ---------------------------------------------
@@ -117,6 +135,51 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 \vfill
 {\Large A “shelf” is a persistent, dictionary-like object}
 
+\vfill
+{\Large The difference with “dbm” databases is that the values (not the keys!)
+in a shelf can be essentially arbitrary Python objects}
+
+\vfill
+{\Large A shelf is essentially a "dbm" database with pickles as the values}
+
+\vfill
+{\Large NOTE: will not reflect changes in mutable objects without
+   re-writing them to the db.}\\
+   (or use writeback=True)
+
+\vfill
+\url{http://docs.python.org/library/shelve.html}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Shelve}
+
+\vfill
+{\Large shelve example:}
+
+\begin{verbatim}
+import shelve
+
+d = shelve.open(filename) 
+d[key] = data   # store data at key 
+data = d[key]   # retrieve a COPY of data at key 
+del d[key]      # delete data stored at key 
+flag = d.has_key(key)   # true if the key exists
+
+# as d was opened WITHOUT writeback=True, beware:
+d['xx'] = range(4)  # this works as expected, but...
+d['xx'].append(5)   # *this doesn't!* -- d['xx'] is STILL range(4)!
+
+# having opened d without writeback=True, you need to code carefully:
+temp = d['xx']      # extracts the copy
+temp.append(5)      # mutates the copy
+d['xx'] = temp      # stores the copy right back, to persist it
+
+d.close()       # close it
+\end{verbatim}
+
+\vfill
+\url{http://docs.python.org/library/shelve.html}
 \end{frame} 
 
 
@@ -129,6 +192,19 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 {\Large JSON (JavaScript Object Notation) is a subset of JavaScript syntax
         used as a lightweight data interchange format.}
 
+\vfill
+{\Large Python module has an interface similar to pickle}
+
+\vfill
+{\Large Can handle the standard Python data types}
+
+\vfill
+{\Large Specializable encoding/decoding for other types -- but I wouldn't do that!}
+
+
+\vfill
+\url{http://www.json.org/}\\
+\url{http://docs.python.org/library/json.html}
 \end{frame} 
 
 % ---------------------------------------------

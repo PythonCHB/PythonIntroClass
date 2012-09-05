@@ -5,7 +5,7 @@ Example of how to save data as python literals in a py file
 
 """
 
-outfilename = "literal_data.txt"
+outfilename = "add_book_data.pyliteral"
 
 # get the data from the py file
 from add_book_data import AddressBook
@@ -30,7 +30,7 @@ if AddressBook2 == AddressBook:
 ## try again with the pretty print version:
 import pprint
 
-outfilename = "literal_data_pretty.txt"
+outfilename = "add_book_data.pyliteral_pretty"
 
 outfile = open(outfilename, 'w')
 

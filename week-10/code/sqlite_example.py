@@ -6,7 +6,7 @@ Example of using sqlite3 module for a relational database
 
 import sqlite3, os
 
-db_filename = "address_data.sqlite" # any extension will do -- *.db and *.sqlite are common 
+db_filename = "add_book_data.sqlite" # any extension will do -- *.db and *.sqlite are common 
 
 # get the data from the py file
 from add_book_data_flat import AddressBook

@@ -5,7 +5,7 @@ Example of how to save data in a pickle
 
 """
 
-import pickle
+import cPickle as pickle
 
 outfilename = "add_book_data.pickle"
 
