@@ -87,8 +87,9 @@ will persist once the python process is finished.}
 {\Large Any serial form can provide persistence (by dumping/loading it to/from
 a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 
-\vfill
 
+\vfill
+\url{http://wiki.python.org/moin/PersistenceTools}
 \end{frame} 
 
 
@@ -168,6 +169,129 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 
 \end{frame} 
 
+\begin{frame}[fragile]{INI}
+
+{\Large INI files}
+
+(the old Windows config files)
+
+\begin{verbatim}
+[Section1]
+int = 15
+bool = true
+float = 3.1415
+
+[Section2]
+int = 32
+...
+\end{verbatim}
+\vfill
+{\Large Good for configuration data, etc.}
+\end{frame}
+
+\begin{frame}[fragile]{ConfigParser}
+
+{\Large Writing \verb|ini| files:}
+
+\begin{verbatim}
+import ConfigParser
+config = ConfigParser.ConfigParser()
+
+config.add_section('Section1')
+config.set('Section1', 'int', '15')
+config.set('Section1', 'bool', 'true')
+config.set('Section1', 'float', '3.1415')
+
+# Writing our configuration file to 'example.cfg'
+config.write( open('example.cfg', 'wb') )
+\end{verbatim}
+
+\vfill
+Note: all keys and values are strings
+\end{frame}
+
+\begin{frame}[fragile]{ConfigParser}
+
+{\Large Reading \verb|ini| files:}
+
+\begin{verbatim}
+>>> config = ConfigParser.ConfigParser()
+>>> config.read('example.cfg')
+>>> config.sections()
+['Section1', 'Section2']
+
+>>> config.get('Section1', 'float')
+'3.1415'
+
+>>> config.items('Section1')
+[('int', '15'), ('bool', 'true'), ('float', '3.1415')]
+\end{verbatim}
+
+\vfill
+\url{http://docs.python.org/library/configparser.html}
+\end{frame}
+
+\begin{frame}[fragile]{CSV}
+
+{\Large CSV (Comma Separated Values) format is the
+most common import and export format for spreadsheets and databases.}
+
+\vfill
+{\Large No real standard -- the Python csv package more or less follows MS Excel standard}
+
+(with other "dialects" available)
+
+\vfill
+{\Large Can use delimiters other than commas...}\\
+(I like tabs better)
+
+\vfill
+{\Large Most useful for simple tabular data}
+
+\end{frame}
+
+\begin{frame}[fragile]{CSV module}
+
+{\Large Reading \verb|CSV| files:}
+
+\begin{verbatim}
+>>> import csv
+>>> spamReader = csv.reader( open('eggs.csv', 'rb') )
+>>> for row in spamReader:
+...     print ', '.join(row)
+Spam, Spam, Spam, Spam, Spam, Baked Beans
+Spam, Lovely Spam, Wonderful Spam
+\end{verbatim}
+
+\vfill
+{\verb|csv| module takes care of string quoting, etc. for you}
+
+\vfill
+\url{http://docs.python.org/library/csv.html}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{CSV module}
+
+{\Large Writing \verb|CSV| files:}
+
+\begin{verbatim}
+>>> import csv
+>>> spamWriter = csv.writer(open('eggs.csv', 'wb'), 
+                            quoting=csv.QUOTE_MINIMAL)
+>>> spamWriter.writerow(['Spam'] * 5 + ['Baked Beans'])
+>>> spamWriter.writerow(['Spam', 'Lovely Spam', 'Wonderful Spam'])
+\end{verbatim}
+
+\vfill
+{\verb|csv| module takes care of string quoting, etc for you}
+
+\vfill
+\url{http://docs.python.org/library/csv.html}
+\end{frame}
+
+
 
 
 \section{DataBases} 
@@ -178,7 +302,60 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 \vfill
 {\Large \verb|anydbm| is a generic interface to variants of the DBM database (clones of the bsd dbm system)}
 
+{\Large Suitable for storing data that fits well into a python dict with strings as both keys and values}
+
+{\Large Note: anydbm will use the dbm system that works on your system --
+        this may be different on different systems -- so the db files may NOT
+        be compatible! \verb|whichdb| will try to figure it out, but it's not
+        guaranteed}
+\vfill
+\url{http://docs.python.org/library/anydbm.html}
 \end{frame} 
+
+\begin{frame}[fragile]{anydbm module}
+
+{\Large Writing data:}
+
+\begin{verbatim}
+#creating a dbm file:
+anydbm.open(filename, 'n') 
+\end{verbatim}
+
+{\large flag options are: }
+\begin{description}
+  \item['r'] 	Open existing database for reading only (default)
+  \item['w'] 	Open existing database for reading and writing
+  \item['c'] 	Open database for reading and writing, creating it if it doesn’t exist
+  \item['n'] 	Always create a new, empty database, open for reading and writing
+\end{description}
+\vfill
+\url{http://docs.python.org/library/anydbm.html}
+\end{frame}
+
+\begin{frame}[fragile]{anydbm module}
+
+{\Large \verb|dbm| provides dict-like interace:}
+
+\begin{verbatim}
+db = dbm.open("dbm", "c")
+
+db["first"] = "bruce"
+db["second"] = "micheal"
+db["third"] = "fred"
+db["second"] = "john" #overwrite
+db.close()
+
+# read it:
+db = dbm.open("dbm", "r")
+for key in db.keys():
+    print key, db[key]
+\end{verbatim}
+
+\vfill
+\url{http://docs.python.org/library/anydbm.html}
+\end{frame}
+
+
 
 % ---------------------------------------------
 \begin{frame}[fragile]{sqlite}
@@ -195,7 +372,8 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 
 
 \vfill
-
+Firefox plug-in:\\
+\url{https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/}
 \end{frame} 
 
 % ---------------------------------------------
@@ -205,7 +383,7 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 {\Large The DB-API spec (PEP 249) is a specification for interation between Pyton and Relational Databases.}
 
 \vfill
-{\Large Support by a large number of third-party Dasbase drivers:
+{\Large Support by a large number of third-party Database drivers:
 \begin{itemize}
   \item MySQL
   \item PostgreSQL
@@ -221,15 +399,40 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 
 \section{Object-Relational Mappers}
 
+
+
 \section{Object databases}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Object-Relation Mappers}
+{\LARGE ORMs}
+
+\vfill
+{\Large Systems for mapping PYton objects to tables in a RDBMS}
+
+\vfill
+{\Large Saves you writing that glue code}
+
+\vfill
+{\Large usually deals with mapping to various back-end RDBMSs}
+
+\vfill
+{\Large  -- SQL Alchemy}\\ 
+ -- \url{http://www.sqlalchemy.org/}
+
+{\Large Django ORM}\\
+\url{https://docs.djangoproject.com/en/dev/topics/db/}
+
+\end{frame} 
+
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Object Databases}
 
 Python objects:
 \begin{itemize}
-  \item ZODB
-  \item Durus
+  \item ZODB (\url{http://www.zodb.org/})
+  \item Durus (\url{https://www.mems-exchange.org/software/DurusWorks/})
 \end{itemize}
 
 \end{frame} 
