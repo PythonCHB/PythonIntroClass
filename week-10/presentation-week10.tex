@@ -148,6 +148,12 @@ in a shelf can be essentially arbitrary Python objects}
    (or use writeback=True)
 
 \vfill
+{\Large Suffers from some of the same portability issues as \verb|anydbm|}
+
+\vfill
+{\Large If less that 100s of MB -- just use a dict and pickle it}
+
+\vfill
 \url{http://docs.python.org/library/shelve.html}
 \end{frame} 
 
@@ -241,9 +247,32 @@ d.close()       # close it
 
 \vfill
 {\Large \verb|xml.etree|: }
-
+\url{http://docs.python.org/library/xml.etree.elementtree.html}
 
 \end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{elementtree}
+
+
+\vfill
+{\Large  The Element type is a flexible container object, designed to store
+hierarchical data structures in memory.}
+
+\vfill
+{\Large  Essentially an im-memory XML -- can be read from written-to XML}
+
+\vfill
+{\Large an \verb|ElementTree| is an entire XML doc}
+
+\vfill
+{\Large an \verb|Element| is a node in that tree}
+
+\vfill
+\url{http://docs.python.org/library/xml.etree.elementtree.html}
+
+\end{frame} 
+
 
 \begin{frame}[fragile]{INI}
 
@@ -456,10 +485,10 @@ Firefox plug-in:\\
 \begin{frame}[fragile]{DB-API}
 
 \vfill
-{\Large The DB-API spec (PEP 249) is a specification for interation between Pyton and Relational Databases.}
+{\Large The DB-API spec (PEP 249) is a specification for interaction between Python and Relational Databases.}
 
 \vfill
-{\Large Support by a large number of third-party Database drivers:
+{\Large Support for a large number of third-party Database drivers:
 \begin{itemize}
   \item MySQL
   \item PostgreSQL
@@ -481,13 +510,14 @@ Firefox plug-in:\\
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Object-Relation Mappers}
+
 {\LARGE ORMs}
 
 \vfill
-{\Large Systems for mapping PYton objects to tables in a RDBMS}
+{\Large Systems for mapping Python objects to tables in a RDBMS}
 
 \vfill
-{\Large Saves you writing that glue code}
+{\Large Saves you writing that glue code (and the SQL) }
 
 \vfill
 {\Large usually deals with mapping to various back-end RDBMSs}
