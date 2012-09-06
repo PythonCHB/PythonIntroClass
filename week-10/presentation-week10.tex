@@ -29,33 +29,42 @@
 % ---------------------------------------------
 \begin{frame}{Review of Previous Class}
 
-Lightning talks today: Chris and John
-
+{\Large
 \begin{itemize}
   \item doctests
   \item unittests
   \item profiling
 \end{itemize}
+}
+
+
+\vfill
+{\Large Anyone add some doctests or unittests to his project?}
+
+\vfill
+{\Large Anyone time or profile their project?}
+
+\vfill
+{\Large Did you find (fix?) some bottlenecks??}
 
 \end{frame}
 
-
-% header
 % ---------------------------------------------
-\begin{frame}{Homework review}
+\begin{frame}{This Class}
 
-{\Large Homework notes: }
-
-\vfill
-{\large Anyone add some doctests or unittests to his project?}
+{\Large Lightning talks today: Chris and John}
 
 \vfill
-{\large Anyone time or profile their project?}
+{\Large Today is less about concepts}
 
 \vfill
-{\large Did you find some bottlenecks??}
+{\Large More about learning ot use a given module}
+
+\vfill
+{\Large So less talk, more coding}
 
 \end{frame}
+
 
 \section{Serialization / Persistence}
 
@@ -67,12 +76,10 @@ Lightning talks today: Chris and John
 
 \vfill
 {\Large Serialization is the process of putting your potentially complex
-(and nested) python data structures into a linear (serial) form .. i.e. a string of bytes}
+(and nested) python data structures into a linear (serial) form .. i.e. a string of bytes.}
 
 \vfill
 {\Large The serial form can be saved to a file, pushed over the wire, etc.}
-
-\vfill
 
 \end{frame} 
 
@@ -101,6 +108,73 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 \vfill
 {\Large Putting plain old python literals in your file}
 
+\vfill
+{\Large Gives a nice, human-editable form for config files, etc.}
+
+\vfill
+{\Large Don't use for untrusted sources!!!}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python Literals}
+
+\vfill
+{\Large Good for basic python types.}
+(can work for your own classes, too -- if you write a good \verb|__repr__|)
+
+\vfill
+{\Large In theory, \verb|repr()| always gives a form that can be re-constructed.}
+
+\vfill
+{\Large Often \verb|str()| form works too.}
+
+\vfill
+{\Large \verb|pprint| (pretty print) module can make it easier to read.}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python Literal Example}
+
+{\small
+\begin{verbatim}
+# a list of dicts
+data = [{'this':5, 'that':4}, {'spam':7, 'eggs':3.4}]
+
+In [51]: s = repr(data) # save a string version:
+
+In [52]: data2 = eval(s) # re-construct with eval:
+
+In [53]: data2 == data # they are equal
+Out[53]: True
+
+In [54]: data is data2 # but not the same object
+Out[54]: False
+\end{verbatim}
+}
+You can save the string to a file and even use \verb|import|
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{pretty print}
+
+{\small
+\begin{verbatim}
+In [69]: import pprint
+
+In [71]: repr(data)
+Out[71]: "[{'this': 5, 'that': 4}, {'eggs': 3.4, 'spam': 7}, {'foo': 86, 'bar': 4.5}, {'fun': 43, 'baz': 6.5}]"
+
+In [72]: s = pprint.pformat(data)
+
+In [73]: print s
+[{'that': 4, 'this': 5},
+ {'eggs': 3.4, 'spam': 7},
+ {'bar': 4.5, 'foo': 86},
+ {'baz': 6.5, 'fun': 43}]
+\end{verbatim}
+}
 \end{frame} 
 
 % ---------------------------------------------
@@ -112,20 +186,38 @@ a file), but not all persistence mechanisms are serial (i.e RDBMS)}
 \vfill
 {\Large You can essentially dump any python object to disk (or string, or socket, or...}
 
-Example:
-\begin{verbatim}
-import pickle
-
-data1 = {'a': [1, 2.0, 3, 4+6j],
-         'b': ('string', u'Unicode string'),
-         'c': None}
-
-pickle.dump(open('data.pkl', 'wb'), output)
-\end{verbatim}
-
+\vfill
 {\Large \verb|cPickle| is faster than pickle, but
 can't be customized -- you usually want \verb|cPickle|} 
 
+\vfill
+\url{http://docs.python.org/library/pickle.html}
+\end{frame} 
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Pickle}
+
+{\small
+\begin{verbatim}
+In [87]: import cPickle as pickle
+In [83]: data
+Out[83]: 
+[{'that': 4, 'this': 5},
+ {'eggs': 3.4, 'spam': 7},
+ {'bar': 4.5, 'foo': 86},
+ {'baz': 6.5, 'fun': 43}]
+
+In [84]: pickle.dump(data, open('data.pkl', 'wb'))
+
+In [85]: data2 = pickle.load(open('data.pkl', 'rb'))
+
+In [86]: data2 == data
+Out[86]: True
+\end{verbatim}
+}
+
+\vfill
 \url{http://docs.python.org/library/pickle.html}
 \end{frame} 
 
@@ -133,14 +225,11 @@ can't be customized -- you usually want \verb|cPickle|}
 \begin{frame}[fragile]{Shelve}
 
 \vfill
-{\Large A “shelf” is a persistent, dictionary-like object}
+{\Large A ``shelf'' is a persistent, dictionary-like object}
 
 \vfill
-{\Large The difference with “dbm” databases is that the values (not the keys!)
-in a shelf can be essentially arbitrary Python objects}
-
-\vfill
-{\Large A shelf is essentially a "dbm" database with pickles as the values}
+{\Large The values (not the keys!) can be essentially arbitrary Python
+objects (anything picklable)}
 
 \vfill
 {\Large NOTE: will not reflect changes in mutable objects without
@@ -148,10 +237,7 @@ in a shelf can be essentially arbitrary Python objects}
    (or use writeback=True)
 
 \vfill
-{\Large Suffers from some of the same portability issues as \verb|anydbm|}
-
-\vfill
-{\Large If less that 100s of MB -- just use a dict and pickle it}
+{\Large If less that 100s of MB -- just use a dict and pickle it.}
 
 \vfill
 \url{http://docs.python.org/library/shelve.html}
@@ -160,9 +246,7 @@ in a shelf can be essentially arbitrary Python objects}
 % ---------------------------------------------
 \begin{frame}[fragile]{Shelve}
 
-\vfill
-{\Large shelve example:}
-
+{\Large \verb|shelve| presents a \verb|dict| interface:}
 \begin{verbatim}
 import shelve
 
@@ -172,15 +256,6 @@ data = d[key]   # retrieve a COPY of data at key
 del d[key]      # delete data stored at key 
 flag = d.has_key(key)   # true if the key exists
 
-# as d was opened WITHOUT writeback=True, beware:
-d['xx'] = range(4)  # this works as expected, but...
-d['xx'].append(5)   # *this doesn't!* -- d['xx'] is STILL range(4)!
-
-# having opened d without writeback=True, you need to code carefully:
-temp = d['xx']      # extracts the copy
-temp.append(5)      # mutates the copy
-d['xx'] = temp      # stores the copy right back, to persist it
-
 d.close()       # close it
 \end{verbatim}
 
@@ -188,90 +263,51 @@ d.close()       # close it
 \url{http://docs.python.org/library/shelve.html}
 \end{frame} 
 
+%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+{\large There are two datasets in the \verb|code| dir:}
+
+\begin{verbatim}
+add_book_data.py
+add_book_data_flat.py
+# load with:
+from add_book_data import AddressBook
+\end{verbatim}
+
+They have address book data -- one with a nested dict, one "flat"
+
+\begin{itemize}
+  \item Write a module that saves the data as python literals in a file\\
+        --- and reads it back in
+  \item Write a module that saves the data as a pickle in a file\\
+        --- and reads it back in
+  \item Write a module that saves the data in a shelve\\
+        --- and accesses it one by one.
+\end{itemize}
+
+\end{frame}
+
+% Lightning Talk Slide
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge Chris}
+
+\vfill
+}
+\end{frame}
+
+
+
 
 \section{Interchange Formats} 
-
-% ---------------------------------------------
-\begin{frame}[fragile]{JSON}
-
-\vfill
-{\Large JSON (JavaScript Object Notation) is a subset of JavaScript syntax
-        used as a lightweight data interchange format.}
-
-\vfill
-{\Large Python module has an interface similar to pickle}
-
-\vfill
-{\Large Can handle the standard Python data types}
-
-\vfill
-{\Large Specializable encoding/decoding for other types -- but I wouldn't do that!}
-
-
-\vfill
-\url{http://www.json.org/}\\
-\url{http://docs.python.org/library/json.html}
-\end{frame} 
-
-% ---------------------------------------------
-\begin{frame}[fragile]{XML}
-
-\vfill
-{\Large XML is a standardized version of SGML, designed for use as a data
-        storage/interchange format.}
-
-\vfill
-{\Large NOTE: HTML is also SGML, and modern versions conform to the XML standard.}
-
-\vfill
-{\Large XML looks like:}
-
-\begin{verbatim} 
-....
-\end{verbatim} 
-
-\end{frame} 
-
-% ---------------------------------------------
-\begin{frame}[fragile]{XML in the python std lib}
-
-
-\vfill
-{\Large \verb|xml.dom|: }
-
-\vfill
-{\Large \verb|xml.sax|: }
-
-\vfill
-{\Large \verb|xml.parsers.expat|: }
-
-\vfill
-{\Large \verb|xml.etree|: }
-\url{http://docs.python.org/library/xml.etree.elementtree.html}
-
-\end{frame} 
-
-% ---------------------------------------------
-\begin{frame}[fragile]{elementtree}
-
-
-\vfill
-{\Large  The Element type is a flexible container object, designed to store
-hierarchical data structures in memory.}
-
-\vfill
-{\Large  Essentially an im-memory XML -- can be read from written-to XML}
-
-\vfill
-{\Large an \verb|ElementTree| is an entire XML doc}
-
-\vfill
-{\Large an \verb|Element| is a node in that tree}
-
-\vfill
-\url{http://docs.python.org/library/xml.etree.elementtree.html}
-
-\end{frame} 
 
 
 \begin{frame}[fragile]{INI}
@@ -397,6 +433,152 @@ Spam, Lovely Spam, Wonderful Spam
 \end{frame}
 
 
+% ---------------------------------------------
+\begin{frame}[fragile]{JSON}
+
+\vfill
+{\Large JSON (JavaScript Object Notation) is a subset of JavaScript syntax
+        used as a lightweight data interchange format.}
+
+\vfill
+{\Large Python module has an interface similar to pickle}
+
+\vfill
+{\Large Can handle the standard Python data types}
+
+\vfill
+{\Large Specializable encoding/decoding for other types -- but I wouldn't do that!}
+
+\vfill
+{\Large Presents a similar interface as \verb|pickle|}
+
+\vfill
+\url{http://www.json.org/}\\
+\url{http://docs.python.org/library/json.html}
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Python json module}
+
+{\small
+\begin{verbatim}
+In [94]: s = json.dumps(data)
+
+Out[95]: '[{"this": 5, "that": 4}, {"eggs": 3.4, "spam": 7},
+           {"foo": 86, "bar": 4.5}, {"fun": 43, "baz": 6.5}]'
+    # looks a lot like python literals...
+In [96]: data2 = json.loads(s)
+
+Out[97]: 
+[{u'that': 4, u'this': 5},
+ {u'eggs': 3.4, u'spam': 7},
+...
+In [98]: data2 == data
+Out[98]: True # they are the same
+
+\end{verbatim}
+}
+(also \verb|json.dump() and json.load()| for files)
+\vfill
+\url{http://docs.python.org/library/json.html}
+\end{frame} 
+
+
+
+% ---------------------------------------------
+\begin{frame}[fragile]{XML}
+
+\vfill
+{\Large XML is a standardized version of SGML, designed for use as a data
+        storage/interchange format.}
+
+\vfill
+{\Large NOTE: HTML is also SGML, and modern versions conform to the XML standard.}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{XML in the python std lib}
+
+
+\vfill
+{\Large \verb|xml.dom|: }
+
+\vfill
+{\Large \verb|xml.sax|: }
+
+\vfill
+{\Large \verb|xml.parsers.expat|: }
+
+\vfill
+{\Large \verb|xml.etree|: }
+
+\url{http://docs.python.org/library/xml.etree.elementtree.html}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{elementtree}
+
+
+\vfill
+{\Large  The Element type is a flexible container object, designed to store
+hierarchical data structures in memory.}
+
+\vfill
+{\Large  Essentially an in-memory XML -- can be read from written-to XML}
+
+\vfill
+{\Large an \verb|ElementTree| is an entire XML doc}
+
+\vfill
+{\Large an \verb|Element| is a node in that tree}
+
+\vfill
+\url{http://docs.python.org/library/xml.etree.elementtree.html}
+
+\end{frame} 
+
+%-------------------------------
+\begin{frame}[fragile]{LAB}
+
+\begin{verbatim}
+# load with:
+from add_book_data import AddressBook
+\end{verbatim}
+
+They have address book data -- one with a nested dict, one "flat"
+
+\begin{itemize}
+  \item Write a module that saves the data as an INI file\\
+        --- and reads it back in
+  \item Write a module that saves the data as a CSV file\\
+        --- and reads it back in
+  \item Write a module that saves the data in JSON\\
+        --- and reads it back in
+  \item Write a module that saves the data in XML\\
+        --- and reads it back in \\
+        --- this gets ugly!
+\end{itemize}
+
+\end{frame}
+
+% Lightning Talk Slide
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge John}
+
+\vfill
+}
+\end{frame}
+
 
 
 \section{DataBases} 
@@ -405,10 +587,12 @@ Spam, Lovely Spam, Wonderful Spam
 \begin{frame}[fragile]{anydbm}
 
 \vfill
-{\Large \verb|anydbm| is a generic interface to variants of the DBM database (clones of the bsd dbm system)}
+{\Large \verb|anydbm| is a generic interface to variants of the DBM database}
 
+\vfill
 {\Large Suitable for storing data that fits well into a python dict with strings as both keys and values}
 
+\vfill
 {\Large Note: anydbm will use the dbm system that works on your system --
         this may be different on different systems -- so the db files may NOT
         be compatible! \verb|whichdb| will try to figure it out, but it's not
@@ -466,19 +650,126 @@ for key in db.keys():
 \begin{frame}[fragile]{sqlite}
 
 \vfill
-{\Large SQLite is a C library that provides a lightweight disk-based single-file database
-        that doesn't require a separate server process and allows accessing the
-        database using a nonstandard variant of the SQL query language}
+{\Large SQLite: C library provides a lightweight disk-based single-file database}
 
 \vfill
-{\Large SQLite is very broadly used as as an embedded databases for storing
-        application-specific data etc. (Picassa, Apple tools, on iOS/Android,
-        small spatial databases, etc....}
+{\Large Nonstandard variant of the SQL query language}
 
+\vfill
+{\Large Very broadly used as as an embedded databases for storing
+        application-specific data etc.}
 
 \vfill
 Firefox plug-in:\\
 \url{https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/}
+\end{frame} 
+
+\begin{frame}[fragile]{python sqlite module}
+
+\vfill
+{\Large \verb|sqlite3| Python module wraps C lib -- provides standard DB-API interface}
+
+\vfill
+{\Large Allows (and require SQL queries}
+
+\vfill
+{\Large Can provide high performance, flexible, portable storage for your app}
+
+\vfill
+\url{http://docs.python.org/library/sqlite3.html}
+\end{frame} 
+
+%---------------------------------
+\begin{frame}[fragile]{python sqlite module}
+
+{\Large Example:}
+
+\begin{verbatim}
+import sqlite3
+# open a connection to a db file:
+conn = sqlite3.connect('example.db')
+
+# or build one in-memory
+conn = sqlite3.connect(':memory:')
+
+# create a cursor
+c = conn.cursor()
+\end{verbatim}
+
+\vfill
+\url{http://docs.python.org/library/sqlite3.html}
+\end{frame} 
+
+
+%---------------------------------
+\begin{frame}[fragile]{python sqlite module}
+
+{\Large Execute SQL with the cursor:}
+
+\begin{verbatim}
+# Create table
+c.execute('''CREATE TABLE stocks
+             (date text, trans text, symbol text, qty real, price real)''')
+
+# Insert a row of data
+c.execute("INSERT INTO stocks VALUES ('2006-01-05','BUY','RHAT',100,35.14)")
+
+# Save (commit) the changes
+conn.commit()
+
+# Close the cursor if we are done with it
+c.close()
+\end{verbatim}
+
+\vfill
+\url{http://docs.python.org/library/sqlite3.html}
+\end{frame} 
+
+%---------------------------------
+\begin{frame}[fragile]{python sqlite module}
+
+{\large \verb|SELECT| creates an cursor that can be iterated:}
+
+\begin{verbatim}
+>>> for row in c.execute('SELECT * FROM stocks ORDER BY price'):
+        print row
+
+(u'2006-01-05', u'BUY', u'RHAT', 100, 35.14)
+(u'2006-03-28', u'BUY', u'IBM', 1000, 45.0)
+...
+\end{verbatim}
+
+{\large Or you can get the rows one by one or in a list:}
+
+\begin{verbatim}
+ c.fetchone()
+ c.fetchall()
+\end{verbatim}
+
+\end{frame} 
+
+
+%---------------------------------
+\begin{frame}[fragile]{python sqlite module}
+
+\vfill
+{\large Good idea to use the DB-API’s parameter substitution:}
+
+\begin{verbatim}
+t = (symbol,)
+c.execute('SELECT * FROM stocks WHERE symbol=?', t)
+print c.fetchone()
+
+# Larger example that inserts many records at a time
+purchases = [('2006-03-28', 'BUY', 'IBM', 1000, 45.00),
+             ('2006-04-05', 'BUY', 'MSFT', 1000, 72.00),
+             ('2006-04-06', 'SELL', 'IBM', 500, 53.00),
+            ]
+c.executemany('INSERT INTO stocks VALUES (?,?,?,?,?)', purchases)
+\end{verbatim}
+
+\vfill
+\url{http://xkcd.com/327/}
 \end{frame} 
 
 % ---------------------------------------------
@@ -502,30 +793,26 @@ Firefox plug-in:\\
 \end{frame} 
 
 
-\section{Object-Relational Mappers}
-
-
-
-\section{Object databases}
+\section{Other Options}
 
 % ---------------------------------------------
 \begin{frame}[fragile]{Object-Relation Mappers}
 
-{\LARGE ORMs}
-
 \vfill
-{\Large Systems for mapping Python objects to tables in a RDBMS}
+{\Large Systems for mapping Python objects to tables}
 
 \vfill
 {\Large Saves you writing that glue code (and the SQL) }
 
 \vfill
-{\Large usually deals with mapping to various back-end RDBMSs}
+{\Large Usually deal with mapping to variety of back-ends:\\
+ -- test with SQLite, deploy with PostreSQL}
 
 \vfill
-{\Large  -- SQL Alchemy}\\ 
+{\Large  SQL Alchemy}\\ 
  -- \url{http://www.sqlalchemy.org/}
 
+\vfill
 {\Large Django ORM}\\
 \url{https://docs.djangoproject.com/en/dev/topics/db/}
 
@@ -535,23 +822,35 @@ Firefox plug-in:\\
 % ---------------------------------------------
 \begin{frame}[fragile]{Object Databases}
 
-Python objects:
-\begin{itemize}
-  \item ZODB (\url{http://www.zodb.org/})
-  \item Durus (\url{https://www.mems-exchange.org/software/DurusWorks/})
-\end{itemize}
+{\Large Directly store and retrieve Python Objects.}
+
+\vfill
+{\Large Kind of like \verb|shelve|, but more flexible, and give you searching, etc.}
+
+\vfill
+{\Large ZODB:}\\
+(\url{http://www.zodb.org/})
+
+\vfill
+{\Large Durus:}\\
+(\url{https://www.mems-exchange.org/software/DurusWorks/})
 
 \end{frame} 
 
 % ---------------------------------------------
 \begin{frame}[fragile]{NoSQL}
 
-Map-Reduce, etc....
-What to say here???
+{\Large Map-Reduce, etc.}
 
-Document-Oriented Storage: 
+\vfill
+{\Large....Big deal for "Big Data": Amazon, Google, etc.}
+
+\vfill
+{\Large Document-Oriented Storage}
+ 
+{\large
 \begin{itemize}
-  \item MongoDB (BSON inteface, JSON documents)
+  \item MongoDB (BSON interface, JSON documents)
   \item CouchDB (Apache):
   \begin{itemize}
     \item  JSON documents
@@ -559,82 +858,37 @@ Document-Oriented Storage:
     \item  HTTP API  
   \end{itemize}
 \end{itemize}
+}
 
 \end{frame} 
 
-
 %-------------------------------
-\begin{frame}{LAB}
+\begin{frame}{Evaluations}
 
-\begin{itemize}
-  \item
-\end{itemize}
+{\LARGE I need to submit evaluations to UW}
+
+\vfill
+{\LARGE We'll so that now -- then the last LAB}
 
 \end{frame}
 
-% Lightning Talk Slide
-%-------------------------------
-\begin{frame}{Lightning Talk}
 
-{\centering
-
-\vfill
-{\LARGE Lightning Talk:  }
-
-\vfill
-{\Huge Chris}
-
-\vfill
-}
-\end{frame}
-
-% Lightning Talk Slide
-%-------------------------------
-\begin{frame}{Lightning Talk}
-
-{\centering
-
-\vfill
-{\LARGE Lightning Talk:  }
-
-\vfill
-{\Huge Peter}
-
-\vfill
-}
-\end{frame}
-
-
-% ---------------------------------------------
-\begin{frame}[fragile]{First Topic}
-
- {\Large A topic}
+\begin{frame}[fragile]{LAB}
 
 \begin{verbatim}
-some code example
+# load with:
+from add_book_data import AddressBook
 \end{verbatim}
 
-\end{frame} 
-
-%-------------------------------
-\begin{frame}{LAB}
-
 \begin{itemize}
-  \item
+  \item Write a module that saves the data in a dbm datbase\\
+        --- and reads it back in
+  \item Write a module that saves the data in an SQLItE datbase\\
+        --- and reads it back in
+        --- helps to know SQL here...
 \end{itemize}
 
 \end{frame}
-
-%-------------------------------
-\begin{frame}{Wrap up}
-
-\begin{itemize}
-  \item
-\end{itemize}
-
-\end{frame}
-
-
 
 %-------------------------------
 \begin{frame}{Homework}
