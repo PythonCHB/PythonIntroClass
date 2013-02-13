@@ -1,0 +1,265 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>L548: Session 5</title>
+</head>
+<body>
+
+<h4>1) Creating Lists</h4>
+
+<table border="2">
+<tbody><tr><td>
+zoo = ["monkey", "tiger", "eagle"]</td><td> # define a list
+</td></tr><tr><td>zoo[0]  </td><td> # a single element
+</td></tr><tr><td>zoo[0] = "gorilla" </td><td> # change an element
+</td></tr><tr><td>zoo.append("parrot") </td><td> # add elements at end of list
+</td></tr><tr><td>zoo = ["zebra","lion"] + zoo</td><td> # add elements at beginning
+</td></tr></tbody></table>
+<p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# creating and modifying a list<br>
+#<br>
+<br>
+zoo = ["monkey", "tiger", "eagle", "parrot"]<br>
+<br>
+print "The zoo has the following", len(zoo), "animals:", zoo<br>
+<br>
+print "The 1. animal is", zoo[0]<br>
+print "The 2. animal is", zoo[1]<br>
+print "The 1. and 2. animals are", zoo[:2]<br>
+print "Animals 2. - 4. are", zoo[1:4]<br>
+print "The animals after the 2. one are", zoo[2:]<br>
+print "The last element is", zoo[-1]<br>
+<br>
+new_animal = raw_input("Which animal would you like to add? ")<br>
+zoo.append(new_animal)<br>
+print "The zoo has the following", len(zoo), "animals:", zoo<br>
+<br>
+new_animal = raw_input("Which animal should replace the monkey? ")<br>
+zoo[0] = new_animal<br>
+print "The zoo has the following", len(zoo), "animals:", zoo<br>
+</font>
+
+</p><h4>Exercise</h4>
+
+1.1) Create a list that contains the names of 5 students of this class.
+(Do not ask for input to do that, simply create the list.)
+Print the list. Ask the user to input one more name and append it
+to the list. Print the list.
+Ask a user to input a number. Print the name that has that number as
+index.
+Add "John Smith" and "Mary Miller" at the beginning of the list
+(by using "+"). Print the list.
+
+<h4>2) More operators and functions for lists</h4>
+
+<table border="2">
+<tbody><tr><td>del zoo[0] </td><td> # delete an element by index number
+</td></tr><tr><td>zoo.remove("tiger") </td><td> # delete an element by value
+</td></tr><tr><td>zoo.insert(1, "elephant") </td><td> # insert an element
+</td></tr><tr><td>len(zoo) </td><td> # length of zoo
+</td></tr><tr><td>max(zoo) </td><td> # alphabetically first or smallest element
+</td></tr><tr><td>min(zoo) </td><td> # alphabetically last or largest element
+</td></tr><tr><td>new_zoo = zoo[:] </td><td># create a new copy of zoo
+</td></tr><tr><td>zoo.reverse() </td><td> # change the list to reverse order 
+</td></tr><tr><td>zoo.sort() </td><td> # change the list to alphabetical order
+</td></tr></tbody></table>
+<p>
+
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# Deleting elements from a list<br>
+<br>
+zoo = ["monkey", "tiger", "eagle", "parrot"]<br>
+print "The zoo has the following", len(zoo), "animals:", zoo<br>
+<br>
+number = input("Which animal would you like to delete? \<br>
+Input the number of the animal: ")<br>
+if 0 &lt;= number &lt; len(zoo):<br>
+&nbsp; &nbsp; &nbsp;    del zoo[number]<br>
+else:<br>
+&nbsp; &nbsp; &nbsp;    print "That number is out of range!"<br>
+print "The zoo has the following", len(zoo), "animals:", zoo<br>
+<br>
+new_animal = raw_input("Which animal would you like to delete? \<br>
+Input the name of the animal: ")<br>
+if new_animal in zoo:<br>
+&nbsp; &nbsp; &nbsp;    zoo.remove(new_animal)   <br>
+&nbsp; &nbsp; &nbsp;    print new_animal, "has been deleted"<br>
+else:<br>
+&nbsp; &nbsp; &nbsp;    print new_animal, "cannot be deleted because it 
+is not in the zoo"<br>
+print "The zoo has the following", len(zoo), "animals:", zoo<br>
+</font>
+
+</p><h4>Exercise</h4>
+
+2.1) Continue with the script from 1.1):
+Print the list. Remove the last name from the list.
+Print the list.
+Ask a user to type a name. Check whether that name
+is in the list: if it is then delete it from the list. Otherwise
+add it at the end. 
+Create a copy of the list in reverse order. Print the original
+list and the reverse list.
+
+<h4>3) For-statement with lists</h4>
+
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# for statement<br>
+#<br>
+zoo = ["tiger", "elephant", "monkey"]<br>
+for animal in zoo:<br>
+&nbsp; &nbsp; print animal,<br>
+print<br>
+</font><p><font color="blue">
+</font>
+
+</p><h4>Exercises</h4>
+
+3.1) Use the list of student names from exercise 2.1):
+Create a for loop that prints for each student
+"hello student_name, how are you?" where student_name is
+replaced by the name of the student.
+<p>
+3.2) Optional: Use the list of student names from the previous
+exercise. Create a for loop that
+asks the user for every name whether they would like
+to keep the name or delete it. Delete the names which the user
+no longer wants. Hint: you cannot go through a list using a for
+loop and delete elements from the same list simultaneously
+because in that way the for loop will not reach all elements.
+You can either use a second copy of the list for the loop condition
+or you can use a second empty list to which you append the elements
+that the user does not want to delete.
+
+</p><h4>4) Input from a file</h4>
+
+Click <a href="http://www.upriss.org.uk/python/alice.txt">here</a> and save the file in your 
+current directory under the name "alice.txt".
+<p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# Program to read and print a file <br>
+#<br>
+file = open("alice.txt","r")<br>
+text = file.readlines()<br>
+file.close()<br>
+<br>
+for line in text:<br>
+&nbsp; &nbsp;    print line,<br>
+print
+</font></p><p><font color="blue">
+</font>
+
+
+<b>File handling</b>
+</p><p>
+
+<table border="2">
+<tbody><tr><td>file = open("alice.txt","r")</td><td> open for reading
+</td></tr><tr><td>file = open("output.txt","w")</td><td> open for writing
+</td></tr><tr><td>file = open("output.txt","a")</td><td> open for appending
+</td></tr><tr><td>file.close()</td><td> close file
+</td></tr><tr><td>text = file.readlines()</td><td> read all lines into a list 
+called "text"
+</td></tr><tr><td>line = file.readline()</td><td> read next line into a string
+called "line"
+</td></tr><tr><td>file.writelines(text)</td><td> write list to file
+</td></tr><tr><td>file.write(line)</td><td> write one line to file
+</td></tr></tbody></table>
+</p><p>
+
+<b>Exercises</b>
+</p><p>
+4.1) Modify the program so that
+the lines are printed in reverse order. <br>
+4.2) Output to another file instead of the screen. First, let
+your script overwrite the output file, then change the 
+script so that it appends the output to an existing file.<br>
+4.3) Modify the program so that 
+each line is printed with a line number at the beginning.<br>
+
+</p><h4>5) Optional Materials</h4>
+
+Alternative method of reading a file. This method should be used
+for files that are too large to be read into a list at once.
+<p>
+
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# Program to read and print a file <br>
+#<br>
+file = open("alice.txt","r")<br>
+line = file.readline()<br>
+<br>
+while line:<br>
+&nbsp; &nbsp;     print line,<br>
+&nbsp; &nbsp;     line = file.readline()<br>
+print<br>
+<br>
+file.close()
+</font>
+</p><p>
+Since reading files from the operating system environment is a source
+of errors, it is sometimes a good idea to add some code that detects
+and deals with errors:
+
+</p><p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# Program to read and print a file <br>
+<br>
+import sys<br>
+<br>
+try:<br>
+&nbsp; &nbsp;       file = open("alice.txt","r")<br>
+except IOError:<br>
+&nbsp; &nbsp;       print "Could not open file"<br>
+&nbsp; &nbsp;       sys.exit()<br>
+<br>
+
+text = file.readlines()<br>
+file.close()<br>
+<br>
+for line in text:<br>
+&nbsp; &nbsp;    print line,<br>
+print
+</font>
+</p><h4>6) Optional: Dictionaries</h4>
+
+Dictionaries
+ are like lists whose indices are arbitrary numbers and strings.
+They can also be thought of as
+"database tables" with two columns (a "key" and a "value"
+column).
+<p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# a dictionary<br>
+<br>
+relatives ={"Lisa" : "daughter", "Bart" : "son", "Marge" : "mother",<br>
+"Homer" : "father", "Santa" : "dog"}<br>
+<br>
+for member in relatives.keys():<br>
+&nbsp; &nbsp;   print member, "is a", relatives[member]
+</font>
+</p><p>
+<b>Exercise</b>
+</p><p>
+6.1) Create a second dictionary (such as "age") and print its values
+as well.
+
+
+
+
+
+</p></body></html>

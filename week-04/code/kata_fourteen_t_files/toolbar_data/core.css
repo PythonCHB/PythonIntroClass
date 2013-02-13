@@ -1,0 +1,109 @@
+/*
+
+TypePad: Core
+Six Apart
+http://www.sixapart.com/
+
+*/
+
+
+/* Fonts */
+
+body {
+    color: #000;
+    font-size: 81.25%;
+    line-height: 1.4;
+    font-family: Helvetica, Arial, Verdana, sans-serif;
+}
+
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: bold;
+}
+
+code {
+    font-size: 1.2em;
+    font-family: Courier, monospace;
+}
+
+
+/* Utilities */
+
+.pkg:after,
+.field:after {
+    content: " ";
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0.1px;
+    font-size: 0.1em;
+    line-height: 0;
+}
+.pkg,
+.field { display: inline-block; }
+/* no ie mac \*/
+* html .pkg,
+* html .field { height: 1%; }
+.pkg,
+.field { display: block; }
+/* */
+
+.col {
+    float: left;
+    display: inline;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.hiddenBox,
+.hide {
+    display: none;
+}
+
+.cb, .rb {
+    margin: 0;
+}
+
+.rel {
+    position: relative;
+}
+.social-compose {
+    width: 260px;
+    color: black;
+    display: none;
+    resize: vertical;
+}
+.tweet-counter {
+    background-color: transparent;
+    border:medium none;
+    box-shadow: none;
+    margin: -17px 0 0 250px;
+    display: none;
+    width: 25px;
+    color: #999;
+}
+.caption-text {
+    margin: -10px 0 0 0;
+    display: none;
+    color: #999;
+}
+.shareaccts {
+    margin-bottom: -15px;
+}

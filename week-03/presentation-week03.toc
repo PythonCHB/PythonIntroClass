@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {1}{Review/Questions, Reading Notes}{3}{0}{1}
+\beamer@sectionintoc {2}{String Formatting, etc}{12}{0}{2}
+\beamer@sectionintoc {3}{File Reading and Writing}{31}{0}{3}
+\beamer@sectionintoc {4}{Unicode}{41}{0}{4}
+\beamer@sectionintoc {5}{Exceptions}{52}{0}{5}
+\beamer@sectionintoc {6}{Paths and Directories}{63}{0}{6}

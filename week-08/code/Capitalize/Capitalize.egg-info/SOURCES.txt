@@ -1,0 +1,7 @@
+capital_mod.py
+capitalize.py
+setup.py
+Capitalize.egg-info/PKG-INFO
+Capitalize.egg-info/SOURCES.txt
+Capitalize.egg-info/dependency_links.txt
+Capitalize.egg-info/top_level.txt

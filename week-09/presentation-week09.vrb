@@ -1,0 +1,7 @@
+\frametitle {Homework}\par \begin{itemize}
+    \item Write some unit tests for your class project
+    \item Profile your class project
+    \item Use timeit to test the slowest part of the code
+    \item See if you can make it faster
+\end{itemize}
+

@@ -1,0 +1,74 @@
+notes for week 4
+
+"""
+arguments: *args, **kwargs
+
+LAB for keyword args
+"""
+
+list comprehensions
+
+In [341]: [x**2 for x in range(3)]
+Out[341]: [0, 1, 4]
+
+In [342]: [x+y for x in range(3) for y in range(2)]
+Out[342]: [0, 1, 1, 2, 2, 3]
+
+In [343]: [x*2 for x in range(6) if not x%2]
+Out[343]: [0, 4, 8]
+
+In [347]: [name for name in dir(__builtin__) if "Error" in name]
+Out[347]: 
+['ArithmeticError',
+ 'AssertionError',
+ 'AttributeError',
+ 'BufferError',
+ 'EOFError',
+ 'EnvironmentError',
+ 'FloatingPointError',
+ 'IOError',
+ 'ImportError',
+ 'IndentationError',
+ 'IndexError',
+ 'KeyError',
+ 'LookupError',
+ 'MemoryError',
+ 'NameError',
+ 'NotImplementedError',
+ 'OSError',
+ 'OverflowError',
+ 'ReferenceError',
+ 'RuntimeError',
+ 'StandardError',
+ 'SyntaxError',
+ 'SystemError',
+ 'TabError',
+ 'TypeError',
+ 'UnboundLocalError',
+ 'UnicodeDecodeError',
+ 'UnicodeEncodeError',
+ 'UnicodeError',
+ 'UnicodeTranslateError',
+ 'ValueError',
+ 'ZeroDivisionError']
+
+
+
+dict comprehansions
+
+In [340]: { i: "this_%i"%i for i in range(5) }
+Out[340]: {0: 'this_0', 1: 'this_1', 2: 'this_2', 3: 'this_3', 4: 'this_4'}
+
+
+generator expressions:
+
+In [338]: g = ( x**2 for x in xrange(5))
+
+In [339]: for i in g:
+    print i
+   .....:     
+0
+1
+4
+9
+16

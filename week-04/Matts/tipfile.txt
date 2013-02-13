@@ -1,0 +1,24 @@
+**********
+* tip one
+**********
+
+here's the text
+line 2 of text
+line 3 of it
+
+**********
+* tip two
+**********
+
+two here's the text
+two line 2 of text
+two line 3 of it
+
+**********
+* tip three
+**********
+
+three here's the text
+three line 2 of text
+three line 3 of it
+

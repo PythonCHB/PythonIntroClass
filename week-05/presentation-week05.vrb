@@ -1,0 +1,12 @@
+\frametitle {Homework}\par \begin{itemize}
+  \item Think Python ch. 15-18
+  \item Finish what you didn't get to in class
+  \item When a *.py file is asked for:
+    \begin{itemize}
+      \item Don't return the script's contents
+      \item Return the result of running the script (stdout)\\
+            (\verb|subprocess.Popen()| will be useful)
+      \item Test with a script that prints the time (or something...)
+      \item You've just re-invented CGI
+    \end{itemize}
+\end{itemize}

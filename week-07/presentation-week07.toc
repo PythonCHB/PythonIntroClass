@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {1}{Review/Questions}{4}{0}{1}
+\beamer@sectionintoc {2}{More OO}{6}{0}{2}
+\beamer@sectionintoc {3}{Properties}{13}{0}{3}
+\beamer@sectionintoc {4}{Special Attributes}{24}{0}{4}
+\beamer@sectionintoc {5}{Iterators / Generators}{33}{0}{5}

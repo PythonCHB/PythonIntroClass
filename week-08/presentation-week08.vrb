@@ -1,0 +1,6 @@
+\frametitle {Homework}\par \begin{itemize}
+  \item Find a package or two and install it
+  \item Try to install it "from source" -- i.e. \verb|setup.py install|
+  \item Make a nice package of your class project (or something else)
+\end{itemize}
+

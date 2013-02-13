@@ -1,0 +1,5 @@
+<address_book>
+  <person address_city="Seattle" address_line_1="835 NE 33rd St" address_line_2="" address_state="WA" address_zip="96543" cell_phone="234-567-8901" email="PythonCHB@gmail.com" first_name="Chris" home_phone="206-555-1234" last_name="Barker" office_phone="123-456-7890" />
+  <person address_city="Tacoma" address_line_1="123 SE 13th St" address_line_2="Apt. 43" address_state="WA" address_zip="93465" cell_phone="403-561-8911" email="FredJones@some_company.com" first_name="Fred" home_phone="510-555-1234" last_name="Jones" office_phone="564-466-7990" />
+  <person address_city="Pasadena" address_line_1="8654 Walnut St" address_line_2="Suite 567" address_state="CA" address_zip="12345" cell_phone="432-567-8466" email="Wilson.Nancy@gmail.com" first_name="Nancy" home_phone="423-321-9876" last_name="Wilson" office_phone="123-765-9877" />
+</address_book>

@@ -13,8 +13,7 @@ outfilename = "add_book_data.json"
 from add_book_data import AddressBook
 
 # dump it as json (it's really this simple)
-#json.dump(AddressBook, open(outfilename, 'wb'), indent=4 ) # specifying indent pretty-prints the json
-json.dump(AddressBook, open(outfilename, 'wb') ) # specifying indent pretty-prints the json
+json.dump(AddressBook, open(outfilename, 'wb'), indent=4 ) # specifying indent pretty-prints the json
 
 ### see if we can re-load it
 

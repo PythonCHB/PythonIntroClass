@@ -1,0 +1,17 @@
+\frametitle {Homework}\par {\LARGE NOTE: class canceled next week}
+
+\vfill
+{\Large Pickup from last week -- For a portion of the system you're responsible for testing:}
+\begin{itemize}
+  \item Make a few classes to represent that portion. (No more than three or
+        four classes)
+  \item Try to make use or something from today:
+  \begin{itemize}
+    \item Mix-ins
+    \item Properties
+    \item Magic methods
+    \item iterator or generator
+  \end{itemize}
+\end{itemize}
+
+\vfill

@@ -1,0 +1,138 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>L548 Session 4</title>
+</head>
+<body>
+
+<h4>1) Flowcharts: if</h4>
+
+
+<img src="if_while_files/p21.jpg">
+
+<h4>2) While</h4>
+
+<img src="if_while_files/p22.jpg">
+<p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# while statement<br>
+#<br>
+<br>
+answer = "no"<br>
+while answer != "yes":<br>
+&nbsp; &nbsp;   answer = raw_input("Do you like Python? ")<br>
+&nbsp; &nbsp;   if answer == "yes":<br>
+&nbsp; &nbsp;&nbsp; &nbsp;      print "That is great!"<br>
+&nbsp; &nbsp;   else:<br>
+&nbsp; &nbsp;&nbsp; &nbsp; print "That is not the right answer! Try again."<br>
+</font>
+</p><p>
+Here is an alternative version that does the same:
+</p><p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# while statement<br>
+#<br>
+answer = raw_input("Do you like Python? ")<br>
+while answer != "yes":<br>
+&nbsp; &nbsp;   print "That is not the right answer! Try again."<br>
+&nbsp; &nbsp;   answer = raw_input("Do you like Python? ")<br>
+else:<br>
+&nbsp; &nbsp;   print "That is great!"<br>
+</font>
+
+
+</p><h4>Exercises</h4>
+
+2.1) Modify the program from above so that it asks users to "guess the 
+lucky number". If the correct number is guessed the program stops,
+otherwise it continues forever.
+<p>
+2.2) Modify the program so that it asks users whether they want to 
+guess again each time. Use two variables, number for the number
+and answer for the answer to the question whether they want to
+continue guessing. 
+The program stops if the user guesses the correct number or
+answers "no". (In other words, 
+the program continues as long as a user has not answered "no" and 
+has not guessed the correct number.)
+
+</p><h4>3) Modifications of a while loop</h4>
+
+3.1) <b>A counter</b>:
+Write a program that asks five times to guess the lucky number.
+Use a while loop and a counter, such as
+<p>
+<font color="blue">
+counter = 1<br>
+while counter &lt;= 5: <br>
+&nbsp; &nbsp;print "Type in the", counter, "number"<br>
+&nbsp; &nbsp;counter = counter +1<br>
+</font>
+</p><p>
+The program asks for five guesses (no matter whether the correct
+number was guessed or not).
+If the correct number is guessed, the program outputs
+"Good guess!", otherwise it outputs "Try again!". 
+After the fifth guess it stops and prints "Game over."
+
+</p><p>
+3.2) <b>break</b>:
+In the previous example, insert "break" after the "Good guess!"
+print statement. "break" will terminate the while loop so that
+users do not have to continue guessing after they found the number. 
+If the user does not guess the number at all print "Sorry but
+that was not very successful" (use "else" for this).
+
+</p><p>
+3.3) <b>Counting hits</b>:
+Modify the program again. This time the program continues even after
+the correct number was guessed but it counts how often the correct
+number was guessed. You'll need two counters: one for the while loop
+and another one for the number of correct guesses.
+After the while loop is finished, use an if statement to
+print either "You guessed the
+number ... times" or "The number was not guessed at all".
+</p><p>
+Note: This strategy is used in search engines:
+search engines
+display each match but keep searching until they are through with
+the document collection.
+
+</p><h4>4) For </h4>
+
+<img src="if_while_files/p23.jpg">
+<p>
+Other programming languages provide "for" as an alternative for 
+while loops with counters. Python's "for" is more commonly used 
+in connection with lists (see next week).  But the following
+code shows how Python's "for" can be used to count from 0 to a specific
+number. 
+</p><p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# for statement<br>
+#<br>
+for counter in range(10):<br>
+&nbsp; &nbsp; &nbsp; print counter<br>
+</font>
+
+</p><h4>Exercises</h4>
+
+4.1) Modify the counter program from above using a for loop
+so that it asks the user for five guesses and 
+then stops. Use "break" to terminate the for loop as soon as the
+correct number is guessed.
+<p>
+4.2) <b>Optional exercise</b>: print all multiples of 13 that
+are smaller than 100. Use the range function in the following
+manner: range(start, end, step) where "start" is the starting value
+of the counter, "end" is the end value and "step" is the amount
+by which the counter is increased each time.
+
+
+
+</p></body></html>

@@ -1,0 +1,13 @@
+\frametitle {LAB}\par \begin{verbatim}
+# load with:
+from add_book_data import AddressBook
+\end{verbatim}
+
+\begin{itemize}
+  \item Write a module that saves the data in a dbm datbase\\
+        --- and reads it back in
+  \item Write a module that saves the data in an SQLItE datbase\\
+        --- and reads it back in
+        --- helps to know SQL here...
+\end{itemize}
+

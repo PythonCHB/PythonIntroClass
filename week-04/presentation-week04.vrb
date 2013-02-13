@@ -1,0 +1,12 @@
+\frametitle {Function parameters in variables}\par {\Large You can also pull in the parameters out in the function as a tuple and a dict
+}
+\begin{verbatim}
+def f(*args, **kwargs):
+    print "the positional arguments are:", args
+    print "the keyword arguments are:", kwargs
+
+In [389]: f(2, 3, this=5, that=7)
+the positional arguments are: (2, 3)
+the keyword arguments are: {'this': 5, 'that': 7}
+\end{verbatim}
+

@@ -1,0 +1,15 @@
+\frametitle {Homework}\par {\Large Watch the videos..}
+
+\vfill
+{\Large For a portion of the system you're responsible for testing:}
+\begin{itemize}
+  \item Make a few classes to represent that portion. (No more than three or
+        four classes)
+  \item Imagine that these classes can automatically control the system, what
+        methods would you find most useful?
+  \item Write a few of them with a mock implementation. (accept parameters,
+        update state, print out current state, etc)
+\end{itemize}
+
+\vfill
+( or some other Object system...)

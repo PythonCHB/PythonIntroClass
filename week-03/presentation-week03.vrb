@@ -1,0 +1,12 @@
+\frametitle {directories}\par \vfill
+\begin{verbatim}
+os.listdir()
+os.mkdir()
+
+os.walk()
+
+\end{verbatim}
+
+\vfill
+(higher level stuff in \verb|shutil| module)
+

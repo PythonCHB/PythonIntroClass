@@ -1,0 +1,196 @@
+\documentclass{beamer}
+%\usepackage[latin1]{inputenc}
+\usetheme{Warsaw}
+\title[Intro to Python: Week 10]{Introduction  to Python \\ Leveraging C libraries}
+\author{Christopher Barker}
+\institute{UW Continuing Education / Isilon}
+\date{September 05, 2012}
+
+\usepackage{listings}
+\usepackage{hyperref}
+
+\begin{document}
+
+% ---------------------------------------------
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% ---------------------------------------------
+\begin{frame}
+\frametitle{Table of Contents}
+%\tableofcontents[currentsection]
+  \tableofcontents
+\end{frame}
+
+
+\section{Review/Questions}
+
+% ---------------------------------------------
+\begin{frame}{Review of Previous Class}
+
+Lightning talk today: John
+
+\begin{itemize}
+  \item ...
+\end{itemize}
+
+\end{frame}
+
+
+% header
+% ---------------------------------------------
+\begin{frame}{Homework review}
+
+  {\Large Homework notes }
+
+\end{frame}
+
+\section{Various Options}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{CPython API}
+
+ {\Large A topicc}
+
+\begin{verbatim}
+some code example
+\end{verbatim}
+
+\end{frame} 
+
+% ---------------------------------------------
+\begin{frame}[fragile]{ctypes}
+
+ {\Large A topicc}
+
+\begin{verbatim}
+some code example
+\end{verbatim}
+
+\end{frame} 
+% ---------------------------------------------
+\begin{frame}[fragile]{Automated Options}
+
+SWIG
+
+the QT thing
+
+Boost Python
+
+Pyrex/Cython
+
+\end{frame} 
+
+
+\section{The CPython API}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{First Topic}
+
+ {\Large A topicc}
+
+\begin{verbatim}
+some code example
+\end{verbatim}
+
+\end{frame} 
+
+%-------------------------------
+\begin{frame}{LAB}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+% Lightning Talk Slide
+%-------------------------------
+\begin{frame}{Lightning Talk}
+
+{\centering
+
+\vfill
+{\LARGE Lightning Talk:  }
+
+\vfill
+{\Huge Peter}
+
+\vfill
+}
+\end{frame}
+
+
+\section{ctypes}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{First Topic}
+
+ {\Large A topic}
+
+\begin{verbatim}
+some code example
+\end{verbatim}
+
+\end{frame} 
+
+%-------------------------------
+\begin{frame}{LAB}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+
+\section{Cython}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{First Topic}
+
+ {\Large A topic}
+
+\begin{verbatim}
+some code example
+\end{verbatim}
+
+\end{frame} 
+
+%-------------------------------
+\begin{frame}{LAB}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------
+\begin{frame}{Wrap up}
+
+\begin{itemize}
+  \item
+\end{itemize}
+
+\end{frame}
+
+
+
+%-------------------------------
+\begin{frame}{Homework}
+
+\vfill
+{\Large Send me a copy of you project}
+
+\vfill
+{\Large Keep learning about and using Python}
+\vfill
+
+\end{frame}
+
+
+\end{document}
+
+ 

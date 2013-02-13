@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {1}{Intro to the Class}{3}{0}{1}
+\beamer@sectionintoc {2}{Values, Expressions, and Types}{36}{0}{2}
+\beamer@sectionintoc {3}{Functions}{45}{0}{3}
+\beamer@sectionintoc {4}{Wrap Up}{69}{0}{4}

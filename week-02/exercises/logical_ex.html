@@ -1,0 +1,183 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>L548 Session 3</title>
+</head>
+<body>
+
+<h4>1) Logical expressions: and, or, not</h4>
+
+For the following expressions, replace a, b, c with 1 or 0 so
+that the expression becomes true (i.e. 1). Use the Python
+interpreter.
+Which expressions are logically equivalent?
+Record some of your results in truth tables.
+<p>
+1.1)
+</p><li>(a and b)
+</li><li> (not a and b)
+</li><li> (not (a and b))
+</li><li> (a or b)
+</li><li> (a or not b)
+</li><li> (not (a or b))
+</li><li> (not (not a or not b))
+</li><li> (a and (a or b)) &nbsp; Does this really depend on b?
+</li><li> (a and b and c)
+</li><li> (a and b or c)
+</li><li> (a and (b or c))
+</li><li> ((a and b) or c)
+<p>
+1.2) Write a script that asks someone to input their first name,
+last name and phone number. If the user does not type at least
+some characters for each of these, print "Do not leave any fields
+empty" otherwise print "Thank you". (Hint: if a variable is empty,
+its value will be "false".) <br>
+1.3) Change the script so that the script prints "Thank you" if either
+the first name or the last name or the phone number is supplied.
+Print "Do not leave all fields empty" otherwise. <br>
+1.4) Change the script so that only first name and last name are required.
+The phone number is optional. 
+
+</p><h4>2) Other logical expressions for if statements</h4>
+
+<table border="1">
+<tbody><tr><td>a == b </td><td> Is a equal to b?<br>
+</td></tr><tr><td>a != b </td><td> Is a unequal to b?<br>
+</td></tr><tr><td>a &lt;= b </td><td> Is a smaller or equal to b?<br>
+</td></tr><tr><td>a &gt;= b </td><td> Is a larger or equal to b?<br>
+</td></tr><tr><td>a &lt; b </td><td> Is a smaller than b?<br>
+</td></tr><tr><td>a &gt; b </td><td> Is a larger than b?<br>
+</td></tr><tr><td>a is b </td><td> Is a the same object as b?<br>
+</td></tr><tr><td>a is not b </td><td> Is a the not same object as b?<br>
+</td></tr></tbody></table>
+<p>
+Note: for strings "smaller" and "larger" refers to the alphabetical 
+order.
+
+</p><h4>Exercises:</h4>
+
+2.1) Write a program that asks a user to input a color.
+If the color is black or white, output "The color
+was black or white". If it starts with a letter
+that comes after "k" in the alphabet,
+output "The color starts with a letter that comes after "k" in the 
+alphabet". (Optional: consider both capitalized and non-capitalized
+words. Note: the order of the alphabet in Unix and Python 
+is: symbols, numbers, upper case letters, lower case letters.)
+<p>
+2.2) Write a program that asks a user to input a number.
+If the number equals "5",
+output "My lucky number". 
+If the number is larger than 10, output "What a large number!". 
+In all other cases, output "That's not my lucky number." 
+
+
+</p><h4>3) Objects have a name, type and value</h4>
+
+<img src="logical_ex_files/obj1.jpg"> 
+<p></p><hr><p>
+
+<table border="1">
+<tbody><tr><th>Python code</th><th>name</th><th>value</th><th>data type
+</th></tr><tr><td>greeting = "hello"</td><td>
+greeting</td><td>"hello"</td><td>string
+</td></tr><tr><td>number = 1</td><td>
+number</td><td>1</td><td>int
+</td></tr></tbody></table>
+</p><p>
+<img src="logical_ex_files/obj2.jpg">
+</p><p></p><hr><p>
+
+<table border="1">
+<tbody><tr><th>Python code</th><th>name</th><th>value</th><th>data type
+</th></tr><tr><td>answer = raw_input ("Your name: ")</td><td>
+raw_input</td><td>&nbsp;</td><td>function
+</td></tr><tr><td>&nbsp;</td><td>
+&nbsp;</td><td>"Your name:"</td><td>string
+</td></tr><tr><td>(user enters "Snoopy")</td><td>
+answer</td><td> "Snoopy" </td><td>string
+</td></tr><tr><td>choice = input ("Your age: ")</td><td>
+input</td><td>&nbsp;</td><td>function
+</td></tr><tr><td>&nbsp;</td><td>
+&nbsp;</td><td>"Your age:"</td><td>string
+</td></tr><tr><td>(user enters 104)</td><td>
+choice</td><td> 104 </td><td>int
+</td></tr></tbody></table>
+</p><p>
+<img src="logical_ex_files/obj3.jpg">
+</p><p></p><hr>
+
+<h4>4) Functions for displaying types/changing types</h4>
+
+<table border="1">
+<tbody><tr><td>type()</td><td> displays the type of an object
+</td></tr><tr><td>str()</td><td>converts objects into printable strings
+</td></tr><tr><td>int()</td><td>converts non-integer numbers into integers
+</td></tr></tbody></table>
+
+<h4>Exercise</h4>
+
+4.1) In the Python interpreter, apply the functions type(), str(), int()
+to various objects (eg. "hello", 5, raw_input). See what happens.
+
+<h4>Optional Exercise</h4>
+
+4.2) Ask the user to type something (use raw_input). To find out whether
+the input was a number, compare whether the input is after 
+"0" and before ":" in alphabetical order. If it is a
+number convert it into an integer. Then print the input and its type.
+(Note: this won't
+work if the user enters a real number. See below.)
+
+<hr>
+
+<h4>5) Equality</h4>
+
+Objects can have equal values or can be identical. A test for
+having equal values is <font color="blue">==</font>; a test for being the
+same is <font color="blue">is</font>. For example<p>
+<font color="blue">
+&gt;&gt;&gt; a = 5<br>
+&gt;&gt;&gt; b = 5.0<br>
+&gt;&gt;&gt; c = a<br>
+&gt;&gt;&gt; a == b<br>
+1<br>
+&gt;&gt;&gt; a is b<br>
+0<br>
+&gt;&gt;&gt; a is c<br>
+1<br>
+</font>
+</p><p>
+<img src="logical_ex_files/obj4.jpg">
+
+</p><h4>6) Object-oriented modeling</h4>
+
+Object-oriented modeling provides a means for organizing the different
+objects, functions, etc into meaningful groups or classes. For example, in 
+Python there is a class for strings. 
+
+<h4>Exercise</h4>
+
+6.1) In the Python interpreter, type "import string". Then type:<br>
+string.uppercase<br>
+string.digits<br>
+string.printable<br>
+These are all objects that are relevant for strings.
+
+<h4>Optional Exercise</h4>
+
+6.2) Ask the user to type a Python object. (That means numbers can be 
+typed directly but strings must be enclosed in quotes.) Use 
+"input" instead of "raw_input". 
+Check the type of the user-input in the following manner:
+include the line "import types" at the beginning of your script.
+Then compare the type of the
+user-input to the objects types.IntType, types.FloatType
+and types.StringType. Print "The input was an integer", "the input
+was a real number", "the input was a string", respectively.
+
+
+
+
+
+
+</li></body></html>

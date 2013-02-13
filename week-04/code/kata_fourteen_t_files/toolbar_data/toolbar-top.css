@@ -1,0 +1,151 @@
+/* Toolbar */
+
+html,
+body {
+    color: #aaa;
+    background-color: transparent; 
+    margin: 0px;
+    padding: 0px;
+}
+
+.toolbar {
+    position: absolute;
+    left: -2px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    border-width: 1px;
+    border-color: #aaa;
+    padding: 1px 2px 4px 2px;
+}
+
+.toolbar .logo {
+    position: relative;
+    *position: fixed; /* Ensure the background for the toolbar displays properly in IE7 */
+    left: 5px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 37px;
+    margin-bottom: 8px;
+}
+
+.expanded .logo  {
+   margin-top: 8px;
+}
+
+.toolbar-icon {
+    width: 36px;
+    height: 21px;
+    display: block;
+    background: #fff url(../../../images/app/services/toolbar/toolbar-handle-dark.png) no-repeat 4px 2px;
+    overflow: hidden;
+    text-indent: -9999px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    opacity: .3;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    filter: alpha(opacity=30);
+}
+
+.toolbar .logo .arrow {
+    position: absolute;
+    left: 25px;
+    top: 9px;
+    opacity: .4;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=40)";
+    filter: alpha(opacity=40);
+}
+
+/* .expanded .toolbar-icon, */
+.expanded .toolbar .logo .arrow,
+.toolbar-icon:hover {
+    opacity: .8;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity=80);
+}
+
+.toolbar #toolbar-navlinks {
+    height: 22px;
+    padding-top: 10px;
+    padding-left: 40px;
+    background: #222;
+    background: #222 url(../../../images/app/services/toolbar/bg.gif) repeat-x 0 0;
+    border-bottom: 1px solid #111;
+}
+
+.toolbar #toolbar-navlinks .auth {
+    float: right;
+}
+
+.toolbar .navlink {
+    float: left;
+    padding: 0px 10px;
+    border-left: 1px solid #444;
+    border-right: 1px solid #222;
+    font-size: 0.95em;
+}
+
+.toolbar .navlink a {
+    display: block;
+}
+
+.toolbar .follow a {
+    display: inline;
+}
+
+.toolbar .first {
+    border-left: none;
+}
+
+.toolbar .last {
+    border-right: none;
+}
+
+.toolbar #toolbar-navlinks .typepadlogoin {
+    border-right: none;
+}
+
+
+.toolbar #toolbar-navlinks .typepadlogoin a,
+.toolbar #toolbar-navlinks .typepadlogo a {
+    padding-left: 16px;
+    background: url(../../../images/profile/service_icons/typepad.png) no-repeat 0 0;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+
+.toolbar #toolbar-navlinks .dashboard {
+    padding-left: 0px;
+    border-left: none;
+}
+
+.toolbar #toolbar-navlinks .profile-pic {
+    margin-top: -2px;
+}
+
+.toolbar #toolbar-navlinks .favorite a {
+    padding-left: 22px;
+    background: url(../../../images/app/services/toolbar/icon-favorite.png) no-repeat 0 0;
+}
+
+.toolbar #toolbar-navlinks .favorited a {
+    background: url(../../../images/app/services/toolbar/icon-favorite-faved.png) no-repeat 0 0;
+}
+
+.toolbar #toolbar-navlinks .reblog a {
+    padding-left: 22px;
+    background: url(../../../images/app/services/toolbar/icon-reblog.png) no-repeat 0 0;
+}
+
+.toolbar .navlink a {
+    color: #ddd;
+    text-decoration: none;
+}
+.toolbar .navlink a:hover {
+    color: #fff;
+}
+
+.toolbar #favorite-spinner {
+    margin-left: 32px;
+}

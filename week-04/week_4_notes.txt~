@@ -1,0 +1,20 @@
+notes for week 4
+
+A bit more about sequences (from Brian's week 3 talk)
+
+then lists, etc....
+
+
+\section{More on functions}
+
+% ---------------------------------------------
+\begin{frame}[fragile]{Default Parameters}
+
+ {\Large Sometimes you don't need the user to specify everything every time}
+
+\begin{verbatim}
+def fun(x,y,z=5):
+    print x,y,z
+\end{verbatim}
+
+\end{frame} 

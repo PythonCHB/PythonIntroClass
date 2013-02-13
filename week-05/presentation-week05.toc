@@ -1,0 +1,6 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {1}{Review/Questions}{3}{0}{1}
+\beamer@sectionintoc {2}{Sockets}{8}{0}{2}
+\beamer@sectionintoc {3}{HTTP}{14}{0}{3}
+\beamer@sectionintoc {4}{Building an HTTP server}{22}{0}{4}
+\beamer@sectionintoc {5}{Wrap Up / Homework}{31}{0}{5}

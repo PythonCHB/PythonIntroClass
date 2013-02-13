@@ -1,0 +1,360 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:at="http://www.sixapart.com/ns/at" xmlns:fb="http://www.facebook.com/2008/fbml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>TypePad - Home</title>
+<script src="toolbar_data/be8e976b0e2c24f60cb4acdf6aa93652fe0797ff.js" async="" type="text/javascript"></script><script src="toolbar_data/i.js" async="" type="text/javascript"></script><script type="text/javascript">
+var _kmq = _kmq || [];
+  function _kms(u){
+    setTimeout(function(){
+    var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;
+    s.src = u; f.parentNode.insertBefore(s, f);
+    }, 1);
+  }
+  _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/be8e976b0e2c24f60cb4acdf6aa93652fe0797ff.1.js');
+</script>
+    <link rel="stylesheet" href="toolbar_data/reset.css" type="text/css">
+    <link rel="stylesheet" href="toolbar_data/core.css" type="text/css">
+    <link rel="stylesheet" href="toolbar_data/toolbar-top.css" type="text/css">
+<!--[if IE]>
+    <link rel="stylesheet" href="http://static.typepad.com/.shared:v20120710.02-0-g9c21589:typepad:en_us/css/ie.css" type="text/css" />
+<![endif]-->
+    <link rel="shortcut icon" href="http://www.typepad.com/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="http://static.typepad.com/.shared:v20120710.02-0-g9c21589:typepad:en_us/images/app/favicons/atip-129si.png">
+    <script type="text/javascript" src="toolbar_data/yahoo-dom-event.js"></script>
+</head>
+<body>
+
+
+
+<script type="text/javascript">
+    var Event     = YAHOO.util.Event,
+        Dom       = YAHOO.util.Dom,
+        Anim      = YAHOO.util.Anim,
+        ColorAnim = YAHOO.util.ColorAnim,
+        Easing    = YAHOO.util.Easing,
+        Cookie    = YAHOO.util.Cookie,
+        TPToolbar = {};
+
+    TPToolbar = {
+
+        params: {
+            autofollowed:   0,
+            blog_user_xid: '6p00d83451c41c69e2',
+            display:        0,
+            entry_xid:     '6a00d83451c41c69e200d8353d46a953ef',
+            logged_in:      0,
+            safe_to_modify_body:  '0',
+            permalink:      1,
+            self_uri:      'http://www.typepad.com/services/toolbar',
+            source_uri:    'http://codekata.pragprog.com/2007/01/kata_fourteen_t.html',
+            toolbar_state: 'collapsed',
+            users_blog:     0
+        },
+        
+        init: function() {
+            var that = this;
+
+            /* Remember toolbar preference for logged out users */
+            if( !this.params.logged_in ) {
+                this.params.toolbar_state = 
+                    Cookie.get( "typepad_toolbar" ) ? 
+                        Cookie.get( "typepad_toolbar" ) : this.params.toolbar_state;
+            }
+
+            /* Reposition the toolbar on logo click */
+            Event.on( 'toolbar-logo', 'click', function( ev ) {
+                Event.stopEvent(ev);
+                that.reposToolbar();
+            });
+
+            /* Bounce typepad logo to signify action can be taken */
+            Event.on( 'toolbar-logo', 'mouseover', function( ev ) {
+                that.hoverToolbarLogo(); 
+            } );
+
+            /* If this isn't the user's blog setup following actions */
+            if( !this.params.users_blog ) {
+                this.setupFollowing();
+            } 
+
+            /* If this isn't a user's blog and we're on a permalink, setup favoriting */
+            if( !this.params.users_blog && this.params.permalink ) {
+                this.setupFavoriting();
+            }
+
+            /* Setup communication to the parent frame for reblog functionality */
+            Event.on( ['reblog', 'logoutreblog'], 'click', function( ev ) {
+                Event.stopEvent(ev);
+                TPApp.util.crossTalk.sendMessage( window.parent, "blogIt", that.params.source_uri );
+            });
+
+            /* Show the toolbar? */
+            if( this.params.display ) {
+                TPApp.util.crossTalk.sendMessage( window.parent, "showToolbar", this.params.source_uri );
+
+                /* If toolbar state is expanded then send the expand message */
+                if( this.params.toolbar_state == "expanded" || this.params.autofollowed ) {
+                    /* Added a delay to prevent message loss */
+                    setTimeout( function() { that.expandToolbar(); }, 300 );
+                }
+            }
+
+            /* Setup crossTalk receiver for messages from the parent */
+            TPApp.util.crossTalk.receiveMessage( this.params.self_uri, this.handleMsg );
+
+        },
+
+        reposToolbar: function() { 
+
+            var that = this;
+            var state = Dom.hasClass( 'tpToolbar', 'collapsed' ) ? "expand" : "collapse";
+            var logo = Dom.getFirstChild('tpToolbar');
+
+
+            if( state == "expand" ) {
+                this.expandToolbar();               
+                if( this.params.logged_in == 1 ) 
+                    this.updateToolbarState( { toolbar_state: "expanded", source_uri: this.params.source_uri } );
+                else
+                    Cookie.set( "typepad_toolbar", "expanded" );
+                    
+            } else {
+                this.collapseToolbar();
+                if( this.params.logged_in == 1 )
+                    this.updateToolbarState( { toolbar_state: "collapsed", source_uri: this.params.source_uri } );
+                else
+                    Cookie.set( "typepad_toolbar", "collapsed" );
+            }
+
+        },
+
+        expandToolbar: function() {
+            var anim;
+
+            TPApp.util.crossTalk.sendMessage( window.parent, "scrollDown", this.params.source_uri );
+            Dom.removeClass( 'tpToolbar', 'collapsed' );
+            Dom.addClass( 'tpToolbar', 'expanded' );
+            TPApp.util.anim.swap( 'down-arrow', 'up-arrow' );
+
+            anim = new Anim( 'toolbar-logo', { marginTop: { to: '8' } }, .3, YAHOO.util.Easing.easeOut ); 
+
+            anim.animate();
+
+        },
+
+        collapseToolbar: function() {
+            var anim;
+
+            TPApp.util.crossTalk.sendMessage( window.parent, "scrollUp", this.params.source_uri );
+            Dom.removeClass( 'tpToolbar', 'expanded' );
+            Dom.addClass( 'tpToolbar', 'collapsed' ); 
+            TPApp.util.anim.swap( 'up-arrow', 'down-arrow' );
+
+            if( this.params.safe_to_modify_body ) {
+                anim = new Anim( 'toolbar-logo', { marginTop: { to: '40' } }, .3, YAHOO.util.Easing.easeOut ); 
+            } else {
+                anim = new Anim( 'toolbar-logo', { marginTop: { to: '37' } }, .3, YAHOO.util.Easing.easeOut ); 
+            }
+
+            anim.animate();
+
+        },
+
+        hoverToolbarLogo: function() {
+            var anim = null,
+                anim2 = null,
+                that = this,
+                el = Dom.get( 'tpToolbar' );
+                
+            /* Bounce hover */
+            if( Dom.hasClass( 'tpToolbar', 'collapsed' ) ) {
+                anim = new Anim( 'toolbar-logo', { top: { to: '3' } }, .1, Easing.bounce );
+                anim.onStart.subscribe( function() { 
+                    Event.removeListener( 'toolbar-logo', 'mouseover' ); 
+                } );
+                anim.onComplete.subscribe( function() {
+                    anim2 = new Anim( 'toolbar-logo', { top: { to: '0' } }, .1);
+                    anim2.onComplete.subscribe( function() { 
+                        Event.addListener( 'toolbar-logo', 'mouseover', function() { 
+                            that.hoverToolbarLogo(); 
+                        } ) 
+                    } );
+                    anim2.animate();
+                } );
+                anim.animate();
+            }
+
+        },
+
+        setupFollowing: function() {
+            var that = this;
+
+            var cb = function( r ) {
+                if( r.result.deleted ) {
+                    TPApp.util.anim.swap( 'follow-spinner', 'follow-display' );
+                    Dom.removeClass('nav-foll', 'following');
+                    TPApp.util.crossTalk.sendMessage( window.parent, "unfollow", that.params.source_uri );
+                } else {
+                    TPApp.util.anim.swap( 'follow-spinner', 'unfollow-display' );
+                    Dom.addClass('nav-foll', 'following');
+                    TPApp.util.crossTalk.sendMessage( window.parent, "follow", that.params.source_uri );
+                }
+            };
+                           
+            Event.on( 'follow-display', 'click', function( ev ) {
+                Event.stopEvent( ev );
+                TPApp.util.anim.swap( 'follow-display', 'follow-spinner' );
+                /* Don't use TPApp.util.following here because we're tracking these clicks */
+                TPApp.util.jsonrpc.request( { 
+                    method: 'People.Create', 
+                    params: { 
+                        other_user_id: that.params.blog_user_xid, 
+                        ugroup_id: [10], 
+                        from_toolbar: 1, 
+                        source_uri: that.params.source_uri 
+                    }, 
+                    callback: cb 
+                } );
+            } );
+
+        },
+
+        setupFavoriting: function() {
+            var that = this;
+            
+            var cb = function( r ) {
+                if( r.result.favorited ) {
+                    TPApp.util.anim.swap( 'favorite-spinner', 'unfavorite-action' );
+                    Dom.addClass('nav-fav', 'favorited');
+                    TPApp.util.crossTalk.sendMessage( window.parent, "favorite", that.params.source_uri );
+                } else {
+                    TPApp.util.anim.swap( 'favorite-spinner', 'favorite-action' );
+                    Dom.removeClass('nav-fav', 'favorited');
+                    TPApp.util.crossTalk.sendMessage( window.parent, "unfavorite", that.params.source_uri );
+                }
+            };
+
+            YAHOO.util.Event.on( 'favorite-action', 'click', function( ev ) {
+                Event.stopEvent( ev );
+                TPApp.util.anim.swap( 'favorite-action', 'favorite-spinner' );
+                /* Don't use TPApp.util.favorite here because we're tracking clicks */
+                TPApp.util.jsonrpc.request( { 
+                    method: 'Library.Asset.AddAsFavorite', 
+                    params: { 
+                        asset_id: that.params.entry_xid, 
+                        from_toolbar: 1, 
+                        source_uri: that.params.source_uri 
+                    }, 
+                    callback: cb 
+                } );
+            } );
+
+            YAHOO.util.Event.on( 'unfavorite-action', 'click', function( ev ) {
+                Event.stopEvent( ev );
+                TPApp.util.anim.swap( 'unfavorite-action', 'favorite-spinner' );
+                /* Don't use TPApp.util.favorite here because we're tracking clicks */
+                TPApp.util.jsonrpc.request( { 
+                    method: 'Library.Asset.RemoveFromFavorite', 
+                    params: { 
+                        asset_id: that.params.entry_xid, 
+                        from_toolbar: 1, 
+                        source_uri: that.params.source_uri 
+                    }, 
+                    callback: cb 
+                } );
+            } );
+
+        },
+
+        updateToolbarState: function( p ) {
+
+            if( this.params.logged_in ) {
+                TPApp.util.jsonrpc.request( { 
+                    method: 'Toolbar.Update', 
+                    params: p, 
+                    callback: function(r) {
+                        if( r.error || !r.result ) {
+                            console.log( r.error );
+                        } else {
+                            // silent fail
+                        }
+                    } } );
+
+                return 1;
+            } else {
+                return 0;
+            }
+
+        },
+
+        handleMsg: function( msg ) {
+
+            if( !msg ) {
+                return 0;
+            }
+           
+            switch( msg ) {
+                case 'favorite':
+                    TPApp.util.anim.swap( 'favorite-action', 'unfavorite-action' );
+                    Dom.addClass('nav-fav', 'favorited');
+                    break;
+                case 'unfavorite':
+                    TPApp.util.anim.swap( 'unfavorite-action', 'favorite-action' );
+                    Dom.removeClass('nav-fav', 'favorited');
+                    break;
+                case 'follow':
+                    TPApp.util.anim.swap( 'follow-display', 'unfollow-display' );
+                    Dom.addClass('nav-foll', 'following');
+                    break;
+                case 'unfollow':
+                    TPApp.util.anim.swap( 'unfollow-display', 'follow-display' );
+                    Dom.removeClass('nav-foll', 'following');
+                    break;
+            }
+            
+        }
+           
+
+    };
+
+    Event.onDOMReady( function() {
+
+        TPApp.util.jsonrpc.uri = "http://www.typepad.com/services/json-rpc";
+        TPToolbar.init(); 
+
+    } );
+
+</script>
+    <div id="tpToolbar" class="toolbar collapsed">
+        <div class="logo" id="toolbar-logo" style="cursor:pointer;">
+            <a class="toolbar-icon" title="TypePad Toolbar">TypePad Toolbar</a>
+            <img id="up-arrow" class="arrow hidden" style="opacity: 0;" src="toolbar_data/arrow-up-dark.gif">
+            <img id="down-arrow" class="arrow " src="toolbar_data/arrow-down-dark.gif">
+        </div>
+        <div id="toolbar-navlinks">
+            <div class="actions">
+                <div class="navlink typepadlogo first">
+                    <a href="http://www.typepad.com/" target="_top">TypePad</a>
+                </div>
+                <div class="navlink follow">
+                    
+                    <a href="http://www.typepad.com/services/signin?register=1&amp;to=http%3A%2F%2Fcodekata.pragprog.com%2F%3Fautofollowed%3D1&amp;autofollow=6p00d83451c41c69e2" target="_top">Follow <strong>Dave Thomas</strong></a>
+                </div>
+                <div class="navlink reblog last" id="logoutreblog">
+                    <a href="#" target="_top">Reblog It</a>
+                </div>
+            </div>
+            <div class="auth">
+                <div class="navlink register first">
+                    <a href="https://www.typepad.com/secure/services/signin?register=1" target="_top">Start your free blog now</a>
+                </div>
+                <div class="navlink signin">
+                    <a href="https://www.typepad.com/secure/services/signin?to=http%3A%2F%2Fcodekata.pragprog.com%2F2007%2F01%2Fkata_fourteen_t.html" target="_top">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body></html>

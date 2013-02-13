@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {1}{Review/Questions}{3}{0}{1}
+\beamer@sectionintoc {2}{Serialization / Persistence}{5}{0}{2}
+\beamer@sectionintoc {3}{Python Specific Formats}{7}{0}{3}
+\beamer@sectionintoc {4}{Interchange Formats}{17}{0}{4}
+\beamer@sectionintoc {5}{DataBases}{30}{0}{5}
+\beamer@sectionintoc {6}{Other Options}{40}{0}{6}

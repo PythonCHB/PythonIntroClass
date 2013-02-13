@@ -1,0 +1,323 @@
+#!/usr/bin/env python
+
+import sys, os
+print sys.argv[0]
+print os.path.abspath(sys.argv[0])
+
+
+import json
+import os
+import shutil
+from datetime import datetime as dt
+from StringIO import StringIO
+from sforce.enterprise import SforceEnterpriseClient
+from xml.dom.minidom import parseString, Node
+from pprint import pprint as pp
+import MySQLdb
+import MySQLdb.cursors
+
+now = dt.today()
+mydatetime = now.strftime("%Y-%m-%d %H:%M")
+
+html = open('%s/hiviz.html' % os.getcwd(), "w")
+
+tmpstr = """
+    <html>
+    <head><title>High Visibility Report</title>
+
+    <style type = 'text/css'>
+    .auto-style1 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: small;
+    }
+    .auto-style2 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: medium;
+    }
+    </style>
+
+    <p><span class = 'auto-style2'>
+    <b>High Visibility Report as of %s
+    </b></p></span>
+    </head><body> """ % mydatetime
+
+html.write(tmpstr)
+
+soql_hivis_cases = """
+    select BugzillaEscNum__c,
+           Account.Name,
+           Subject,
+           Cluster_OS_Version__c,
+           CreatedDate,
+           Case.Owner.Name,
+           CaseNumber,
+           Next_Action_Owner__c,
+           Next_Action_Group__c,
+           Reason_for_High_Visibility__c,
+           summary__c,
+           Priority,
+           Status,
+           Id,
+           Critical__c,
+           BugzillaTracking__c
+    from   Case
+    where  IsClosed = False
+    AND Critical__c = True
+    order by CreatedDate
+ """
+
+
+def sfdc_connect(auth):
+    sfpath = '%s/wsdl/enterprise-%s.wsdl.xml' % (os.getcwd(), auth['database'])
+    db = SforceEnterpriseClient(sfpath)
+    db.login(auth['username'], auth['password'], '')
+    return db
+
+
+def mysql_connect(auth):
+    db = MySQLdb.connect(
+        host=auth['hostname'],
+        user=auth['username'],
+        passwd=auth['password'],
+        db=auth['database'],
+        cursorclass=MySQLdb.cursors.DictCursor
+    )
+    return db
+
+
+def mysql_query(db, sql):
+    cur = db.cursor()
+    cur.execute(sql)
+    resa = cur.fetchall()
+    cur.close()
+    return resa
+
+
+# Setup the auth token
+try:
+    wordz = open('%s/passwords.json' % os.getcwd()).read()
+    token = json.loads(wordz)
+except:
+    print "Error: Failed to open passwords.json file."
+    exit()
+
+# Query Salesforce
+sf = sfdc_connect(token['salesforce'])
+res = sf.query(soql_hivis_cases)
+
+casecount = 0
+
+# Process the salesforce results
+case_list = []
+for c in res['records']:
+    casecount += 1
+
+    try:
+        BugEscNumbers = c.BugzillaEscNum__c
+    except AttributeError:
+        BugEscNumbers = ''
+
+    try:
+        acct_name = c['Account']['Name']
+
+    except:
+        acct_name = ''
+
+    try:
+        NextActionOwner = c.Next_Action_Owner__c
+    except AttributeError:
+        NextActionOwner = ''
+
+    try:
+        NextActionGroup = c.Next_Action_Group__c
+    except AttributeError:
+        NextActionGroup = ''
+
+    try:
+        ReasonForHiViz = c.Reason_for_High_Visibility__c
+    except AttributeError:
+        ReasonForHiViz = ''
+
+    try:
+        summary = c.Summary__c
+    except AttributeError:
+        summary = ""
+    summary = summary.replace("\r", "<br>")
+    summary = summary.replace("\n", "<br>")
+
+    try:
+        acct_id = c['Account']['Id']
+        acct_id = c['Id']
+    except:
+        acct_id = ''
+
+    item = {}
+    item['BugEscNumbers'] = BugEscNumbers
+    item['AccountName'] = acct_name.encode('ascii', 'replace')
+    item['Subject'] = c.Subject.encode('ascii', 'replace')
+    item['ClusterOSVersion'] = c.Cluster_OS_Version__c
+    item['CreatedDate'] = str(c.CreatedDate)
+    item['CaseNumber'] = c.CaseNumber
+    item['CaseOwnerName'] = c['Owner']['Name']
+    item['ActionOwner'] = NextActionOwner
+    item['ActionGroup'] = NextActionGroup
+    item['ReasonHiViz'] = ReasonForHiViz
+    item['Summary'] = summary
+    item['Priority'] = c.Priority
+    item['Status'] = c.Status.encode('ascii', 'replace')
+    item['CaseId'] = c.Id
+    item['Critical'] = c.Critical__c
+    item['AccountId'] = acct_id
+
+    age = now - c.CreatedDate
+
+    html.write("<br><HR WIDTH=75% ALIGN=left size=4> ")
+    html.write("<span class='auto-style1'>#%s - </span>" % str(casecount))
+    html.write("<span class='auto-style2'><b>%s" % str(item['AccountName']))
+    html.write("</b></span>")
+    html.write("<span class='auto-style1'> - %s" % str(item['CaseNumber']))
+    html.write(" <a href='https://na5.salesforce.com/")
+    html.write(str(item['AccountId']))
+    html.write("'>%s</a><br></span>" % str(item['Subject']))
+
+    html.write("<span class='auto-style1'><b>")
+    if '1' in str(item['Priority']):
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: red'>")
+        html.write("%s</FONT> " % str(item['Priority']))
+    elif '2' in str(item['Priority']):
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: orange'>")
+        html.write("%s</FONT> " % str(item['Priority']))
+    elif '3' in str(item['Priority']):
+        html.write("<FONT color='black' style='BACKGROUND-COLOR: yellow'>")
+        html.write("%s</FONT> " % str(item['Priority']))
+    elif '4' in str(item['Priority']):
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: green'>")
+        html.write("%s</FONT> " % str(item['Priority']))
+    else:
+        html.write(str(item['Priority']))
+
+    if 'Sale' in str(item['ActionGroup']):
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: green'>")
+        html.write("%s</FONT></b>" % str(item['ActionGroup']))
+    elif 'Eng' in str(item['ActionGroup']):
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: purple'>")
+        html.write("%s</FONT></b>" % str(item['ActionGroup']))
+    elif 'Market' in str(item['ActionGroup']):
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: blue'>")
+        html.write("%s</FONT></b>" % str(item['ActionGroup']))
+    elif 'Customer' in str(item['ActionGroup']):
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: black'>")
+        html.write("%s</FONT></b>" % str(item['ActionGroup']))
+    else:
+        html.write("%s</b>" % str(item['ActionGroup']))
+
+    html.write(" (%s)" % str(item['ActionOwner']))
+    html.write(", %s</span><br>" % str(item['CaseOwnerName']))
+
+    html.write("<span class='auto-style1'><b>")
+
+    if int(age.days) > 89:
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: red'>")
+    elif int(age.days) > 59:
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: orange'>")
+    elif int(age.days) > 29:
+        html.write("<FONT color='black' style='BACKGROUND-COLOR: yellow'>")
+    else:
+        html.write("<FONT color='white' style='BACKGROUND-COLOR: green'>")
+
+    html.write("%s</FONT>" % str(age.days))
+
+    html.write("</b> days (%s), Version: " % str(item['CreatedDate']))
+    html.write("%s<br><br></span>" % str(item['ClusterOSVersion']))
+
+    html.write("<span class='auto-style1'><b>HiViz Reason:</b><br>")
+    html.write("%s<br><br></span>" % str(item['ReasonHiViz']))
+    html.write("<span class='auto-style1'><b>Summary:</b><br>")
+    html.write("<FONT size='medium'>%s</FONT><br><br></span>" % summary)
+
+    sql_buglist = """
+        select bug_id,
+            short_desc,
+            bug_status,
+            resolution,
+            status_whiteboard,
+            creation_ts
+        from bugs
+        where bug_id = '%s'""" % item['BugEscNumbers']
+
+    bugsdb = mysql_connect(token['bugzilla'])
+    results = mysql_query(bugsdb, sql_buglist)
+
+    for esc in results:
+        html.write("<span class='auto-style1'>")
+        html.write("<HR NOSHADE SIZE=3 WIDTH=50% ALIGN=left>")
+        html.write("<b>Escalation Bug:</b><br></span>")
+        html.write("<span class='auto-style1'>%s" % str(item['BugEscNumbers']))
+        html.write(" <a href='https://bugs.west.isilon.com/show_bug.cgi?id=")
+        html.write("%s'>%s" % (str(item['BugEscNumbers']), esc["short_desc"]))
+        html.write("</a> ")
+        html.write("%s/%s (" % (esc["bug_status"], esc["resolution"]))
+        html.write("%s)<br></span>" % str(esc["creation_ts"]))
+        esc_wb = esc["status_whiteboard"]
+        esc_wb = esc_wb.replace("\n", "<br>")
+        html.write("<span class='auto-style1'><b>")
+        html.write("Whiteboard:</b><br>%s<br></span>" % esc_wb)
+
+    sql_buglist = """
+        select    bugs.bug_id,
+                  bugs.short_desc,
+                  bugs.bug_status,
+                  bugs.resolution,
+                  bugs.cf_project_milestone,
+                  bugs.target_milestone,
+                  bugs.status_whiteboard,
+                  bugs.creation_ts
+        from      bugs
+        left join relatedbugs r on r.related_from = bugs.bug_id
+        where r.related = '%s'
+        and bugs.product_id = '1'
+        ORDER BY bugs.bug_id DESC;
+    """
+
+    bugsdb = mysql_connect(token['bugzilla'])
+    results_one = mysql_query(bugsdb, sql_buglist % str(item['BugEscNumbers']))
+
+    for one in results_one:
+        html.write("<span class='auto-style1'>")
+        html.write("<HR NOSHADE SIZE=2 WIDTH=40% ALIGN=left>")
+        html.write("<b>Related OneFS Bug:</b><br></span>")
+        html.write("<span class='auto-style1'>%s" % str(one["bug_id"]))
+        html.write(" <a href='https://bugs.west.isilon.com/show_bug.cgi?id=")
+        html.write("%s'>%s</a> " % (str(one["bug_id"]), one["short_desc"]))
+        html.write("%s/%s" % (one["bug_status"], one["resolution"]))
+        html.write(" %s/" % str(one["target_milestone"]))
+        html.write(one["cf_project_milestone"])
+        html.write(" (%s)<br></span>" % str(one["creation_ts"]))
+        one_wb = one["status_whiteboard"]
+        one_wb = one_wb.replace("\n", "<br>")
+        html.write("<span class='auto-style1'><b>Whiteboard:</b><br>")
+        html.write("%s<br></span>" % one_wb)
+
+    try:
+        esc_create = esc["creation_ts"]
+    except NameError:
+        esc_create = now
+
+    age2esc = esc_create - c.CreatedDate
+    if age2esc.days < 1:
+        age2esc = now - now
+
+    esc_age = now - now
+    esc_age = now - esc_create
+
+    html.write("<HR NOSHADE SIZE=1 WIDTH=30% ALIGN=left>")
+    html.write("<span class='auto-style1'>Case Age = <b>%s" % str(age.days))
+    html.write("</b>, Age to Escalation = <b>%s</b>, " % str(age2esc.days))
+    html.write("Escalation Age = <b>%s</b><br></span>" % str(esc_age.days))
+
+    case_list.append(item)
+
+html.write("</body>\n")
+html.write("</html>\n")
+html.close()
+shutil.copy2("%s/hiviz.html" % os.getcwd(), "%s/../index.html" % os.getcwd())

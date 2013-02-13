@@ -1,0 +1,157 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>L548 Session 2</title>
+</head>
+<body>
+
+<b>1) Operators for Numbers</b>
+<p>
+<table border="1">
+
+<tbody><tr><td>a = b </td><td> Assign b to a
+</td></tr><tr><td>a = 1 + 2 </td><td> Add 1 and 2 and store in a
+</td></tr><tr><td>a = 3 - 4 </td><td> Subtract 4 from 3 and store in a
+</td></tr><tr><td>a = a + b </td><td> Add a and b; store in a
+</td></tr><tr><td>a = 5 * 6 </td><td> Multiply 5 and 6
+</td></tr><tr><td>a = 7.0 / 8.0 </td><td> Divide 7 by 8, yields 0.875
+</td></tr><tr><td>a = 7 / 8 </td><td> Divide 7 by 8, yields 0
+</td></tr><tr><td>a = 9.0 ** 10 </td><td> 9 to the power of 10
+</td></tr><tr><td>a = 5 % 2 </td><td> Remainder of 5 divided by 2
+</td></tr><tr><td>int(a)  </td><td> converts string into number
+</td></tr></tbody></table>
+</p><p>
+
+<b>Exercise: Operating with Numbers</b>
+</p><p>
+<font color="blue">
+#!/usr/bin/env python<br>
+# <br>
+# This program converts from US $ to Canadian $ <br>
+<br>
+us_money = input ("Money value in US $ ")<br>
+<br>
+can_money = us_money /0.6<br>
+print "US$", us_money, "= Canandian $", can_money<br>
+</font>
+</p><p>
+
+1.1) In analogy to the example, write a script that 
+asks users for the temperature in F
+and prints the temperature in C. (Conversion: 
+Celsius = (F - 32) * 5/9 )<br>
+</p><p>
+
+<b>2) Strings</b>
+</p><p>
+A string is delimited by double quotes ("..."). Certain special characters
+can be used, such as "\n" (for newline) and "\t" (for a tab). 
+To print the characters " and \, they must be preceded by a backslash (\). 
+A \ at end of line is used to continue a string on the next line. A 
+multi-line
+print statement should be enclosed by three double quotes ("""...""").
+
+</p><p>
+<font color="blue">
+#!/usr/bin/env python<br>
+# <br>
+print "hello\n"<br>
+print "To print a newline use \\n"<br>
+print "She said: \"hello\"" <br>
+print "\tThis is indented" <br>
+print "This is a very, very, very, very, very, very \<br>
+long print statment"<br>
+print """<br>
+This is a multi-line print statement<br>
+First line<br>
+Second line<br>
+"""<br>
+</font>
+</p><p>
+<b>Exercise:</b>
+</p><p>
+2.1) Write a python script that prints the following figure
+</p><p>
+</p><pre>       \  |  /
+         @ @
+          *
+        \"""/
+</pre>
+
+<p>
+
+<b>3) Operators and functions for strings</b>
+
+</p><p>
+<table border="1">
+<tbody><tr><td>a = b + c </td><td> concatenate b and c
+</td></tr><tr><td>a = b * c </td><td> b repeated c times
+</td></tr><tr><td>a[0] </td><td> the first character of a
+</td></tr><tr><td>len(a) </td><td> the number of characters in a
+</td></tr><tr><td>min(a) </td><td> the smallest element in a (alphabetically first)
+</td></tr><tr><td>max(a) </td><td> the largest element in a (alphabetically last)
+</td></tr></tbody></table>
+
+</p><p>
+Example:
+</p><p>
+<font color="blue">
+#!/usr/bin/env python<br>
+#<br>
+# String operations<br>
+<br>
+b = "the"<br>
+c = "cat"<br>
+d = " is on the mat"<br>
+a = b + " " + c + d<br>
+print a<br>
+b = b + " "<br>
+a = b * 5<br>
+print a<br>
+print "The first character of", c, "is" ,c[0]<br>
+print "The word \""+ c+ "\" has", len(c) ,"characters"<br>
+<br>
+name = raw_input ("Please, type in your name ")<br>
+name = (name + "!") * 5<br>
+print name
+</font>
+</p><p>
+<b>Exercise:</b>
+</p><p>
+3.1) Write a program that asks users for their favourite
+color. Create the following output (assuming "red" is the chosen
+color). Use "+" and "*".
+
+</p><pre>red red red red red red red red red red  
+red                                 red
+red                                 red
+red red red red red red red red red red
+</pre>
+<p>
+
+<b>4) Control structures: if</b>
+</p><p>
+This is just a first introduction to control structures. They will
+be covered in more detail during the next two weeks.
+</p><p>
+<font color="blue">
+#!/usr/bin/env python<br>
+# if statement<br>
+<br>
+answer = raw_input("Do you like Python? ")<br>
+if answer == "yes":<br>
+&nbsp; &nbsp; &nbsp; &nbsp; print "That is great!"<br>
+else:<br>
+&nbsp; &nbsp; &nbsp; &nbsp;  print "That is disappointing!"
+</font>
+</p><p>
+<b>Exercise:</b>
+</p><p>
+4.1) Modify the program so that it answers "That is great!" if the
+answer was "yes", "That is disappointing"
+if the answer was "no" and "That is not an answer to my question."
+otherwise. Use "if ... elif ... else ...". 
+
+
+
+
+</p></body></html>

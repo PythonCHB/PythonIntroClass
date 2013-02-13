@@ -1,0 +1,18 @@
+\frametitle {Homework}\par Read:
+\begin{itemize}
+  \item Read TP: 9, 14
+  \item extra: string methods: \url{http://docs.python.org/library/stdtypes.html#string-methods}
+  \item extra: unicode: \url{http://www.joelonsoftware.com/articles/Unicode.html}
+\end{itemize}
+
+Do:
+\begin{itemize}
+    \item Six more CodingBat exercises.
+    \item LPTHW: for extra practice with the concepts -- some of:
+    \begin{description}
+        \item[strings:] ex5, ex6, ex7, ex8, ex9, ex10
+        \item[raw\_input(), sys.argv:] ex12, ex13, ex14 (needed for files)
+        \item[files:] ex15, ex16, ex17
+    \end{description}
+\end{itemize}
+
